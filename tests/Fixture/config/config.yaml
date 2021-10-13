@@ -1,0 +1,23 @@
+framework:
+    test: true
+    secret: test
+    router:
+        utf8: true
+        resource: "%kernel.project_dir%/config/routing.yaml"
+    fragments:
+        enabled: true
+
+twig:
+    strict_variables: true
+    default_path: '%kernel.project_dir%/templates'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    Webmunkeez\AdrBundle\Test\Fixture\TestBundle\:
+        resource: '../TestBundle/'

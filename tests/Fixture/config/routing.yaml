@@ -1,0 +1,3 @@
+test_bundle:
+    resource: "@TestBundle/Action"
+    type: annotation
