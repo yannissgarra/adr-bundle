@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Action;
+namespace Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller;
 
 use Webmunkeez\AdrBundle\Action\ActionInterface;
 use Webmunkeez\AdrBundle\Action\ActionTrait;

@@ -5,6 +5,10 @@
         <title>{% block title %}Testing!{% endblock %}</title>
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <p class="text">Text: {{ text }}</p>
+
+        {% if customResponder is defined %}
+            <p class="custom-responder">CustomResponder</p>
+        {% endif %}
     </body>
 </html>

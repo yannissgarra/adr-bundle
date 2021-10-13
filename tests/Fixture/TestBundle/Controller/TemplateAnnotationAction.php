@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Action;
+namespace Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,17 +17,16 @@ use Webmunkeez\AdrBundle\Annotation\Template;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
+ *
+ * @Route("/template-annotation-action")
+ * @Template("base.html.twig")
  */
-#[Route('/simple', name: self::ROUTE_NAME, methods: ['GET'])]
-#[Template('action/simple.html.twig')]
-final class SimpleAction extends AbstractAction
+final class TemplateAnnotationAction extends AbstractAction
 {
-    public const ROUTE_NAME = 'simple';
+    public const ROUTE_URI = '/template-annotation-action';
 
     public function __invoke(): Response
     {
-        return $this->render([
-            'subject' => 'Here we are!',
-        ]);
+        return $this->render(DataSet::DATA);
     }
 }
