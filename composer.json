@@ -1,0 +1,25 @@
+{
+    "name": "webmunkeez/adr-bundle",
+    "type": "symfony-bundle",
+    "description": "Action-Domain-Responder pattern made for Symfony.",
+    "keywords": [],
+    "homepage": "https://github.com/webmunkeez/adr-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yannis Sgarra",
+            "email": "hello@yannissgarra.com",
+            "homepage": "https://yannissgarra.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Webmunkeez\\AdrBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Webmunkeez\\AdrBundle\\Test\\": "tests/"
+        }
+    }
+}
