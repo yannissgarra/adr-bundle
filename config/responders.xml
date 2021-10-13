@@ -8,13 +8,13 @@
         <service id="Webmunkeez\AdrBundle\Response\Responder"></service>
 
         <service id="Webmunkeez\AdrBundle\Response\HtmlResponder">
-            <tag name="app.responder" priority="10"/>
+            <tag name="app.responder" priority="-10"/>
             <argument type="service" id="request_stack"/>
             <argument type="service" id="twig"/>
         </service>
 
         <service id="Webmunkeez\AdrBundle\Response\JsonResponder">
-            <tag name="app.responder" priority="10"/>
+            <tag name="app.responder" priority="-10"/>
             <argument type="service" id="request_stack"/>
             <argument type="service" id="serializer"/>
         </service>
