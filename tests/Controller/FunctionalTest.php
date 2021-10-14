@@ -54,7 +54,7 @@ final class FunctionalTest extends WebTestCase
     /**
      * @dataProvider templateAnnotationUrlProvider
      */
-    public function testTemplateAnnotationJsonSuccess(string $url)
+    public function testTemplateAnnotationJsonSuccess(string $url): void
     {
         $client = static::createClient();
         $client->jsonRequest('GET', $url);
@@ -76,7 +76,7 @@ final class FunctionalTest extends WebTestCase
      * @requires PHP 8.0
      * @dataProvider templateAttributeUrlProvider
      */
-    public function testTemplateAttributeHtmlSuccess(string $url)
+    public function testTemplateAttributeHtmlSuccess(string $url): void
     {
         $client = static::createClient();
         $crawler = $client->request('GET', $url);
@@ -88,7 +88,7 @@ final class FunctionalTest extends WebTestCase
      * @requires PHP 8.0
      * @dataProvider templateAttributeUrlProvider
      */
-    public function testTemplateAttributeJsonSuccess(string $url)
+    public function testTemplateAttributeJsonSuccess(string $url): void
     {
         $client = static::createClient();
         $client->jsonRequest('GET', $url);
@@ -109,7 +109,7 @@ final class FunctionalTest extends WebTestCase
     /**
      * @dataProvider noTemplateAnnotationUrlProvider
      */
-    public function testNoTemplateAnnotationHtmlFailed(string $url)
+    public function testNoTemplateAnnotationHtmlFailed(string $url): void
     {
         $this->expectException(RuntimeException::class);
 
@@ -121,7 +121,7 @@ final class FunctionalTest extends WebTestCase
     /**
      * @dataProvider noTemplateAnnotationUrlProvider
      */
-    public function testNoTemplateAnnotationJsonSuccess(string $url)
+    public function testNoTemplateAnnotationJsonSuccess(string $url): void
     {
         $client = static::createClient();
         $client->jsonRequest('GET', $url);
@@ -143,7 +143,7 @@ final class FunctionalTest extends WebTestCase
      * @requires PHP 8.0
      * @dataProvider noTemplateAttributeUrlProvider
      */
-    public function testNoTemplateAttributeHtmlFailed(string $url)
+    public function testNoTemplateAttributeHtmlFailed(string $url): void
     {
         $this->expectException(RuntimeException::class);
 
@@ -156,7 +156,7 @@ final class FunctionalTest extends WebTestCase
      * @requires PHP 8.0
      * @dataProvider noTemplateAttributeUrlProvider
      */
-    public function testNoTemplateAttributeJsonSuccess(string $url)
+    public function testNoTemplateAttributeJsonSuccess(string $url): void
     {
         $client = static::createClient();
         $client->jsonRequest('GET', $url);
@@ -177,7 +177,7 @@ final class FunctionalTest extends WebTestCase
     /**
      * @dataProvider multipleTemplateAnnotationUrlProvider
      */
-    public function testMultipleTemplateAnnotationHtmlFailed(string $url)
+    public function testMultipleTemplateAnnotationHtmlFailed(string $url): void
     {
         $this->expectException(RuntimeException::class);
 
@@ -189,7 +189,7 @@ final class FunctionalTest extends WebTestCase
     /**
      * @dataProvider multipleTemplateAnnotationUrlProvider
      */
-    public function testMultipleTemplateAnnotationJsonSuccess(string $url)
+    public function testMultipleTemplateAnnotationJsonSuccess(string $url): void
     {
         $client = static::createClient();
         $client->jsonRequest('GET', $url);
@@ -211,7 +211,7 @@ final class FunctionalTest extends WebTestCase
      * @requires PHP 8.0
      * @dataProvider multipleTemplateAttributeUrlProvider
      */
-    public function testMultipleTemplateAttributeHtmlFailed(string $url)
+    public function testMultipleTemplateAttributeHtmlFailed(string $url): void
     {
         $this->expectException(Error::class);
 
@@ -224,7 +224,7 @@ final class FunctionalTest extends WebTestCase
      * @requires PHP 8.0
      * @dataProvider multipleTemplateAttributeUrlProvider
      */
-    public function testMultipleTemplateAttributeJsonSuccess(string $url)
+    public function testMultipleTemplateAttributeJsonSuccess(string $url): void
     {
         $this->expectException(Error::class);
 
@@ -233,14 +233,14 @@ final class FunctionalTest extends WebTestCase
         $client->jsonRequest('GET', $url);
     }
 
-    private function checkHtmlSuccess(KernelBrowser $client, Crawler $crawler)
+    private function checkHtmlSuccess(KernelBrowser $client, Crawler $crawler): void
     {
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('text/html', $client->getResponse()->headers->get('content-type'));
         $this->assertSame('Text: '.DataSet::DATA['text'], $crawler->filter('p.text')->first()->text());
     }
 
-    private function checkJsonSuccess(KernelBrowser $client)
+    private function checkJsonSuccess(KernelBrowser $client): void
     {
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('application/json', $client->getResponse()->headers->get('content-type'));

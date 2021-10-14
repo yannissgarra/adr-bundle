@@ -63,7 +63,7 @@ final class CustomResponderFunctionalTest extends WebTestCase
      * @requires PHP 8.0
      * @dataProvider templateAttributeUrlProvider
      */
-    public function testTemplateAttributeXmlSuccess(string $url)
+    public function testTemplateAttributeXmlSuccess(string $url): void
     {
         $client = static::createClient();
         $crawler = $client->request('GET', $url, [], [], ['HTTP_ACCEPT' => 'application/xml']);
@@ -96,14 +96,14 @@ final class CustomResponderFunctionalTest extends WebTestCase
         $this->checkHtmlSuccess($client, $crawler);
     }
 
-    private function checkXmlSuccess(KernelBrowser $client, Crawler $crawler)
+    private function checkXmlSuccess(KernelBrowser $client, Crawler $crawler): void
     {
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('text/xml', $client->getResponse()->headers->get('content-type'));
         $this->assertSame(DataSet::DATA['text'], $crawler->filter('text')->first()->text());
     }
 
-    private function checkHtmlSuccess(KernelBrowser $client, Crawler $crawler)
+    private function checkHtmlSuccess(KernelBrowser $client, Crawler $crawler): void
     {
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('text/html', $client->getResponse()->headers->get('content-type'));
