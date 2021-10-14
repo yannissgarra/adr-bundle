@@ -23,7 +23,7 @@ final class AddResponderPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (false === $container->hasDefinition(Responder::class)) {
             return;

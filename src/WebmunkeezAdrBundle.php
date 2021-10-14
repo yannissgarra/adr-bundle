@@ -20,7 +20,7 @@ use Webmunkeez\AdrBundle\DependencyInjection\Compiler\AddResponderPass;
  */
 final class WebmunkeezAdrBundle extends Bundle
 {
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container): void
     {
         parent::build($container);
 

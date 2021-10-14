@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Webmunkeez\AdrBundle\Test\Controller;
 
-use Error;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
@@ -213,7 +212,7 @@ final class FunctionalTest extends WebTestCase
      */
     public function testMultipleTemplateAttributeHtmlFailed(string $url): void
     {
-        $this->expectException(Error::class);
+        $this->expectError();
 
         $client = static::createClient();
         $client->catchExceptions(false);
@@ -226,7 +225,7 @@ final class FunctionalTest extends WebTestCase
      */
     public function testMultipleTemplateAttributeJsonSuccess(string $url): void
     {
-        $this->expectException(Error::class);
+        $this->expectError();
 
         $client = static::createClient();
         $client->catchExceptions(false);
