@@ -15,7 +15,6 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 use Webmunkeez\AdrBundle\Exception\RuntimeException;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\DataSet;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAnnotationAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAttributeAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\NoTemplateAnnotationAction;
@@ -23,6 +22,7 @@ use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\NoTemplateAttributeA
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateAnnotationAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateAttributeAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateController;
+use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Entity\Story;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -233,13 +233,14 @@ final class TemplateFunctionalTest extends WebTestCase
     {
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('text/html', $client->getResponse()->headers->get('content-type'));
-        $this->assertSame('Text: '.DataSet::DATA['text'], $crawler->filter('p.text')->first()->text());
+        $this->assertSame('Title: '.Story::initData()['story']->getTitle(), $crawler->filter('p.title')->first()->text());
+        $this->assertSame('Content: '.Story::initData()['story']->getContent(), $crawler->filter('p.content')->first()->text());
     }
 
     private function checkJsonSuccess(KernelBrowser $client): void
     {
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('application/json', $client->getResponse()->headers->get('content-type'));
-        $this->assertEqualsCanonicalizing(json_encode(DataSet::DATA), $client->getResponse()->getContent());
+        $this->assertEqualsCanonicalizing('{"story":{"title":"Story title","content":"Story content"}}', $client->getResponse()->getContent());
     }
 }

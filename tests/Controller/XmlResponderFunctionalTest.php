@@ -14,10 +14,10 @@ namespace Webmunkeez\AdrBundle\Test\Controller;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\DataSet;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateAnnotationAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateAttributeAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateController;
+use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Entity\Story;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -71,6 +71,7 @@ final class XmlResponderFunctionalTest extends WebTestCase
     {
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('text/xml', $client->getResponse()->headers->get('content-type'));
-        $this->assertSame(DataSet::DATA['text'], $crawler->filter('text')->first()->text());
+        $this->assertSame(Story::initData()['story']->getTitle(), $crawler->filterXPath('//response/story/title')->text());
+        $this->assertSame(Story::initData()['story']->getContent(), $crawler->filterXPath('//response/story/content')->text());
     }
 }

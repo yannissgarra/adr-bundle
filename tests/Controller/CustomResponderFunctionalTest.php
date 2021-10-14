@@ -16,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\CustomResponderAnnotationAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\CustomResponderAttributeAction;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\DataSet;
+use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Entity\Story;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -50,7 +50,8 @@ final class CustomResponderFunctionalTest extends WebTestCase
     {
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('text/html', $client->getResponse()->headers->get('content-type'));
-        $this->assertSame('Text: '.DataSet::DATA['text'], $crawler->filter('p.text')->first()->text());
+        $this->assertSame('Title: '.Story::initData()['story']->getTitle(), $crawler->filter('p.title')->first()->text());
+        $this->assertSame('Content: '.Story::initData()['story']->getContent(), $crawler->filter('p.content')->first()->text());
         $this->assertSame('CustomResponder', $crawler->filter('p.custom-responder')->first()->text());
     }
 }

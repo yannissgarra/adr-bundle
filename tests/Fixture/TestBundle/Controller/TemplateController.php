@@ -14,6 +14,7 @@ namespace Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Webmunkeez\AdrBundle\Annotation\Template;
+use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Entity\Story;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -31,7 +32,7 @@ final class TemplateController extends AbstractAction
     #[Template('base.html.twig')]
     public function templateAttribute(): Response
     {
-        return $this->render(DataSet::DATA);
+        return $this->render(Story::initData());
     }
 
     /**
@@ -40,13 +41,13 @@ final class TemplateController extends AbstractAction
      */
     public function templateAnnotation(): Response
     {
-        return $this->render(DataSet::DATA);
+        return $this->render(Story::initData());
     }
 
     #[Route(self::NO_TEMPLATE_ATTRIBUTE_ROUTE_URI)]
     public function noTemplateAttribute(): Response
     {
-        return $this->render(DataSet::DATA);
+        return $this->render(Story::initData());
     }
 
     /**
@@ -54,7 +55,7 @@ final class TemplateController extends AbstractAction
      */
     public function noTemplateAnnotation(): Response
     {
-        return $this->render(DataSet::DATA);
+        return $this->render(Story::initData());
     }
 
     #[Route(self::MULTIPLE_TEMPLATE_ATTRIBUTE_ROUTE_URI)]
@@ -62,7 +63,7 @@ final class TemplateController extends AbstractAction
     #[Template('base.html.twig')]
     public function multipleTemplateAttribute(): Response
     {
-        return $this->render(DataSet::DATA);
+        return $this->render(Story::initData());
     }
 
     /**
@@ -72,6 +73,6 @@ final class TemplateController extends AbstractAction
      */
     public function multipleTemplateAnnotation(): Response
     {
-        return $this->render(DataSet::DATA);
+        return $this->render(Story::initData());
     }
 }

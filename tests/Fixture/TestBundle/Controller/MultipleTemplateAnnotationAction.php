@@ -14,6 +14,7 @@ namespace Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Webmunkeez\AdrBundle\Annotation\Template;
+use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Entity\Story;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -28,6 +29,6 @@ final class MultipleTemplateAnnotationAction extends AbstractAction
 
     public function __invoke(): Response
     {
-        return $this->render(DataSet::DATA);
+        return $this->render(Story::initData());
     }
 }
