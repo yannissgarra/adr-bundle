@@ -19,7 +19,7 @@ use Webmunkeez\AdrBundle\Annotation\Template;
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
 #[Route(self::ROUTE_URI)]
-#[Template('base.html.twig')]
+#[Template('base2.html.twig')]
 #[Template('base.html.twig')]
 final class MultipleTemplateAttributeAction extends AbstractAction
 {

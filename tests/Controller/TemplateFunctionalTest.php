@@ -108,7 +108,7 @@ final class TemplateFunctionalTest extends WebTestCase
     /**
      * @dataProvider noTemplateAnnotationUrlProvider
      */
-    public function testNoTemplateAnnotationHtmlFailed(string $url): void
+    public function testNoTemplateAnnotationHtmlFail(string $url): void
     {
         $this->expectException(RuntimeException::class);
 
@@ -142,7 +142,7 @@ final class TemplateFunctionalTest extends WebTestCase
      * @requires PHP 8.0
      * @dataProvider noTemplateAttributeUrlProvider
      */
-    public function testNoTemplateAttributeHtmlFailed(string $url): void
+    public function testNoTemplateAttributeHtmlFail(string $url): void
     {
         $this->expectException(RuntimeException::class);
 
@@ -176,13 +176,12 @@ final class TemplateFunctionalTest extends WebTestCase
     /**
      * @dataProvider multipleTemplateAnnotationUrlProvider
      */
-    public function testMultipleTemplateAnnotationHtmlFailed(string $url): void
+    public function testMultipleTemplateAnnotationHtmlSuccess(string $url): void
     {
-        $this->expectException(RuntimeException::class);
-
         $client = static::createClient();
-        $client->catchExceptions(false);
-        $client->request('GET', $url);
+        $crawler = $client->request('GET', $url);
+
+        $this->checkHtmlSuccess($client, $crawler);
     }
 
     /**
@@ -210,13 +209,12 @@ final class TemplateFunctionalTest extends WebTestCase
      * @requires PHP 8.0
      * @dataProvider multipleTemplateAttributeUrlProvider
      */
-    public function testMultipleTemplateAttributeHtmlFailed(string $url): void
+    public function testMultipleTemplateAttributeHtmlSuccess(string $url): void
     {
-        $this->expectError();
-
         $client = static::createClient();
-        $client->catchExceptions(false);
-        $client->request('GET', $url);
+        $crawler = $client->request('GET', $url);
+
+        $this->checkHtmlSuccess($client, $crawler);
     }
 
     /**
@@ -225,11 +223,10 @@ final class TemplateFunctionalTest extends WebTestCase
      */
     public function testMultipleTemplateAttributeJsonSuccess(string $url): void
     {
-        $this->expectError();
-
         $client = static::createClient();
-        $client->catchExceptions(false);
         $client->jsonRequest('GET', $url);
+
+        $this->checkJsonSuccess($client);
     }
 
     private function checkHtmlSuccess(KernelBrowser $client, Crawler $crawler): void

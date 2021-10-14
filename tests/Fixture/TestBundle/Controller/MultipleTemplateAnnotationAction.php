@@ -19,7 +19,7 @@ use Webmunkeez\AdrBundle\Annotation\Template;
  * @author Yannis Sgarra <hello@yannissgarra.com>
  *
  * @Route("/multiple-template-annotation-action")
- * @Template("base.html.twig")
+ * @Template("base2.html.twig")
  * @Template("base.html.twig")
  */
 final class MultipleTemplateAnnotationAction extends AbstractAction

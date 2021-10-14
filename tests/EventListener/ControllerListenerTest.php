@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Kernel;
-use Webmunkeez\AdrBundle\EventListener\TemplateListener;
+use Webmunkeez\AdrBundle\EventListener\ControllerListener;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAnnotationAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAttributeAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\NoTemplateAnnotationAction;
@@ -30,21 +30,21 @@ use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateController;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class TemplateListenerTest extends TestCase
+final class ControllerListenerTest extends TestCase
 {
     /**
-     * @var TemplateListener&MockObject
+     * @var ControllerListener&MockObject
      */
-    private TemplateListener $listener;
+    private ControllerListener $listener;
 
     protected function setUp(): void
     {
-        $this->listener = new TemplateListener(new AnnotationReader());
+        $this->listener = new ControllerListener(new AnnotationReader());
     }
 
     // Template annotation -----
 
-    public function annotationControllerProvider(): array
+    public function templateAnnotationControllerProvider(): array
     {
         return [
             [TemplateController::class, 'templateAnnotation'],
@@ -53,9 +53,9 @@ final class TemplateListenerTest extends TestCase
     }
 
     /**
-     * @dataProvider annotationControllerProvider
+     * @dataProvider templateAnnotationControllerProvider
      */
-    public function testWithAnnotation(string $controllerClass, ?string $controllerMethod = null): void
+    public function testWithTemplateAnnotation(string $controllerClass, ?string $controllerMethod = null): void
     {
         $request = new Request();
 
@@ -66,7 +66,7 @@ final class TemplateListenerTest extends TestCase
 
     // Template attribute -----
 
-    public function attributeControllerProvider(): array
+    public function templateAttributeControllerProvider(): array
     {
         return [
             [TemplateController::class, 'templateAttribute'],
@@ -76,9 +76,9 @@ final class TemplateListenerTest extends TestCase
 
     /**
      * @requires PHP 8.0
-     * @dataProvider attributeControllerProvider
+     * @dataProvider templateAttributeControllerProvider
      */
-    public function testWithAttributes(string $controllerClass, ?string $controllerMethod = null): void
+    public function testWithTemplateAttributes(string $controllerClass, ?string $controllerMethod = null): void
     {
         $request = new Request();
 
@@ -89,7 +89,7 @@ final class TemplateListenerTest extends TestCase
 
     // No template annotation -----
 
-    public function noAnnotationControllerProvider(): array
+    public function noTemplateAnnotationControllerProvider(): array
     {
         return [
             [TemplateController::class, 'noTemplateAnnotation'],
@@ -98,9 +98,9 @@ final class TemplateListenerTest extends TestCase
     }
 
     /**
-     * @dataProvider noAnnotationControllerProvider
+     * @dataProvider noTemplateAnnotationControllerProvider
      */
-    public function testWithNoAnnotation(string $controllerClass, ?string $controllerMethod = null): void
+    public function testWithNoTemplateAnnotation(string $controllerClass, ?string $controllerMethod = null): void
     {
         $request = new Request();
 
@@ -111,7 +111,7 @@ final class TemplateListenerTest extends TestCase
 
     // No template attribute -----
 
-    public function noAttributeControllerProvider(): array
+    public function noTemplateAttributeControllerProvider(): array
     {
         return [
             [TemplateController::class, 'noTemplateAttribute'],
@@ -121,9 +121,9 @@ final class TemplateListenerTest extends TestCase
 
     /**
      * @requires PHP 8.0
-     * @dataProvider noAttributeControllerProvider
+     * @dataProvider noTemplateAttributeControllerProvider
      */
-    public function testActionWithNoAttributes(string $controllerClass, ?string $controllerMethod = null): void
+    public function testWithNoTemplateAttributes(string $controllerClass, ?string $controllerMethod = null): void
     {
         $request = new Request();
 
@@ -134,7 +134,7 @@ final class TemplateListenerTest extends TestCase
 
     // Multiple template annotation -----
 
-    public function multipleAnnotationControllerProvider(): array
+    public function multipleTemplateAnnotationControllerProvider(): array
     {
         return [
             [TemplateController::class, 'multipleTemplateAnnotation'],
@@ -143,20 +143,20 @@ final class TemplateListenerTest extends TestCase
     }
 
     /**
-     * @dataProvider multipleAnnotationControllerProvider
+     * @dataProvider multipleTemplateAnnotationControllerProvider
      */
-    public function testActionWithMultipleAnnotation(string $controllerClass, ?string $controllerMethod = null): void
+    public function testWithMultipleTemplateAnnotation(string $controllerClass, ?string $controllerMethod = null): void
     {
         $request = new Request();
 
         $this->listener->onKernelController($this->createControllerEvent($request, $controllerClass, $controllerMethod));
 
-        $this->assertNull($request->attributes->get('_template_path'));
+        $this->assertEquals('base.html.twig', $request->attributes->get('_template_path'));
     }
 
     // No template attribute -----
 
-    public function multipleAttributeControllerProvider(): array
+    public function multipleTemplateAttributeControllerProvider(): array
     {
         return [
             [TemplateController::class, 'multipleTemplateAttribute'],
@@ -166,15 +166,15 @@ final class TemplateListenerTest extends TestCase
 
     /**
      * @requires PHP 8.0
-     * @dataProvider multipleAttributeControllerProvider
+     * @dataProvider multipleTemplateAttributeControllerProvider
      */
-    public function testActionWithMultipleAttributes(string $controllerClass, ?string $controllerMethod = null): void
+    public function testWithMultipleTemplateAttributes(string $controllerClass, ?string $controllerMethod = null): void
     {
-        $this->expectError();
-
         $request = new Request();
 
         $this->listener->onKernelController($this->createControllerEvent($request, $controllerClass, $controllerMethod));
+
+        $this->assertEquals('base.html.twig', $request->attributes->get('_template_path'));
     }
 
     private function createControllerEvent(Request $request, string $controllerClass, ?string $controllerMethod = null): ControllerEvent

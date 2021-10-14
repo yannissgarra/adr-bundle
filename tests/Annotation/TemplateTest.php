@@ -23,13 +23,13 @@ final class TemplateTest extends TestCase
     {
         $template = new Template('base.html.twig');
 
-        $this->assertEquals('base.html.twig', $template->getPath());
+        $this->assertEquals('base.html.twig', $template->getValue());
     }
 
     public function testWithArraySuccess(): void
     {
         $template = new Template(['value' => 'base.html.twig']);
 
-        $this->assertEquals('base.html.twig', $template->getPath());
+        $this->assertEquals('base.html.twig', $template->getValue());
     }
 }
