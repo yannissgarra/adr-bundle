@@ -13,6 +13,9 @@ namespace Webmunkeez\AdrBundle\Annotation;
 
 interface AnnotationInterface
 {
+    /**
+     * @return mixed
+     */
     public function getValue();
 
     public function getAliasName(): string;

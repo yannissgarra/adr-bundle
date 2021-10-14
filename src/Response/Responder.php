@@ -24,7 +24,7 @@ final class Responder
      */
     private array $responders = [];
 
-    public function addResponder(ResponderInterface $responder)
+    public function addResponder(ResponderInterface $responder): void
     {
         $this->responders[] = $responder;
     }
