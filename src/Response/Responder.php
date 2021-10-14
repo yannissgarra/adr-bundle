@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace Webmunkeez\AdrBundle\Response;
 
 use Symfony\Component\HttpFoundation\Response;
-use Webmunkeez\AdrBundle\Exception\RuntimeException;
+use Webmunkeez\AdrBundle\Exception\NoResponderFoundException;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -30,7 +30,7 @@ final class Responder
     }
 
     /**
-     * @throws RuntimeException
+     * @throws NoResponderFoundException
      */
     public function render(array $data = []): Response
     {
@@ -40,6 +40,6 @@ final class Responder
             }
         }
 
-        throw new RuntimeException(/* TODO: more precise */);
+        throw new NoResponderFoundException();
     }
 }

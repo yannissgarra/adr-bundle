@@ -14,6 +14,6 @@ namespace Webmunkeez\AdrBundle\Exception;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-class RuntimeException extends \RuntimeException implements ExceptionInterface
+interface ExceptionInterface extends \Throwable
 {
 }

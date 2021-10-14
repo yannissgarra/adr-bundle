@@ -14,7 +14,7 @@ namespace Webmunkeez\AdrBundle\Test\Controller;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
-use Webmunkeez\AdrBundle\Exception\RuntimeException;
+use Webmunkeez\AdrBundle\Exception\NoResponderFoundException;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAnnotationAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAttributeAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\NoTemplateAnnotationAction;
@@ -110,7 +110,7 @@ final class TemplateFunctionalTest extends WebTestCase
      */
     public function testNoTemplateAnnotationHtmlFail(string $url): void
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(NoResponderFoundException::class);
 
         $client = static::createClient();
         $client->catchExceptions(false);
@@ -144,7 +144,7 @@ final class TemplateFunctionalTest extends WebTestCase
      */
     public function testNoTemplateAttributeHtmlFail(string $url): void
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(NoResponderFoundException::class);
 
         $client = static::createClient();
         $client->catchExceptions(false);
