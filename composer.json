@@ -2,8 +2,8 @@
     "name": "webmunkeez/adr-bundle",
     "type": "symfony-bundle",
     "description": "Action-Domain-Responder pattern made for Symfony.",
-    "keywords": [],
-    "homepage": "https://github.com/webmunkeez/adr-bundle",
+    "keywords": ["Symfony", "controllers", "action", "autowiring", "responder", "templates"],
+    "homepage": "https://github.com/yannissgarra/adr-bundle",
     "license": "MIT",
     "authors": [
         {
