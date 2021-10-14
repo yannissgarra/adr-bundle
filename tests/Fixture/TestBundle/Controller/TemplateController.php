@@ -18,7 +18,7 @@ use Webmunkeez\AdrBundle\Annotation\Template;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class Controller extends AbstractAction
+final class TemplateController extends AbstractAction
 {
     public const TEMPLATE_ATTRIBUTE_ROUTE_URI = '/template-attribute-controller';
     public const TEMPLATE_ANNOTATION_ROUTE_URI = '/template-annotation-controller';

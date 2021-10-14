@@ -19,13 +19,13 @@ use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Kernel;
 use Webmunkeez\AdrBundle\EventListener\TemplateListener;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\Controller;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAnnotationAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAttributeAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\NoTemplateAnnotationAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\NoTemplateAttributeAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateAnnotationAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateAttributeAction;
+use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateController;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -47,7 +47,7 @@ final class TemplateListenerTest extends TestCase
     public function annotationControllerProvider(): array
     {
         return [
-            [Controller::class, 'templateAnnotation'],
+            [TemplateController::class, 'templateAnnotation'],
             [TemplateAnnotationAction::class],
         ];
     }
@@ -69,7 +69,7 @@ final class TemplateListenerTest extends TestCase
     public function attributeControllerProvider(): array
     {
         return [
-            [Controller::class, 'templateAttribute'],
+            [TemplateController::class, 'templateAttribute'],
             [TemplateAttributeAction::class],
         ];
     }
@@ -92,7 +92,7 @@ final class TemplateListenerTest extends TestCase
     public function noAnnotationControllerProvider(): array
     {
         return [
-            [Controller::class, 'noTemplateAnnotation'],
+            [TemplateController::class, 'noTemplateAnnotation'],
             [NoTemplateAnnotationAction::class],
         ];
     }
@@ -114,7 +114,7 @@ final class TemplateListenerTest extends TestCase
     public function noAttributeControllerProvider(): array
     {
         return [
-            [Controller::class, 'noTemplateAttribute'],
+            [TemplateController::class, 'noTemplateAttribute'],
             [NoTemplateAttributeAction::class],
         ];
     }
@@ -137,7 +137,7 @@ final class TemplateListenerTest extends TestCase
     public function multipleAnnotationControllerProvider(): array
     {
         return [
-            [Controller::class, 'multipleTemplateAnnotation'],
+            [TemplateController::class, 'multipleTemplateAnnotation'],
             [MultipleTemplateAnnotationAction::class],
         ];
     }
@@ -159,7 +159,7 @@ final class TemplateListenerTest extends TestCase
     public function multipleAttributeControllerProvider(): array
     {
         return [
-            [Controller::class, 'multipleTemplateAttribute'],
+            [TemplateController::class, 'multipleTemplateAttribute'],
             [MultipleTemplateAttributeAction::class],
         ];
     }

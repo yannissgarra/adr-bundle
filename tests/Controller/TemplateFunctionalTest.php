@@ -15,7 +15,6 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 use Webmunkeez\AdrBundle\Exception\RuntimeException;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\Controller;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\DataSet;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAnnotationAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAttributeAction;
@@ -23,18 +22,19 @@ use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\NoTemplateAnnotation
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\NoTemplateAttributeAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateAnnotationAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateAttributeAction;
+use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateController;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class FunctionalTest extends WebTestCase
+final class TemplateFunctionalTest extends WebTestCase
 {
     // Template annotation -----
 
     public function templateAnnotationUrlProvider(): array
     {
         return [
-            [Controller::TEMPLATE_ANNOTATION_ROUTE_URI],
+            [TemplateController::TEMPLATE_ANNOTATION_ROUTE_URI],
             [TemplateAnnotationAction::ROUTE_URI],
         ];
     }
@@ -66,7 +66,7 @@ final class FunctionalTest extends WebTestCase
     public function templateAttributeUrlProvider(): array
     {
         return [
-            [Controller::TEMPLATE_ATTRIBUTE_ROUTE_URI],
+            [TemplateController::TEMPLATE_ATTRIBUTE_ROUTE_URI],
             [TemplateAttributeAction::ROUTE_URI],
         ];
     }
@@ -100,7 +100,7 @@ final class FunctionalTest extends WebTestCase
     public function noTemplateAnnotationUrlProvider(): array
     {
         return [
-            [Controller::NO_TEMPLATE_ANNOTATION_ROUTE_URI],
+            [TemplateController::NO_TEMPLATE_ANNOTATION_ROUTE_URI],
             [NoTemplateAnnotationAction::ROUTE_URI],
         ];
     }
@@ -133,7 +133,7 @@ final class FunctionalTest extends WebTestCase
     public function noTemplateAttributeUrlProvider(): array
     {
         return [
-            [Controller::NO_TEMPLATE_ATTRIBUTE_ROUTE_URI],
+            [TemplateController::NO_TEMPLATE_ATTRIBUTE_ROUTE_URI],
             [NoTemplateAttributeAction::ROUTE_URI],
         ];
     }
@@ -168,7 +168,7 @@ final class FunctionalTest extends WebTestCase
     public function multipleTemplateAnnotationUrlProvider(): array
     {
         return [
-            [Controller::MULTIPLE_TEMPLATE_ANNOTATION_ROUTE_URI],
+            [TemplateController::MULTIPLE_TEMPLATE_ANNOTATION_ROUTE_URI],
             [MultipleTemplateAnnotationAction::ROUTE_URI],
         ];
     }
@@ -201,7 +201,7 @@ final class FunctionalTest extends WebTestCase
     public function multipleTemplateAttributeUrlProvider(): array
     {
         return [
-            [Controller::MULTIPLE_TEMPLATE_ATTRIBUTE_ROUTE_URI],
+            [TemplateController::MULTIPLE_TEMPLATE_ATTRIBUTE_ROUTE_URI],
             [MultipleTemplateAttributeAction::ROUTE_URI],
         ];
     }
