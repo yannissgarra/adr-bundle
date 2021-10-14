@@ -96,9 +96,10 @@ final class HtmlResponderTest extends TestCase
         $this->requestStack->method('getCurrentRequest')->willReturn($request);
 
         $responder = new HtmlResponder($this->requestStack, $this->twig);
+        $response = $responder->render();
 
-        $this->assertInstanceOf(Response::class, $responder->render());
-        $this->assertEquals(200, $responder->render()->getStatusCode());
-        $this->assertEquals('<p>Some HTML!</p>', $responder->render()->getContent());
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('<p>Some HTML!</p>', $response->getContent());
     }
 }
