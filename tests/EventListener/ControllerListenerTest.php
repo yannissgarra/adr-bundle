@@ -23,6 +23,8 @@ use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAnno
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAttributeAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\NoTemplateAnnotationAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\NoTemplateAttributeAction;
+use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\SerializationContextAnnotationAction;
+use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\SerializationContextAttributeAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateAnnotationAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateAttributeAction;
 use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateController;
@@ -175,6 +177,49 @@ final class ControllerListenerTest extends TestCase
         $this->listener->onKernelController($this->createControllerEvent($request, $controllerClass, $controllerMethod));
 
         $this->assertEquals('base.html.twig', $request->attributes->get('_template_path'));
+    }
+
+    // Serialization context annotation -----
+
+    public function serializationContextAnnotationControllerProvider(): array
+    {
+        return [
+            [SerializationContextAnnotationAction::class],
+        ];
+    }
+
+    /**
+     * @dataProvider serializationContextAnnotationControllerProvider
+     */
+    public function testWithSerializationContextAnnotation(string $controllerClass, ?string $controllerMethod = null): void
+    {
+        $request = new Request();
+
+        $this->listener->onKernelController($this->createControllerEvent($request, $controllerClass, $controllerMethod));
+
+        $this->assertEquals(['groups' => 'group_one'], $request->attributes->get('_serialization_context'));
+    }
+
+    // Serialization context attribute -----
+
+    public function serializationContextAttributeControllerProvider(): array
+    {
+        return [
+            [SerializationContextAttributeAction::class],
+        ];
+    }
+
+    /**
+     * @requires PHP 8.0
+     * @dataProvider serializationContextAttributeControllerProvider
+     */
+    public function testWithSerializationContextAttributes(string $controllerClass, ?string $controllerMethod = null): void
+    {
+        $request = new Request();
+
+        $this->listener->onKernelController($this->createControllerEvent($request, $controllerClass, $controllerMethod));
+
+        $this->assertEquals(['groups' => 'group_one'], $request->attributes->get('_serialization_context'));
     }
 
     private function createControllerEvent(Request $request, string $controllerClass, ?string $controllerMethod = null): ControllerEvent

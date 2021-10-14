@@ -11,12 +11,21 @@ declare(strict_types=1);
 
 namespace Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Entity;
 
+use Symfony\Component\Serializer\Annotation\Groups;
+
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
 final class Story
 {
+    /**
+     * @Groups({"group_one"})
+     */
     private string $title;
+
+    /**
+     * @Groups({"group_two"})
+     */
     private string $content;
 
     public function __construct(string $title, string $content)

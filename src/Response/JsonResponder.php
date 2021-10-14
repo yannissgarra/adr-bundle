@@ -37,7 +37,7 @@ final class JsonResponder implements ResponderInterface
 
     public function render(array $data = []): Response
     {
-        $json = $this->serializer->serialize($data, 'json');
+        $json = $this->serializer->serialize($data, 'json', $this->requestStack->getCurrentRequest()->attributes->get('_serialization_context', []));
 
         return new JsonResponse($json, 200, [], true);
     }
