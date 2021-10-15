@@ -32,7 +32,7 @@ final class WebmunkeezAdrExtension extends Extension
         $loader->load('responders.xml');
 
         $container->registerForAutoconfiguration(ResponderInterface::class)
-            ->addTag('app.responder')
+            ->addTag('webmunkeez.responder')
         ;
 
         $container->registerForAutoconfiguration(ResponderAwareInterface::class)

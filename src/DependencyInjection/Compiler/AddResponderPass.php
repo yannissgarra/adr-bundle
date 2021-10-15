@@ -31,7 +31,7 @@ final class AddResponderPass implements CompilerPassInterface
 
         $definition = $container->getDefinition(Responder::class);
 
-        foreach ($this->findAndSortTaggedServices('app.responder', $container) as $reference) {
+        foreach ($this->findAndSortTaggedServices('webmunkeez.responder', $container) as $reference) {
             $definition->addMethodCall('addResponder', [$reference]);
         }
     }
