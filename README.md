@@ -100,7 +100,7 @@ You can use `\Webmunkeez\AdrBundle\Response\ResponderAwareInterface` and `\Webmu
 ```php
 final class StoryDetailAction implements \Webmunkeez\AdrBundle\Action\ActionInterface, \Webmunkeez\AdrBundle\Response\ResponderAwareInterface
 {
-    use Webmunkeez\AdrBundle\Response\ResponderAwareTrait;
+    use \Webmunkeez\AdrBundle\Response\ResponderAwareTrait;
     
     public function __invoke(): Response
     {
