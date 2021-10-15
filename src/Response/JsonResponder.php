@@ -32,12 +32,14 @@ final class JsonResponder implements ResponderInterface
 
     public function supports(): bool
     {
-        return 'json' === $this->requestStack->getCurrentRequest()->getPreferredFormat();
+        return null !== $this->requestStack->getCurrentRequest()
+            && 'json' === $this->requestStack->getCurrentRequest()->getPreferredFormat();
     }
 
     public function render(array $data = []): Response
     {
-        $json = $this->serializer->serialize($data, 'json', $this->requestStack->getCurrentRequest()->attributes->get('_serialization_context', []));
+        $serializationContext = $this->requestStack->getCurrentRequest()->attributes->get('_serialization_context', []);
+        $json = $this->serializer->serialize($data, 'json', $serializationContext);
 
         return new JsonResponse($json, 200, [], true);
     }

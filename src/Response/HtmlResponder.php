@@ -31,12 +31,15 @@ final class HtmlResponder implements ResponderInterface
 
     public function supports(): bool
     {
-        return 'html' === $this->requestStack->getCurrentRequest()->getPreferredFormat() && null !== $this->requestStack->getCurrentRequest()->attributes->get('_template_path') ? true : false;
+        return null !== $this->requestStack->getCurrentRequest()
+            && 'html' === $this->requestStack->getCurrentRequest()->getPreferredFormat()
+            && null !== $this->requestStack->getCurrentRequest()->attributes->get('_template_path');
     }
 
     public function render(array $data = []): Response
     {
-        $html = $this->twig->render($this->requestStack->getCurrentRequest()->attributes->get('_template_path'), $data);
+        $templatePath = $this->requestStack->getCurrentRequest()->attributes->get('_template_path');
+        $html = $this->twig->render($templatePath, $data);
 
         return new Response($html);
     }
