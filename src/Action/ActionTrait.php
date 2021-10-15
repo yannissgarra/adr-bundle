@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Webmunkeez\AdrBundle\Action;
 
 use Symfony\Component\HttpFoundation\Response;
+use Webmunkeez\AdrBundle\Exception\NoResponderFoundException;
 use Webmunkeez\AdrBundle\Response\Responder;
 
 /**
@@ -21,6 +22,9 @@ trait ActionTrait
 {
     private Responder $responder;
 
+    /**
+     * @throws NoResponderFoundException
+     */
     public function render(array $data = []): Response
     {
         return $this->responder->render($data);
