@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Test\Annotation;
+namespace Webmunkeez\ADRBundle\Test\Annotation;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -18,16 +18,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Kernel;
-use Webmunkeez\AdrBundle\EventListener\ControllerListener;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAnnotationAction;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAttributeAction;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\NoTemplateAnnotationAction;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\NoTemplateAttributeAction;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\SerializationContextAnnotationAction;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\SerializationContextAttributeAction;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateAnnotationAction;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateAttributeAction;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateController;
+use Webmunkeez\ADRBundle\EventListener\ControllerListener;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAnnotationAction;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAttributeAction;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\NoTemplateAnnotationAction;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\NoTemplateAttributeAction;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\SerializationContextAnnotationAction;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\SerializationContextAttributeAction;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateAnnotationAction;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateAttributeAction;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateController;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Test\Fixture\TestBundle;
+namespace Webmunkeez\ADRBundle\Test\Fixture\TestBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

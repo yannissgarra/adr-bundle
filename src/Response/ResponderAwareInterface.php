@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Response;
+namespace Webmunkeez\ADRBundle\Response;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

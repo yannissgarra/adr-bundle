@@ -9,12 +9,12 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller;
+namespace Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Webmunkeez\AdrBundle\Annotation\Template;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Entity\Story;
+use Webmunkeez\ADRBundle\Annotation\Template;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Story;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

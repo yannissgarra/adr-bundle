@@ -9,14 +9,14 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Test\Fixture;
+namespace Webmunkeez\ADRBundle\Test\Fixture;
 
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\TestBundle;
-use Webmunkeez\AdrBundle\WebmunkeezAdrBundle;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\TestBundle;
+use Webmunkeez\ADRBundle\WebmunkeezADRBundle;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -28,7 +28,7 @@ final class TestKernel extends Kernel
         return [
             new FrameworkBundle(),
             new TwigBundle(),
-            new WebmunkeezAdrBundle(),
+            new WebmunkeezADRBundle(),
             new TestBundle(),
         ];
     }

@@ -9,12 +9,12 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\DependencyInjection\Compiler;
+namespace Webmunkeez\ADRBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Webmunkeez\AdrBundle\Response\Responder;
+use Webmunkeez\ADRBundle\Response\Responder;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

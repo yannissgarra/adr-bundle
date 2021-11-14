@@ -9,13 +9,13 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\EventListener;
+namespace Webmunkeez\ADRBundle\EventListener;
 
 use Doctrine\Common\Annotations\Reader;
 use ReflectionAttribute;
 use ReflectionClass;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
-use Webmunkeez\AdrBundle\Annotation\AnnotationInterface;
+use Webmunkeez\ADRBundle\Annotation\AnnotationInterface;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

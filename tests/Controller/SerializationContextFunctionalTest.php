@@ -9,13 +9,13 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Test\Controller;
+namespace Webmunkeez\ADRBundle\Test\Controller;
 
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\SerializationContextAnnotationAction;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\SerializationContextAttributeAction;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\SerializationContextController;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\SerializationContextAnnotationAction;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\SerializationContextAttributeAction;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\SerializationContextController;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

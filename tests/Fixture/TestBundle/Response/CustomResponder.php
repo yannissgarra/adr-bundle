@@ -9,14 +9,14 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Response;
+namespace Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Response;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
-use Webmunkeez\AdrBundle\Response\ResponderInterface;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\CustomResponderAnnotationAction;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\CustomResponderAttributeAction;
+use Webmunkeez\ADRBundle\Response\ResponderInterface;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\CustomResponderAnnotationAction;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\CustomResponderAttributeAction;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

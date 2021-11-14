@@ -1,4 +1,4 @@
-# WebmunkeezAdrBundle
+# WebmunkeezADRBundle
 
 This bundle unleashes the __Action-Domain-Responder__ pattern on Symfony applications.
 
@@ -17,7 +17,7 @@ Add the bundle in your application kernel:
 
 return [
     // ...
-    Webmunkeez\AdrBundle\WebmunkeezAdrBundle::class => ['all' => true],
+    Webmunkeez\ADRBundle\WebmunkeezADRBundle::class => ['all' => true],
     // ...
 ];
 ```
@@ -26,10 +26,10 @@ return [
 
 ### Actions
 
-An __Action__ is just an invokable class that has to implement `\Webmunkeez\AdrBundle\Action\ActionInterface`:
+An __Action__ is just an invokable class that has to implement `\Webmunkeez\ADRBundle\Action\ActionInterface`:
 
 ```php
-final class StoryDetailAction implements \Webmunkeez\AdrBundle\Action\ActionInterface
+final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInterface
 {
     public function __invoke(): Response
     {
@@ -47,7 +47,7 @@ final class StoryDetailAction implements \Webmunkeez\AdrBundle\Action\ActionInte
 But, it can be a more classic __Controller__ that implements the same interface:
 
 ```php
-final class StoryController implements \Webmunkeez\AdrBundle\Action\ActionInterface
+final class StoryController implements \Webmunkeez\ADRBundle\Action\ActionInterface
 {
     public function detail(): Response
     {
@@ -69,16 +69,16 @@ final class StoryController implements \Webmunkeez\AdrBundle\Action\ActionInterf
 __Responders__ are services which take data and return it in a __Response__.  
 It can be a response containing HTML or a JsonResponse, or whatever you want, as far as it is a `Symfony\Component\HttpFoundation\Response` instance.
 
-In this bundle, there is a responder manager `\Webmunkeez\AdrBundle\Response\Responder` that you can inject into your actions (or controllers).
+In this bundle, there is a responder manager `\Webmunkeez\ADRBundle\Response\Responder` that you can inject into your actions (or controllers).
 
 This responder manager takes all responders of your application (it uses a compiler pass to get all services tagged `webmunkeez.responder` sorted by priority) and find the right one to render the response.
 
 ```php
-final class StoryDetailAction implements \Webmunkeez\AdrBundle\Action\ActionInterface
+final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInterface
 {
-    private \Webmunkeez\AdrBundle\Response\Responder $responder;
+    private \Webmunkeez\ADRBundle\Response\Responder $responder;
     
-    public function __construct(\Webmunkeez\AdrBundle\Response\Responder $responder)
+    public function __construct(\Webmunkeez\ADRBundle\Response\Responder $responder)
     {
         $this->responder = $responder
     }
@@ -95,12 +95,12 @@ final class StoryDetailAction implements \Webmunkeez\AdrBundle\Action\ActionInte
 }
 ```
 
-You can use `\Webmunkeez\AdrBundle\Response\ResponderAwareInterface` and `\Webmunkeez\AdrBundle\Response\ResponderAwareTrait` to automatically inject Responder:
+You can use `\Webmunkeez\ADRBundle\Response\ResponderAwareInterface` and `\Webmunkeez\ADRBundle\Response\ResponderAwareTrait` to automatically inject Responder:
 
 ```php
-final class StoryDetailAction implements \Webmunkeez\AdrBundle\Action\ActionInterface, \Webmunkeez\AdrBundle\Response\ResponderAwareInterface
+final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInterface, \Webmunkeez\ADRBundle\Response\ResponderAwareInterface
 {
-    use \Webmunkeez\AdrBundle\Response\ResponderAwareTrait;
+    use \Webmunkeez\ADRBundle\Response\ResponderAwareTrait;
     
     public function __invoke(): Response
     {
@@ -114,13 +114,13 @@ final class StoryDetailAction implements \Webmunkeez\AdrBundle\Action\ActionInte
 }
 ```
 
-And you can use `\Webmunkeez\AdrBundle\Action\ActionTrait` to clean code:
+And you can use `\Webmunkeez\ADRBundle\Action\ActionTrait` to clean code:
 
 ```php
-final class StoryDetailAction implements \Webmunkeez\AdrBundle\Action\ActionInterface, \Webmunkeez\AdrBundle\Response\ResponderAwareInterface
+final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInterface, \Webmunkeez\ADRBundle\Response\ResponderAwareInterface
 {
-    use \Webmunkeez\AdrBundle\Response\ResponderAwareTrait;
-    use \Webmunkeez\AdrBundle\Action\ActionTrait;
+    use \Webmunkeez\ADRBundle\Response\ResponderAwareTrait;
+    use \Webmunkeez\ADRBundle\Action\ActionTrait;
     
     public function __invoke(): Response
     {
@@ -129,10 +129,10 @@ final class StoryDetailAction implements \Webmunkeez\AdrBundle\Action\ActionInte
 }
 ```
 
-Responders are classes that implement `\Webmunkeez\AdrBundle\Response\ResponderInterface` (and so, they are automatically tagged `webmunkeez.responder`):
+Responders are classes that implement `\Webmunkeez\ADRBundle\Response\ResponderInterface` (and so, they are automatically tagged `webmunkeez.responder`):
 
 ```php
-final class XmlResponder implements \Webmunkeez\AdrBundle\Response\ResponderInterface
+final class XmlResponder implements \Webmunkeez\ADRBundle\Response\ResponderInterface
 {
     private RequestStack $requestStack;
     private SerializerInterface $serializer;
@@ -168,13 +168,13 @@ There are two core responders provided:
 
 ##### HtmlResponder
 
-`\Webmunkeez\AdrBundle\Response\HtmlResponder` that uses __Twig__ for render html with a twig template. To indicate template, you have to use `\Webmunkeez\AdrBundle\Annotation\Template` (as doctrine annotation or php8 attribute):
+`\Webmunkeez\ADRBundle\Response\HtmlResponder` that uses __Twig__ for render html with a twig template. To indicate template, you have to use `\Webmunkeez\ADRBundle\Annotation\Template` (as doctrine annotation or php8 attribute):
 
 ```php
 // php8 attribute
 
 #[Template('story/detail.html.twig')]
-final class StoryDetailAction implements \Webmunkeez\AdrBundle\Action\ActionInterface
+final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInterface
 {
     ...
 }
@@ -184,7 +184,7 @@ final class StoryDetailAction implements \Webmunkeez\AdrBundle\Action\ActionInte
 /**
  * @Template("story/detail.html.twig")
  */
-final class StoryDetailAction implements \Webmunkeez\AdrBundle\Action\ActionInterface
+final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInterface
 {
     ...
 }
@@ -195,13 +195,13 @@ It has a `priority: -20`.
 
 ##### JsonResponder
 
-`\Webmunkeez\AdrBundle\Response\JsonResponder` that uses __Serializer__ for render json (you can indicate serialization context with `\Webmunkeez\AdrBundle\Annotation\SerializationContext` (as doctrine annotation or php8 attribute)):
+`\Webmunkeez\ADRBundle\Response\JsonResponder` that uses __Serializer__ for render json (you can indicate serialization context with `\Webmunkeez\ADRBundle\Annotation\SerializationContext` (as doctrine annotation or php8 attribute)):
 
 ```php
 // php8 attribute
 
 #[SerializationContext(['groups' => 'group_one'])]
-final class StoryDetailAction implements \Webmunkeez\AdrBundle\Action\ActionInterface
+final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInterface
 {
     ...
 }
@@ -211,7 +211,7 @@ final class StoryDetailAction implements \Webmunkeez\AdrBundle\Action\ActionInte
 /**
  * @SerializationContext({"groups": "group_one"})
  */
-final class StoryDetailAction implements \Webmunkeez\AdrBundle\Action\ActionInterface
+final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInterface
 {
     ...
 }
@@ -222,14 +222,14 @@ It has a `priority: -10`.
 
 #### Custom responders
 
-You can write your own reponders like in my previous `XmlResponder` example, by implementing `\Webmunkeez\AdrBundle\Response\ResponderInterface`.
+You can write your own reponders like in my previous `XmlResponder` example, by implementing `\Webmunkeez\ADRBundle\Response\ResponderInterface`.
 
 Services implementing this interface are automatically tagged `webmunkeez.responder` with `priority: 0`, and you can change it (in your `service.yaml` or by static `getDefaultPriority` method ; see [https://symfony.com/doc/current/service_container/tags.html#tagged-services-with-priority](https://symfony.com/doc/current/service_container/tags.html#tagged-services-with-priority)).
 
 You can define "generic" responders like html, json, xml and so on. But you can also define more specifics, by checking `$request->attributes->get('_controller')` to make a responder only for a specific action:
 
 ```php
-final class CustomResponder implements \Webmunkeez\AdrBundle\Response\ResponderInterface
+final class CustomResponder implements \Webmunkeez\ADRBundle\Response\ResponderInterface
 {
     private RequestStack $requestStack;
     private Environment $twig;

@@ -9,21 +9,21 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\DependencyInjection;
+namespace Webmunkeez\ADRBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Webmunkeez\AdrBundle\Action\ActionInterface;
-use Webmunkeez\AdrBundle\Response\Responder;
-use Webmunkeez\AdrBundle\Response\ResponderAwareInterface;
-use Webmunkeez\AdrBundle\Response\ResponderInterface;
+use Webmunkeez\ADRBundle\Action\ActionInterface;
+use Webmunkeez\ADRBundle\Response\Responder;
+use Webmunkeez\ADRBundle\Response\ResponderAwareInterface;
+use Webmunkeez\ADRBundle\Response\ResponderInterface;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class WebmunkeezAdrExtension extends Extension
+final class WebmunkeezADRExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container): void
     {

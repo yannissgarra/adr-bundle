@@ -16,7 +16,7 @@
         <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
         <server name="SYMFONY_PHPUNIT_VERSION" value="9.5" />
         <server name="KERNEL_DIR" value="tests/Fixture/" />
-        <server name="KERNEL_CLASS" value="Webmunkeez\AdrBundle\Test\Fixture\TestKernel" />
+        <server name="KERNEL_CLASS" value="Webmunkeez\ADRBundle\Test\Fixture\TestKernel" />
     </php>
 
     <testsuites>

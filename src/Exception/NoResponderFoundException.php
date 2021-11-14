@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Exception;
+namespace Webmunkeez\ADRBundle\Exception;
 
 use Throwable;
 

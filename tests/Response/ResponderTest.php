@@ -9,14 +9,14 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Test\Response;
+namespace Webmunkeez\ADRBundle\Test\Response;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
-use Webmunkeez\AdrBundle\Exception\NoResponderFoundException;
-use Webmunkeez\AdrBundle\Response\Responder;
-use Webmunkeez\AdrBundle\Response\ResponderInterface;
+use Webmunkeez\ADRBundle\Exception\NoResponderFoundException;
+use Webmunkeez\ADRBundle\Response\Responder;
+use Webmunkeez\ADRBundle\Response\ResponderInterface;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

@@ -9,10 +9,10 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Test\Annotation;
+namespace Webmunkeez\ADRBundle\Test\Annotation;
 
 use PHPUnit\Framework\TestCase;
-use Webmunkeez\AdrBundle\Annotation\Template;
+use Webmunkeez\ADRBundle\Annotation\Template;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

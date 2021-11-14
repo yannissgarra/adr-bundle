@@ -6,15 +6,15 @@
         https://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="Webmunkeez\AdrBundle\Response\Responder" />
+        <service id="Webmunkeez\ADRBundle\Response\Responder" />
 
-        <service id="Webmunkeez\AdrBundle\Response\HtmlResponder">
+        <service id="Webmunkeez\ADRBundle\Response\HtmlResponder">
             <tag name="webmunkeez.responder" priority="-10" />
             <argument type="service" id="request_stack" />
             <argument type="service" id="twig" />
         </service>
 
-        <service id="Webmunkeez\AdrBundle\Response\JsonResponder">
+        <service id="Webmunkeez\ADRBundle\Response\JsonResponder">
             <tag name="webmunkeez.responder" priority="-10" />
             <argument type="service" id="request_stack" />
             <argument type="service" id="serializer" />

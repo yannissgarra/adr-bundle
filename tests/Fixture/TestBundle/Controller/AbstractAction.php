@@ -9,12 +9,12 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller;
+namespace Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller;
 
-use Webmunkeez\AdrBundle\Action\ActionInterface;
-use Webmunkeez\AdrBundle\Action\ActionTrait;
-use Webmunkeez\AdrBundle\Response\ResponderAwareInterface;
-use Webmunkeez\AdrBundle\Response\ResponderAwareTrait;
+use Webmunkeez\ADRBundle\Action\ActionInterface;
+use Webmunkeez\ADRBundle\Action\ActionTrait;
+use Webmunkeez\ADRBundle\Response\ResponderAwareInterface;
+use Webmunkeez\ADRBundle\Response\ResponderAwareTrait;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

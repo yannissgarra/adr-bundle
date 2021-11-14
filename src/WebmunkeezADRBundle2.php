@@ -9,16 +9,16 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle;
+namespace Webmunkeez\ADRBundle;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Webmunkeez\AdrBundle\DependencyInjection\Compiler\AddResponderPass;
+use Webmunkeez\ADRBundle\DependencyInjection\Compiler\AddResponderPass;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class WebmunkeezAdrBundle extends Bundle
+final class WebmunkeezADRBundle extends Bundle
 {
     public function build(ContainerBuilder $container): void
     {

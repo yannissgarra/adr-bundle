@@ -9,14 +9,14 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Test\Controller;
+namespace Webmunkeez\ADRBundle\Test\Controller;
 
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\CustomResponderAnnotationAction;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\CustomResponderAttributeAction;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Entity\Story;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\CustomResponderAnnotationAction;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\CustomResponderAttributeAction;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Story;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

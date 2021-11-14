@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Annotation;
+namespace Webmunkeez\ADRBundle\Annotation;
 
 interface AnnotationInterface
 {

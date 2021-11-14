@@ -9,14 +9,14 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Test\DependencyInjection\Compiler;
+namespace Webmunkeez\ADRBundle\Test\DependencyInjection\Compiler;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
-use Webmunkeez\AdrBundle\DependencyInjection\Compiler\AddResponderPass;
-use Webmunkeez\AdrBundle\Response\Responder;
+use Webmunkeez\ADRBundle\DependencyInjection\Compiler\AddResponderPass;
+use Webmunkeez\ADRBundle\Response\Responder;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

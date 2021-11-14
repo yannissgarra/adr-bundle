@@ -19,5 +19,5 @@ services:
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
-    Webmunkeez\AdrBundle\Test\Fixture\TestBundle\:
+    Webmunkeez\ADRBundle\Test\Fixture\TestBundle\:
         resource: '../TestBundle/'

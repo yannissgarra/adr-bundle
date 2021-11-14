@@ -9,15 +9,15 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Test\Controller;
+namespace Webmunkeez\ADRBundle\Test\Controller;
 
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateAnnotationAction;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateAttributeAction;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Controller\TemplateController;
-use Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Entity\Story;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateAnnotationAction;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateAttributeAction;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateController;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Story;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

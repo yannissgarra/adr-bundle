@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Test\Response;
+namespace Webmunkeez\ADRBundle\Test\Response;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Serializer\SerializerInterface;
-use Webmunkeez\AdrBundle\Response\JsonResponder;
+use Webmunkeez\ADRBundle\Response\JsonResponder;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

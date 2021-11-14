@@ -9,10 +9,10 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Response;
+namespace Webmunkeez\ADRBundle\Response;
 
 use Symfony\Component\HttpFoundation\Response;
-use Webmunkeez\AdrBundle\Exception\NoResponderFoundException;
+use Webmunkeez\ADRBundle\Exception\NoResponderFoundException;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

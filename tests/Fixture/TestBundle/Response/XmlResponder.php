@@ -9,12 +9,12 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\AdrBundle\Test\Fixture\TestBundle\Response;
+namespace Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Response;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
-use Webmunkeez\AdrBundle\Response\ResponderInterface;
+use Webmunkeez\ADRBundle\Response\ResponderInterface;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
