@@ -4,8 +4,6 @@ framework:
     router:
         utf8: true
         resource: "%kernel.project_dir%/config/routing.yaml"
-    fragments:
-        enabled: true
 
 twig:
     strict_variables: true
