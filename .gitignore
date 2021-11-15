@@ -1,5 +1,14 @@
-/vendor/
+###> base ###
+.DS_Store
 /composer.lock
-/phpunit.xml
+###< base ###
+
+###> phpunit/phpunit ###
 /.phpunit.result.cache
+/phpunit.xml
 /tests/Fixture/var/
+###< phpunit/phpunit ###
+
+###> symfony/framework-bundle ###
+/vendor/
+###< symfony/framework-bundle ###
