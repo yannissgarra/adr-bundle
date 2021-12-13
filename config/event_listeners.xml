@@ -8,7 +8,6 @@
     <services>
         <service id="Webmunkeez\ADRBundle\EventListener\ControllerListener">
             <tag name="kernel.event_listener" event="kernel.controller" />
-            <argument type="service" id="annotation_reader" />
         </service>
     </services>
 </container>

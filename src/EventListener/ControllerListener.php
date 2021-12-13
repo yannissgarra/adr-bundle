@@ -11,24 +11,16 @@ declare(strict_types=1);
 
 namespace Webmunkeez\ADRBundle\EventListener;
 
-use Doctrine\Common\Annotations\Reader;
 use ReflectionAttribute;
 use ReflectionClass;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
-use Webmunkeez\ADRBundle\Annotation\AnnotationInterface;
+use Webmunkeez\ADRBundle\Attribute\AttributeInterface;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
 final class ControllerListener
 {
-    private Reader $reader;
-
-    public function __construct(Reader $reader)
-    {
-        $this->reader = $reader;
-    }
-
     public function onKernelController(ControllerEvent $event): void
     {
         $controller = $event->getController();
@@ -44,34 +36,22 @@ final class ControllerListener
         $object = new ReflectionClass($controller[0]);
         $method = $object->getMethod($controller[1]);
 
-        $configurations = [];
+        /** @var AttributeInterface[] $objectAttributes */
+        $objectAttributes = array_map(function (ReflectionAttribute $attribute) {
+            return $attribute->newInstance();
+        }, $object->getAttributes(AttributeInterface::class, ReflectionAttribute::IS_INSTANCEOF));
 
-        $objectAnnotations = array_filter($this->reader->getClassAnnotations($object), function ($annotation) {
-            return $annotation instanceof AnnotationInterface;
-        });
+        /** @var AttributeInterface[] $methodAttributes */
+        $methodAttributes = array_map(function (ReflectionAttribute $attribute) {
+            return $attribute->newInstance();
+        }, $method->getAttributes(AttributeInterface::class, ReflectionAttribute::IS_INSTANCEOF));
 
-        $methodAnnotations = array_filter($this->reader->getMethodAnnotations($method), function ($annotation) {
-            return $annotation instanceof AnnotationInterface;
-        });
-
-        $configurations = array_merge($configurations, $objectAnnotations, $methodAnnotations);
-
-        if (80000 <= \PHP_VERSION_ID) {
-            $objectAttributes = array_map(function (ReflectionAttribute $attribute) {
-                return $attribute->newInstance();
-            }, $object->getAttributes(AnnotationInterface::class, ReflectionAttribute::IS_INSTANCEOF));
-
-            $methodAttributes = array_map(function (ReflectionAttribute $attribute) {
-                return $attribute->newInstance();
-            }, $method->getAttributes(AnnotationInterface::class, ReflectionAttribute::IS_INSTANCEOF));
-
-            $configurations = array_merge($configurations, $objectAttributes, $methodAttributes);
-        }
+        $attributes = array_merge($objectAttributes, $methodAttributes);
 
         $request = $event->getRequest();
 
-        foreach ($configurations as $configuration) {
-            $request->attributes->set('_'.$configuration->getAliasName(), $configuration->getValue());
+        foreach ($attributes as $attribute) {
+            $request->attributes->set('_'.$attribute->getAliasName(), $attribute->getValue());
         }
     }
 }

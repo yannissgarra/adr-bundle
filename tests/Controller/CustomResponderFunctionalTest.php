@@ -14,7 +14,6 @@ namespace Webmunkeez\ADRBundle\Test\Controller;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\CustomResponderAnnotationAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\CustomResponderAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Story;
 
@@ -23,21 +22,6 @@ use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Story;
  */
 final class CustomResponderFunctionalTest extends WebTestCase
 {
-    // Template annotation -----
-
-    public function testCustomResponderAnnotationSuccess(): void
-    {
-        $client = static::createClient();
-        $crawler = $client->request('GET', CustomResponderAnnotationAction::ROUTE_URI);
-
-        $this->checkHtmlSuccess($client, $crawler);
-    }
-
-    // Template attribute -----
-
-    /**
-     * @requires PHP 8.0
-     */
     public function testCustomResponderAttributeSuccess(): void
     {
         $client = static::createClient();

@@ -14,7 +14,6 @@ namespace Webmunkeez\ADRBundle\Test\Controller;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateAnnotationAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateController;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Story;
@@ -24,29 +23,6 @@ use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Story;
  */
 final class XmlResponderFunctionalTest extends WebTestCase
 {
-    // Template annotation -----
-
-    public function templateAnnotationUrlProvider(): array
-    {
-        return [
-            [TemplateController::TEMPLATE_ANNOTATION_ROUTE_URI],
-            [TemplateAnnotationAction::ROUTE_URI],
-        ];
-    }
-
-    /**
-     * @dataProvider templateAnnotationUrlProvider
-     */
-    public function testTemplateAnnotationXmlSuccess(string $url): void
-    {
-        $client = static::createClient();
-        $crawler = $client->request('GET', $url, [], [], ['HTTP_ACCEPT' => 'application/xml']);
-
-        $this->checkXmlSuccess($client, $crawler);
-    }
-
-    // Template attribute -----
-
     public function templateAttributeUrlProvider(): array
     {
         return [
@@ -56,7 +32,6 @@ final class XmlResponderFunctionalTest extends WebTestCase
     }
 
     /**
-     * @requires PHP 8.0
      * @dataProvider templateAttributeUrlProvider
      */
     public function testTemplateAttributeXmlSuccess(string $url): void

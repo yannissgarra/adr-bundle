@@ -18,14 +18,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 final class Story
 {
-    /**
-     * @Groups({"group_one"})
-     */
+    #[Groups(['group_one'])]
     private string $title;
 
-    /**
-     * @Groups({"group_two"})
-     */
+    #[Groups(['group_two'])]
     private string $content;
 
     public function __construct(string $title, string $content)

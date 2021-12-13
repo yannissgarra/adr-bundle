@@ -168,49 +168,29 @@ There are two core responders provided:
 
 ##### HtmlResponder
 
-`\Webmunkeez\ADRBundle\Response\HtmlResponder` that uses __Twig__ for render html with a twig template. To indicate template, you have to use `\Webmunkeez\ADRBundle\Annotation\Template` (as doctrine annotation or php8 attribute):
+`\Webmunkeez\ADRBundle\Response\HtmlResponder` that uses __Twig__ for render html with a twig template. To indicate template, you have to use `\Webmunkeez\ADRBundle\Attribute\Template`:
 
 ```php
-// php8 attribute
+use Webmunkeez\ADRBundle\Attribute\Template;
 
 #[Template('story/detail.html.twig')]
 final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInterface
 {
     ...
 }
-
-// doctrine annotation
-
-/**
- * @Template("story/detail.html.twig")
- */
-final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInterface
-{
-    ...
-}
 ```
 
-This responder is active if the request contains `HTTP_ACCEPT text/html` header and if there is the Template annotation.  
+This responder is active if the request contains `HTTP_ACCEPT text/html` header and if there is the Template attribute.  
 It has a `priority: -20`.
 
 ##### JsonResponder
 
-`\Webmunkeez\ADRBundle\Response\JsonResponder` that uses __Serializer__ for render json (you can indicate serialization context with `\Webmunkeez\ADRBundle\Annotation\SerializationContext` (as doctrine annotation or php8 attribute)):
+`\Webmunkeez\ADRBundle\Response\JsonResponder` that uses __Serializer__ for render json (you can indicate serialization context with `\Webmunkeez\ADRBundle\Attribute\SerializationContext`):
 
 ```php
-// php8 attribute
+use Webmunkeez\ADRBundle\Attribute\SerializationContext;
 
 #[SerializationContext(['groups' => 'group_one'])]
-final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInterface
-{
-    ...
-}
-
-// doctrine annotation
-
-/**
- * @SerializationContext({"groups": "group_one"})
- */
 final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInterface
 {
     ...

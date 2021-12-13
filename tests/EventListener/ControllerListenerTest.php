@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Webmunkeez\ADRBundle\Test\Annotation;
 
-use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,13 +18,8 @@ use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Kernel;
 use Webmunkeez\ADRBundle\EventListener\ControllerListener;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAnnotationAction;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAttributeAction;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\NoTemplateAnnotationAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\NoTemplateAttributeAction;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\SerializationContextAnnotationAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\SerializationContextAttributeAction;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateAnnotationAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateController;
 
@@ -41,29 +35,7 @@ final class ControllerListenerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->listener = new ControllerListener(new AnnotationReader());
-    }
-
-    // Template annotation -----
-
-    public function templateAnnotationControllerProvider(): array
-    {
-        return [
-            [TemplateController::class, 'templateAnnotation'],
-            [TemplateAnnotationAction::class],
-        ];
-    }
-
-    /**
-     * @dataProvider templateAnnotationControllerProvider
-     */
-    public function testWithTemplateAnnotation(string $controllerClass, ?string $controllerMethod = null): void
-    {
-        $request = new Request();
-
-        $this->listener->onKernelController($this->createControllerEvent($request, $controllerClass, $controllerMethod));
-
-        $this->assertEquals('base.html.twig', $request->attributes->get('_template_path'));
+        $this->listener = new ControllerListener();
     }
 
     // Template attribute -----
@@ -77,7 +49,6 @@ final class ControllerListenerTest extends TestCase
     }
 
     /**
-     * @requires PHP 8.0
      * @dataProvider templateAttributeControllerProvider
      */
     public function testWithTemplateAttributes(string $controllerClass, ?string $controllerMethod = null): void
@@ -87,28 +58,6 @@ final class ControllerListenerTest extends TestCase
         $this->listener->onKernelController($this->createControllerEvent($request, $controllerClass, $controllerMethod));
 
         $this->assertEquals('base.html.twig', $request->attributes->get('_template_path'));
-    }
-
-    // No template annotation -----
-
-    public function noTemplateAnnotationControllerProvider(): array
-    {
-        return [
-            [TemplateController::class, 'noTemplateAnnotation'],
-            [NoTemplateAnnotationAction::class],
-        ];
-    }
-
-    /**
-     * @dataProvider noTemplateAnnotationControllerProvider
-     */
-    public function testWithNoTemplateAnnotation(string $controllerClass, ?string $controllerMethod = null): void
-    {
-        $request = new Request();
-
-        $this->listener->onKernelController($this->createControllerEvent($request, $controllerClass, $controllerMethod));
-
-        $this->assertNull($request->attributes->get('_template_path'));
     }
 
     // No template attribute -----
@@ -122,7 +71,6 @@ final class ControllerListenerTest extends TestCase
     }
 
     /**
-     * @requires PHP 8.0
      * @dataProvider noTemplateAttributeControllerProvider
      */
     public function testWithNoTemplateAttributes(string $controllerClass, ?string $controllerMethod = null): void
@@ -132,72 +80,6 @@ final class ControllerListenerTest extends TestCase
         $this->listener->onKernelController($this->createControllerEvent($request, $controllerClass, $controllerMethod));
 
         $this->assertNull($request->attributes->get('_template_path'));
-    }
-
-    // Multiple template annotation -----
-
-    public function multipleTemplateAnnotationControllerProvider(): array
-    {
-        return [
-            [TemplateController::class, 'multipleTemplateAnnotation'],
-            [MultipleTemplateAnnotationAction::class],
-        ];
-    }
-
-    /**
-     * @dataProvider multipleTemplateAnnotationControllerProvider
-     */
-    public function testWithMultipleTemplateAnnotation(string $controllerClass, ?string $controllerMethod = null): void
-    {
-        $request = new Request();
-
-        $this->listener->onKernelController($this->createControllerEvent($request, $controllerClass, $controllerMethod));
-
-        $this->assertEquals('base.html.twig', $request->attributes->get('_template_path'));
-    }
-
-    // No template attribute -----
-
-    public function multipleTemplateAttributeControllerProvider(): array
-    {
-        return [
-            [TemplateController::class, 'multipleTemplateAttribute'],
-            [MultipleTemplateAttributeAction::class],
-        ];
-    }
-
-    /**
-     * @requires PHP 8.0
-     * @dataProvider multipleTemplateAttributeControllerProvider
-     */
-    public function testWithMultipleTemplateAttributes(string $controllerClass, ?string $controllerMethod = null): void
-    {
-        $request = new Request();
-
-        $this->listener->onKernelController($this->createControllerEvent($request, $controllerClass, $controllerMethod));
-
-        $this->assertEquals('base.html.twig', $request->attributes->get('_template_path'));
-    }
-
-    // Serialization context annotation -----
-
-    public function serializationContextAnnotationControllerProvider(): array
-    {
-        return [
-            [SerializationContextAnnotationAction::class],
-        ];
-    }
-
-    /**
-     * @dataProvider serializationContextAnnotationControllerProvider
-     */
-    public function testWithSerializationContextAnnotation(string $controllerClass, ?string $controllerMethod = null): void
-    {
-        $request = new Request();
-
-        $this->listener->onKernelController($this->createControllerEvent($request, $controllerClass, $controllerMethod));
-
-        $this->assertEquals(['groups' => 'group_one'], $request->attributes->get('_serialization_context'));
     }
 
     // Serialization context attribute -----
@@ -210,7 +92,6 @@ final class ControllerListenerTest extends TestCase
     }
 
     /**
-     * @requires PHP 8.0
      * @dataProvider serializationContextAttributeControllerProvider
      */
     public function testWithSerializationContextAttributes(string $controllerClass, ?string $controllerMethod = null): void

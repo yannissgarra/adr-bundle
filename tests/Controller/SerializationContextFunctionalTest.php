@@ -13,7 +13,6 @@ namespace Webmunkeez\ADRBundle\Test\Controller;
 
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\SerializationContextAnnotationAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\SerializationContextAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\SerializationContextController;
 
@@ -22,29 +21,6 @@ use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\SerializationContext
  */
 final class SerializationContextFunctionalTest extends WebTestCase
 {
-    // Serialization context annotation -----
-
-    public function serializationContextAnnotationUrlProvider(): array
-    {
-        return [
-            [SerializationContextController::SERIALIZATION_CONTEXT_ANNOTATION_ROUTE_URI],
-            [SerializationContextAnnotationAction::ROUTE_URI],
-        ];
-    }
-
-    /**
-     * @dataProvider serializationContextAnnotationUrlProvider
-     */
-    public function testSerializationContextAnnotationJsonSuccess(string $url): void
-    {
-        $client = static::createClient();
-        $client->jsonRequest('GET', $url);
-
-        $this->checkJsonSuccess($client);
-    }
-
-    // Serialization context attribute -----
-
     public function serializationContextAttributeUrlProvider(): array
     {
         return [
@@ -54,7 +30,6 @@ final class SerializationContextFunctionalTest extends WebTestCase
     }
 
     /**
-     * @requires PHP 8.0
      * @dataProvider serializationContextAttributeUrlProvider
      */
     public function testSerializationContextAttributeJsonSuccess(string $url): void

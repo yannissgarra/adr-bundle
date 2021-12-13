@@ -13,7 +13,7 @@ namespace Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Webmunkeez\ADRBundle\Annotation\Template;
+use Webmunkeez\ADRBundle\Attribute\Template;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Story;
 
 /**

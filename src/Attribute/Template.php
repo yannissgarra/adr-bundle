@@ -9,27 +9,21 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\ADRBundle\Annotation;
+namespace Webmunkeez\ADRBundle\Attribute;
 
 use Attribute;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
- * @Annotation
- * @Target({"CLASS","METHOD"})
  */
-#[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
-final class Template implements AnnotationInterface
+#[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
+final class Template implements AttributeInterface
 {
     private string $path;
 
-    public function __construct($data)
+    public function __construct(string $path)
     {
-        if (true === is_array($data) && true === isset($data['value'])) {
-            $this->path = $data['value'];
-        } else {
-            $this->path = $data;
-        }
+        $this->path = $path;
     }
 
     public function getValue()

@@ -9,27 +9,21 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\ADRBundle\Annotation;
+namespace Webmunkeez\ADRBundle\Attribute;
 
 use Attribute;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
- * @Annotation
- * @Target({"CLASS","METHOD"})
  */
-#[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
-final class SerializationContext implements AnnotationInterface
+#[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
+final class SerializationContext implements AttributeInterface
 {
     private array $context;
 
-    public function __construct($data)
+    public function __construct(array $context)
     {
-        if (true === is_array($data) && true === isset($data['value'])) {
-            $this->context = $data['value'];
-        } else {
-            $this->context = $data;
-        }
+        $this->context = $context;
     }
 
     public function getValue()

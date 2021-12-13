@@ -15,11 +15,7 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 use Webmunkeez\ADRBundle\Exception\NoResponderFoundException;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAnnotationAction;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\MultipleTemplateAttributeAction;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\NoTemplateAnnotationAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\NoTemplateAttributeAction;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateAnnotationAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateController;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Story;
@@ -29,38 +25,6 @@ use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Story;
  */
 final class TemplateFunctionalTest extends WebTestCase
 {
-    // Template annotation -----
-
-    public function templateAnnotationUrlProvider(): array
-    {
-        return [
-            [TemplateController::TEMPLATE_ANNOTATION_ROUTE_URI],
-            [TemplateAnnotationAction::ROUTE_URI],
-        ];
-    }
-
-    /**
-     * @dataProvider templateAnnotationUrlProvider
-     */
-    public function testTemplateAnnotationHtmlSuccess(string $url): void
-    {
-        $client = static::createClient();
-        $crawler = $client->request('GET', $url);
-
-        $this->checkHtmlSuccess($client, $crawler);
-    }
-
-    /**
-     * @dataProvider templateAnnotationUrlProvider
-     */
-    public function testTemplateAnnotationJsonSuccess(string $url): void
-    {
-        $client = static::createClient();
-        $client->jsonRequest('GET', $url);
-
-        $this->checkJsonSuccess($client);
-    }
-
     // Template attribute -----
 
     public function templateAttributeUrlProvider(): array
@@ -72,7 +36,6 @@ final class TemplateFunctionalTest extends WebTestCase
     }
 
     /**
-     * @requires PHP 8.0
      * @dataProvider templateAttributeUrlProvider
      */
     public function testTemplateAttributeHtmlSuccess(string $url): void
@@ -84,43 +47,9 @@ final class TemplateFunctionalTest extends WebTestCase
     }
 
     /**
-     * @requires PHP 8.0
      * @dataProvider templateAttributeUrlProvider
      */
     public function testTemplateAttributeJsonSuccess(string $url): void
-    {
-        $client = static::createClient();
-        $client->jsonRequest('GET', $url);
-
-        $this->checkJsonSuccess($client);
-    }
-
-    // No template annotation -----
-
-    public function noTemplateAnnotationUrlProvider(): array
-    {
-        return [
-            [TemplateController::NO_TEMPLATE_ANNOTATION_ROUTE_URI],
-            [NoTemplateAnnotationAction::ROUTE_URI],
-        ];
-    }
-
-    /**
-     * @dataProvider noTemplateAnnotationUrlProvider
-     */
-    public function testNoTemplateAnnotationHtmlFail(string $url): void
-    {
-        $this->expectException(NoResponderFoundException::class);
-
-        $client = static::createClient();
-        $client->catchExceptions(false);
-        $client->request('GET', $url);
-    }
-
-    /**
-     * @dataProvider noTemplateAnnotationUrlProvider
-     */
-    public function testNoTemplateAnnotationJsonSuccess(string $url): void
     {
         $client = static::createClient();
         $client->jsonRequest('GET', $url);
@@ -139,7 +68,6 @@ final class TemplateFunctionalTest extends WebTestCase
     }
 
     /**
-     * @requires PHP 8.0
      * @dataProvider noTemplateAttributeUrlProvider
      */
     public function testNoTemplateAttributeHtmlFail(string $url): void
@@ -152,76 +80,9 @@ final class TemplateFunctionalTest extends WebTestCase
     }
 
     /**
-     * @requires PHP 8.0
      * @dataProvider noTemplateAttributeUrlProvider
      */
     public function testNoTemplateAttributeJsonSuccess(string $url): void
-    {
-        $client = static::createClient();
-        $client->jsonRequest('GET', $url);
-
-        $this->checkJsonSuccess($client);
-    }
-
-    // Multiple template annotation -----
-
-    public function multipleTemplateAnnotationUrlProvider(): array
-    {
-        return [
-            [TemplateController::MULTIPLE_TEMPLATE_ANNOTATION_ROUTE_URI],
-            [MultipleTemplateAnnotationAction::ROUTE_URI],
-        ];
-    }
-
-    /**
-     * @dataProvider multipleTemplateAnnotationUrlProvider
-     */
-    public function testMultipleTemplateAnnotationHtmlSuccess(string $url): void
-    {
-        $client = static::createClient();
-        $crawler = $client->request('GET', $url);
-
-        $this->checkHtmlSuccess($client, $crawler);
-    }
-
-    /**
-     * @dataProvider multipleTemplateAnnotationUrlProvider
-     */
-    public function testMultipleTemplateAnnotationJsonSuccess(string $url): void
-    {
-        $client = static::createClient();
-        $client->jsonRequest('GET', $url);
-
-        $this->checkJsonSuccess($client);
-    }
-
-    // Multiple template attribute -----
-
-    public function multipleTemplateAttributeUrlProvider(): array
-    {
-        return [
-            [TemplateController::MULTIPLE_TEMPLATE_ATTRIBUTE_ROUTE_URI],
-            [MultipleTemplateAttributeAction::ROUTE_URI],
-        ];
-    }
-
-    /**
-     * @requires PHP 8.0
-     * @dataProvider multipleTemplateAttributeUrlProvider
-     */
-    public function testMultipleTemplateAttributeHtmlSuccess(string $url): void
-    {
-        $client = static::createClient();
-        $crawler = $client->request('GET', $url);
-
-        $this->checkHtmlSuccess($client, $crawler);
-    }
-
-    /**
-     * @requires PHP 8.0
-     * @dataProvider multipleTemplateAttributeUrlProvider
-     */
-    public function testMultipleTemplateAttributeJsonSuccess(string $url): void
     {
         $client = static::createClient();
         $client->jsonRequest('GET', $url);

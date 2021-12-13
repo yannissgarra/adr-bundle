@@ -9,9 +9,9 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\ADRBundle\Annotation;
+namespace Webmunkeez\ADRBundle\Attribute;
 
-interface AnnotationInterface
+interface AttributeInterface
 {
     /**
      * @return mixed

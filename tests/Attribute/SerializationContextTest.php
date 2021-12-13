@@ -12,23 +12,16 @@ declare(strict_types=1);
 namespace Webmunkeez\ADRBundle\Test\Annotation;
 
 use PHPUnit\Framework\TestCase;
-use Webmunkeez\ADRBundle\Annotation\SerializationContext;
+use Webmunkeez\ADRBundle\Attribute\SerializationContext;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
 final class SerializationContextTest extends TestCase
 {
-    public function testWithStringSuccess(): void
+    public function testWithSuccess(): void
     {
         $template = new SerializationContext(['groups' => 'group_one']);
-
-        $this->assertEquals(['groups' => 'group_one'], $template->getValue());
-    }
-
-    public function testWithArraySuccess(): void
-    {
-        $template = new SerializationContext(['value' => ['groups' => 'group_one']]);
 
         $this->assertEquals(['groups' => 'group_one'], $template->getValue());
     }

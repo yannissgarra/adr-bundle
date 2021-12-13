@@ -13,7 +13,7 @@ namespace Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Webmunkeez\ADRBundle\Annotation\SerializationContext;
+use Webmunkeez\ADRBundle\Attribute\SerializationContext;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Story;
 
 /**
@@ -22,20 +22,10 @@ use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Story;
 final class SerializationContextController extends AbstractAction
 {
     public const SERIALIZATION_CONTEXT_ATTRIBUTE_ROUTE_URI = '/serialization-context-attribute-controller';
-    public const SERIALIZATION_CONTEXT_ANNOTATION_ROUTE_URI = '/serialization-context-annotation-controller';
 
     #[Route(self::SERIALIZATION_CONTEXT_ATTRIBUTE_ROUTE_URI)]
     #[SerializationContext(['groups' => 'group_one'])]
     public function templateAttribute(): Response
-    {
-        return $this->render(Story::initData());
-    }
-
-    /**
-     * @Route("/serialization-context-annotation-controller")
-     * @SerializationContext({"groups": "group_one"})
-     */
-    public function templateAnnotation(): Response
     {
         return $this->render(Story::initData());
     }
