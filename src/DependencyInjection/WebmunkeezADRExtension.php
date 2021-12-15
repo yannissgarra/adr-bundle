@@ -14,7 +14,7 @@ namespace Webmunkeez\ADRBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Webmunkeez\ADRBundle\Action\ActionInterface;
 use Webmunkeez\ADRBundle\Response\Responder;
 use Webmunkeez\ADRBundle\Response\ResponderAwareInterface;
@@ -27,9 +27,9 @@ final class WebmunkeezADRExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
-        $loader->load('event_listeners.xml');
-        $loader->load('responders.xml');
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../config'));
+        $loader->load('event_listeners.php');
+        $loader->load('responders.php');
 
         $container->registerForAutoconfiguration(ResponderInterface::class)
             ->addTag('webmunkeez.responder')
