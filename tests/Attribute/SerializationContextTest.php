@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\ADRBundle\Test\Annotation;
+namespace Webmunkeez\ADRBundle\Test\Attribute;
 
 use PHPUnit\Framework\TestCase;
 use Webmunkeez\ADRBundle\Attribute\SerializationContext;
