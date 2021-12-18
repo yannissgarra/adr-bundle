@@ -16,9 +16,9 @@ namespace Webmunkeez\ADRBundle\Response;
  */
 trait ResponderAwareTrait
 {
-    private Responder $responder;
+    private ResponderInterface $responder;
 
-    public function setResponder(Responder $responder): void
+    public function setResponder(ResponderInterface $responder): void
     {
         $this->responder = $responder;
     }

@@ -17,16 +17,30 @@ use Webmunkeez\ADRBundle\Exception\NoResponderFoundException;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class Responder
+final class Responder implements ResponderInterface
 {
     /**
      * @var array<ResponderInterface>
      */
     private array $responders = [];
+    private ResponderInterface $responder;
 
     public function addResponder(ResponderInterface $responder): void
     {
         $this->responders[] = $responder;
+    }
+
+    public function supports(): bool
+    {
+        foreach ($this->responders as $responder) {
+            if (true === $responder->supports()) {
+                $this->responder = $responder;
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -34,10 +48,8 @@ final class Responder
      */
     public function render(array $data = []): Response
     {
-        foreach ($this->responders as $responder) {
-            if (true === $responder->supports()) {
-                return $responder->render($data);
-            }
+        if (true === $this->supports()) {
+            return $this->responder->render($data);
         }
 
         throw new NoResponderFoundException();

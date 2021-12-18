@@ -13,14 +13,14 @@ namespace Webmunkeez\ADRBundle\Action;
 
 use Symfony\Component\HttpFoundation\Response;
 use Webmunkeez\ADRBundle\Exception\NoResponderFoundException;
-use Webmunkeez\ADRBundle\Response\Responder;
+use Webmunkeez\ADRBundle\Response\ResponderInterface;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
 trait ActionTrait
 {
-    private Responder $responder;
+    private ResponderInterface $responder;
 
     /**
      * @param array<mixed> $data

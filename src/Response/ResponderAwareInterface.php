@@ -16,5 +16,5 @@ namespace Webmunkeez\ADRBundle\Response;
  */
 interface ResponderAwareInterface
 {
-    public function setResponder(Responder $responder): void;
+    public function setResponder(ResponderInterface $responder): void;
 }
