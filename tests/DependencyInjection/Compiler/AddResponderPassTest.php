@@ -39,7 +39,7 @@ final class AddResponderPassTest extends TestCase
     public function testProcess()
     {
         $responder1 = new Definition();
-        $responder1->setTags(['webmunkeez.responder' => [
+        $responder1->setTags(['webmunkeez_adr.responder' => [
                 [
                     'priority' => 0,
                 ],
@@ -49,7 +49,7 @@ final class AddResponderPassTest extends TestCase
 
         $responder2 = new Definition();
         $responder2->setTags([
-            'webmunkeez.responder' => [
+            'webmunkeez_adr.responder' => [
                 [
                     'priority' => 10,
                 ],
