@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Webmunkeez\ADRBundle\Response;
 
 use Symfony\Component\HttpFoundation\Response;
+use Webmunkeez\ADRBundle\Exception\RenderException;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -22,6 +23,8 @@ interface ResponderInterface
 
     /**
      * @param array<mixed> $data
+     *
+     * @throws RenderException
      */
     public function render(array $data = []): Response;
 }

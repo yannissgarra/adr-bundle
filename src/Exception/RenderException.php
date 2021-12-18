@@ -11,16 +11,14 @@ declare(strict_types=1);
 
 namespace Webmunkeez\ADRBundle\Exception;
 
-use Throwable;
-
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class NoResponderFoundException extends RuntimeException
+final class RenderException extends RuntimeException
 {
-    public function __construct(string $message = '', int $code = 0, ?Throwable $previous = null)
+    public function __construct(string $message = '', int $code = 0, ?\Throwable $previous = null)
     {
-        $message = false === empty($message) ? $message : 'No responder was found to render the data.';
+        $message = false === empty($message) ? $message : 'Responder cannot render the data.';
 
         parent::__construct($message, $code, $previous);
     }

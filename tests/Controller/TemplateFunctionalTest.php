@@ -14,7 +14,7 @@ namespace Webmunkeez\ADRBundle\Test\Controller;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
-use Webmunkeez\ADRBundle\Exception\NoResponderFoundException;
+use Webmunkeez\ADRBundle\Exception\RenderException;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\NoTemplateAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateController;
@@ -72,7 +72,7 @@ final class TemplateFunctionalTest extends WebTestCase
      */
     public function testNoTemplateAttributeHtmlFail(string $url): void
     {
-        $this->expectException(NoResponderFoundException::class);
+        $this->expectException(RenderException::class);
 
         $client = static::createClient();
         $client->catchExceptions(false);

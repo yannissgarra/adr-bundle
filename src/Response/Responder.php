@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace Webmunkeez\ADRBundle\Response;
 
 use Symfony\Component\HttpFoundation\Response;
-use Webmunkeez\ADRBundle\Exception\NoResponderFoundException;
+use Webmunkeez\ADRBundle\Exception\RenderException;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -43,15 +43,12 @@ final class Responder implements ResponderInterface
         return false;
     }
 
-    /**
-     * @throws NoResponderFoundException
-     */
     public function render(array $data = []): Response
     {
         if (true === $this->supports()) {
             return $this->responder->render($data);
         }
 
-        throw new NoResponderFoundException();
+        throw new RenderException();
     }
 }

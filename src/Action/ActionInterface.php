@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace Webmunkeez\ADRBundle\Action;
 
 use Symfony\Component\HttpFoundation\Response;
-use Webmunkeez\ADRBundle\Exception\NoResponderFoundException;
+use Webmunkeez\ADRBundle\Exception\RenderException;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -22,7 +22,7 @@ interface ActionInterface
     /**
      * @param array<mixed> $data
      *
-     * @throws NoResponderFoundException
+     * @throws RenderException
      */
     public function render(array $data = []): Response;
 }

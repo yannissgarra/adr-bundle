@@ -14,7 +14,7 @@ namespace Webmunkeez\ADRBundle\Test\Response;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
-use Webmunkeez\ADRBundle\Exception\NoResponderFoundException;
+use Webmunkeez\ADRBundle\Exception\RenderException;
 use Webmunkeez\ADRBundle\Response\Responder;
 use Webmunkeez\ADRBundle\Response\ResponderInterface;
 
@@ -76,7 +76,7 @@ final class ResponderTest extends TestCase
 
     public function testRenderFail(): void
     {
-        $this->expectException(NoResponderFoundException::class);
+        $this->expectException(RenderException::class);
 
         $responder = new Responder();
         $responder->addResponder($this->unsupportsResponder);
