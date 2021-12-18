@@ -23,6 +23,8 @@ trait ActionTrait
     private Responder $responder;
 
     /**
+     * @param array<mixed> $data
+     *
      * @throws NoResponderFoundException
      */
     public function render(array $data = []): Response

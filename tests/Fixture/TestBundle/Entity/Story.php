@@ -40,6 +40,9 @@ final class Story
         return $this->content;
     }
 
+    /**
+     * @return array<string, Story>
+     */
     public static function initData(): array
     {
         return ['story' => new Story('Story title', 'Story content')];

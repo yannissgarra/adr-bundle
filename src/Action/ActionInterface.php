@@ -20,6 +20,8 @@ use Webmunkeez\ADRBundle\Exception\NoResponderFoundException;
 interface ActionInterface
 {
     /**
+     * @param array<mixed> $data
+     *
      * @throws NoResponderFoundException
      */
     public function render(array $data = []): Response;

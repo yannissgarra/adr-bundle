@@ -20,5 +20,8 @@ interface ResponderInterface
 {
     public function supports(): bool;
 
+    /**
+     * @param array<mixed> $data
+     */
     public function render(array $data = []): Response;
 }
