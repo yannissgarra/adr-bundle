@@ -20,7 +20,7 @@ use Webmunkeez\ADRBundle\Exception\NoResponderFoundException;
 final class Responder
 {
     /**
-     * @var ResponderInterface[]
+     * @var array<ResponderInterface>
      */
     private array $responders = [];
 
