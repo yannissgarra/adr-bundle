@@ -11,6 +11,9 @@ declare(strict_types=1);
 
 namespace Webmunkeez\ADRBundle\Attribute;
 
+/**
+ * @author Yannis Sgarra <hello@yannissgarra.com>
+ */
 interface AttributeInterface
 {
     /**
