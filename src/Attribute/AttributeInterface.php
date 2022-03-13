@@ -21,5 +21,5 @@ interface AttributeInterface
      */
     public function getValue();
 
-    public function getAliasName(): string;
+    public static function getAliasName(): string;
 }

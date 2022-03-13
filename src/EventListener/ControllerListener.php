@@ -51,7 +51,7 @@ final class ControllerListener
         $request = $event->getRequest();
 
         foreach ($attributes as $attribute) {
-            $request->attributes->set('_'.$attribute->getAliasName(), $attribute->getValue());
+            $request->attributes->set('_'.$attribute::getAliasName(), $attribute->getValue());
         }
     }
 }

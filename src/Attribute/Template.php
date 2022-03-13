@@ -31,7 +31,7 @@ final class Template implements AttributeInterface
         return $this->path;
     }
 
-    public function getAliasName(): string
+    public static function getAliasName(): string
     {
         return 'template_path';
     }

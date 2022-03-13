@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
+use Webmunkeez\ADRBundle\Attribute\SerializationContext;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -38,7 +39,7 @@ final class JsonResponder implements ResponderInterface
 
     public function render(array $data = []): Response
     {
-        $serializationContext = $this->requestStack->getCurrentRequest()->attributes->get('_serialization_context', []);
+        $serializationContext = $this->requestStack->getCurrentRequest()->attributes->get('_'.SerializationContext::getAliasName(), []);
         $json = $this->serializer->serialize($data, 'json', $serializationContext);
 
         return new JsonResponse($json, 200, [], true);

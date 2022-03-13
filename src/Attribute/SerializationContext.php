@@ -31,7 +31,7 @@ final class SerializationContext implements AttributeInterface
         return $this->context;
     }
 
-    public function getAliasName(): string
+    public static function getAliasName(): string
     {
         return 'serialization_context';
     }
