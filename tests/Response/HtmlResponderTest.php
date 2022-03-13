@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
+use Webmunkeez\ADRBundle\Exception\RenderException;
 use Webmunkeez\ADRBundle\Response\HtmlResponder;
 
 /**
@@ -51,7 +52,7 @@ final class HtmlResponderTest extends TestCase
 
     public function testSupports(): void
     {
-        $request = new Request([], [], ['_template_path' => 'base.html.twig'], [], [], ['HTTP_ACCEPT' => 'text/html']);
+        $request = new Request([], [], [], [], [], ['HTTP_ACCEPT' => 'text/html']);
         $this->requestStack->method('getCurrentRequest')->willReturn($request);
 
         $responder = new HtmlResponder($this->requestStack, $this->twig);
@@ -61,7 +62,7 @@ final class HtmlResponderTest extends TestCase
 
     public function testSupportsMissingAcceptHeader(): void
     {
-        $request = new Request([], [], ['_template_path' => 'base.html.twig']);
+        $request = new Request();
         $this->requestStack->method('getCurrentRequest')->willReturn($request);
 
         $responder = new HtmlResponder($this->requestStack, $this->twig);
@@ -72,17 +73,7 @@ final class HtmlResponderTest extends TestCase
 
     public function testUnsupportsWrongAcceptHeader(): void
     {
-        $request = new Request([], [], ['_template_path' => 'base.html.twig'], [], [], ['HTTP_ACCEPT' => 'application/json']);
-        $this->requestStack->method('getCurrentRequest')->willReturn($request);
-
-        $responder = new HtmlResponder($this->requestStack, $this->twig);
-
-        $this->assertFalse($responder->supports());
-    }
-
-    public function testUnsupportsMissingTemplatePath(): void
-    {
-        $request = new Request([], [], [], [], [], ['HTTP_ACCEPT' => 'text/html']);
+        $request = new Request([], [], [], [], [], ['HTTP_ACCEPT' => 'application/json']);
         $this->requestStack->method('getCurrentRequest')->willReturn($request);
 
         $responder = new HtmlResponder($this->requestStack, $this->twig);
@@ -101,5 +92,16 @@ final class HtmlResponderTest extends TestCase
         $this->assertInstanceOf(Response::class, $response);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('<p>Some HTML!</p>', $response->getContent());
+    }
+
+    public function testRenderMissingTemplatePath(): void
+    {
+        $this->expectException(RenderException::class);
+
+        $request = new Request([], [], [], [], [], ['HTTP_ACCEPT' => 'text/html']);
+        $this->requestStack->method('getCurrentRequest')->willReturn($request);
+
+        $responder = new HtmlResponder($this->requestStack, $this->twig);
+        $responder->render();
     }
 }

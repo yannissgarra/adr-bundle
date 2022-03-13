@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 use Webmunkeez\ADRBundle\Attribute\Template;
+use Webmunkeez\ADRBundle\Exception\RenderException;
+use Webmunkeez\ADRBundle\Exception\TemplateMissingException;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -33,12 +35,15 @@ final class HtmlResponder implements ResponderInterface
     public function supports(): bool
     {
         return null !== $this->requestStack->getCurrentRequest()
-            && 'html' === $this->requestStack->getCurrentRequest()->getPreferredFormat()
-            && null !== $this->requestStack->getCurrentRequest()->attributes->get('_'.Template::getAliasName());
+            && 'html' === $this->requestStack->getCurrentRequest()->getPreferredFormat();
     }
 
     public function render(array $data = []): Response
     {
+        if (null === $this->requestStack->getCurrentRequest()->attributes->get('_'.Template::getAliasName())) {
+            throw new RenderException('', 0, new TemplateMissingException());
+        }
+
         $templatePath = $this->requestStack->getCurrentRequest()->attributes->get('_'.Template::getAliasName());
         $html = $this->twig->render($templatePath, $data);
 

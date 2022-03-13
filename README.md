@@ -180,7 +180,7 @@ final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInte
 }
 ```
 
-This responder is active if the request contains `HTTP_ACCEPT text/html` header and if there is the Template attribute.  
+This responder is active if the request contains `HTTP_ACCEPT text/html` header (warning: a twig template is needed for this responder, otherwise it will throw an `\Webmunkeez\ADRBundle\Exception\RenderException` exception).  
 It has a `priority: -20`.
 
 ##### JsonResponder
