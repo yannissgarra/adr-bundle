@@ -37,14 +37,10 @@ final class ControllerListener
         $method = $object->getMethod($controller[1]);
 
         /** @var AttributeInterface[] $objectAttributes */
-        $objectAttributes = array_map(function (ReflectionAttribute $attribute) {
-            return $attribute->newInstance();
-        }, $object->getAttributes(AttributeInterface::class, ReflectionAttribute::IS_INSTANCEOF));
+        $objectAttributes = array_map(fn (ReflectionAttribute $attribute): AttributeInterface => $attribute->newInstance(), $object->getAttributes(AttributeInterface::class, ReflectionAttribute::IS_INSTANCEOF));
 
         /** @var AttributeInterface[] $methodAttributes */
-        $methodAttributes = array_map(function (ReflectionAttribute $attribute) {
-            return $attribute->newInstance();
-        }, $method->getAttributes(AttributeInterface::class, ReflectionAttribute::IS_INSTANCEOF));
+        $methodAttributes = array_map(fn (ReflectionAttribute $attribute): AttributeInterface => $attribute->newInstance(), $method->getAttributes(AttributeInterface::class, ReflectionAttribute::IS_INSTANCEOF));
 
         $attributes = array_merge($objectAttributes, $methodAttributes);
 
