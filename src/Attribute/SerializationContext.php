@@ -11,12 +11,10 @@ declare(strict_types=1);
 
 namespace Webmunkeez\ADRBundle\Attribute;
 
-use Attribute;
-
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-#[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
+#[\Attribute(\Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
 final class SerializationContext implements AttributeInterface
 {
     private array $context;
