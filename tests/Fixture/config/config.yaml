@@ -3,7 +3,7 @@ framework:
     secret: test
     router:
         utf8: true
-        resource: "%kernel.project_dir%/config/routing.yaml"
+        resource: '%kernel.project_dir%/config/routing.yaml'
 
 twig:
     strict_variables: true
@@ -12,7 +12,7 @@ twig:
 services:
     # default configuration for services in *this* file
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
+        autowire: true # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
     # makes classes in TestBundle/ available to be used as services
