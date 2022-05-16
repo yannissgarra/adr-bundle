@@ -59,15 +59,13 @@ final class StoryController implements \Webmunkeez\ADRBundle\Action\ActionInterf
         return new Response(...);
     }
 }
-
 ```
 
 (Each service that implements `ActionInterface` is automatically tagged `controller.service_arguments`)
 
 ### Responders
 
-__Responders__ are services which take data and return it in a __Response__.  
-It can be a response containing HTML or a JsonResponse, or whatever you want, as far as it is a `Symfony\Component\HttpFoundation\Response` instance.
+__Responders__ are services which take data and return it in a __Response__.  It can be a response containing HTML or a JsonResponse, or whatever you want, as far as it is a `Symfony\Component\HttpFoundation\Response` instance.
 
 In this bundle, there is a responder manager `\Webmunkeez\ADRBundle\Response\Responder` that you can inject into your actions (or controllers).
 
