@@ -41,7 +41,6 @@ final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInte
         return new Response(...);
     }
 }
-
 ```
 
 But, it can be a more classic __Controller__ that implements the same interface:
@@ -65,7 +64,8 @@ final class StoryController implements \Webmunkeez\ADRBundle\Action\ActionInterf
 
 ### Responders
 
-__Responders__ are services which take data and return it in a __Response__.  It can be a response containing HTML or a JsonResponse, or whatever you want, as far as it is a `Symfony\Component\HttpFoundation\Response` instance.
+__Responders__ are services which take data and return it in a __Response__.  
+It can be a response containing HTML or a JsonResponse, or whatever you want, as far as it is a `Symfony\Component\HttpFoundation\Response` instance.
 
 In this bundle, there is a responder manager `\Webmunkeez\ADRBundle\Response\Responder` that you can inject into your actions (or controllers).
 
@@ -120,6 +120,18 @@ final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInte
     use \Webmunkeez\ADRBundle\Response\ResponderAwareTrait;
     use \Webmunkeez\ADRBundle\Action\ActionTrait;
     
+    public function __invoke(): Response
+    {
+        return $this->render($data);
+    }
+}
+```
+
+Or directly extend `\Webmunkeez\ADRBundle\Action\AbstractAction`:
+
+```php
+final class StoryDetailAction extends \Webmunkeez\ADRBundle\Action\AbstractAction
+{
     public function __invoke(): Response
     {
         return $this->render($data);
@@ -233,6 +245,21 @@ final class CustomResponder implements \Webmunkeez\ADRBundle\Response\ResponderI
         $html = $this->twig->render($this->requestStack->getCurrentRequest()->attributes->get('_template_path'), $data);
 
         return new Response($html);
+    }
+}
+```
+
+### Param Converter
+
+ParamConverters are a way to populate objects and inject them as controller method arguments. The `RequestDataParamConverter` converter comes with ADRBundle and makes it possible to deserialize the request data (route params, query params, json request body) into an object.
+
+```php
+#[Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter\ParamConverter('story', converter: Webmunkeez\ADRBundle\Request\ParamConverter\RequestDataParamConverter::CONVERTER)]
+final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInterface
+{
+    public function __invoke(Story $story): Response
+    {
+        ...
     }
 }
 ```

@@ -29,6 +29,7 @@ final class WebmunkeezADRExtension extends Extension
     {
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../config'));
         $loader->load('event_listeners.php');
+        $loader->load('param_converters.php');
         $loader->load('responders.php');
 
         $container->registerForAutoconfiguration(ResponderInterface::class)
