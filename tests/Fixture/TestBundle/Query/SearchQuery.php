@@ -18,15 +18,15 @@ use Symfony\Component\Uid\Uuid;
  */
 final class SearchQuery
 {
-    final public const ID = '4e088a18-ecb6-4250-b103-83f7a5a63415';
-    final public const SLUG = 'this-is-a-test';
-    final public const QUERY = 'This is the query!';
-    final public const MIN_PRICE = 3.99;
-    final public const FILTERS = [
+    public const ID = '4e088a18-ecb6-4250-b103-83f7a5a63415';
+    public const SLUG = 'this-is-a-test';
+    public const QUERY = 'This is the query!';
+    public const MIN_PRICE = 3.99;
+    public const FILTERS = [
         'main_category' => 'Product',
         'brand' => 'No Name',
     ];
-    final public const PAGE = 2;
+    public const PAGE = 2;
 
     private Uuid $id;
     private string $slug;

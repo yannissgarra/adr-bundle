@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 final class RequestDataParamConverter implements ParamConverterInterface
 {
-    final public const CONVERTER = 'request_data';
+    public const CONVERTER = 'request_data';
 
     private SerializerInterface $serializer;
 
