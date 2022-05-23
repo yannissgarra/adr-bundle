@@ -35,6 +35,16 @@ final class TestSearch
     private array $filters;
     private int $page;
 
+    public function __construct(Uuid $id, string $slug, string $query, float $minPrice, array $filters, int $page)
+    {
+        $this->id = $id;
+        $this->slug = $slug;
+        $this->query = $query;
+        $this->minPrice = $minPrice;
+        $this->filters = $filters;
+        $this->page = $page;
+    }
+
     public function getId(): Uuid
     {
         return $this->id;
