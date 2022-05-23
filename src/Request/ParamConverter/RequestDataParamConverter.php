@@ -40,7 +40,7 @@ final class RequestDataParamConverter implements ParamConverterInterface
     public function apply(Request $request, ParamConverter $configuration): bool
     {
         try {
-            $routeData = $request->attributes->get('_route_params');
+            $routeData = $request->attributes->get('_route_params', []);
 
             $queryData = $request->query->all();
 
