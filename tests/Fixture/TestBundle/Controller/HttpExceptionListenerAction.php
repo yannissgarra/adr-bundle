@@ -20,9 +20,9 @@ use Webmunkeez\ADRBundle\Action\AbstractAction;
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
 #[Route(self::ROUTE_URI)]
-final class ExceptionListenerAction extends AbstractAction
+final class HttpExceptionListenerAction extends AbstractAction
 {
-    public const ROUTE_URI = '/exception-listener-action';
+    public const ROUTE_URI = '/http-exception-listener-action';
 
     public function __invoke(): Response
     {

@@ -22,12 +22,12 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Serializer\SerializerInterface;
-use Webmunkeez\ADRBundle\EventListener\ExceptionListener;
+use Webmunkeez\ADRBundle\EventListener\HttpExceptionListener;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class ExceptionListenerTest extends TestCase
+final class HttpExceptionListenerTest extends TestCase
 {
     /** @var KernelInterface&MockObject */
     private KernelInterface $kernel;
@@ -35,7 +35,7 @@ final class ExceptionListenerTest extends TestCase
     /** @var SerializerInterface&MockObject */
     private SerializerInterface $serializer;
 
-    private ExceptionListener $listener;
+    private HttpExceptionListener $listener;
 
     protected function setUp(): void
     {
@@ -47,7 +47,7 @@ final class ExceptionListenerTest extends TestCase
         $serializer = $this->getMockBuilder(SerializerInterface::class)->disableOriginalConstructor()->getMock();
         $this->serializer = $serializer;
 
-        $this->listener = new ExceptionListener($this->serializer);
+        $this->listener = new HttpExceptionListener($this->serializer);
     }
 
     public function testWithHttpExceptionAndJSONAcceptHeaderShouldSucceed(): void
@@ -94,7 +94,7 @@ final class ExceptionListenerTest extends TestCase
 
     public function testWithWrongAcceptHeaderShouldFail(): void
     {
-        $exception = new \Exception();
+        $exception = new NotFoundHttpException();
 
         $request = new Request([], [], [], [], [], ['HTTP_ACCEPT' => 'text/html']);
 

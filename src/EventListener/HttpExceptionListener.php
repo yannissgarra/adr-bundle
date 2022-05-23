@@ -20,7 +20,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class ExceptionListener
+final class HttpExceptionListener
 {
     private SerializerInterface $serializer;
 
