@@ -14,6 +14,7 @@ namespace Webmunkeez\ADRBundle\Test\Controller;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\HttpFoundation\Response;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\CustomResponderAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Test;
 
@@ -32,7 +33,7 @@ final class CustomResponderFunctionalTest extends WebTestCase
 
     private function checkHtmlSucceed(KernelBrowser $client, Crawler $crawler): void
     {
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('text/html', $client->getResponse()->headers->get('content-type'));
         $this->assertSame('Title: '.Test::TITLE, $crawler->filter('p.title')->first()->text());
         $this->assertSame('Content: '.Test::CONTENT, $crawler->filter('p.content')->first()->text());

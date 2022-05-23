@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Webmunkeez\ADRBundle\Test\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\ParamConverterAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\TestSearch;
@@ -33,7 +34,7 @@ final class ParamConverterFunctionalTest extends WebTestCase
             'query' => TestSearch::QUERY,
         ]));
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
 
     public function testWithoutUuidShouldFail(): void
