@@ -263,3 +263,7 @@ final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInte
     }
 }
 ```
+
+### Http Exception Listener
+
+If you request an `Action` with `HTTP_ACCEPT application/json` header and if this `Action` throws an Exception that implements `Symfony\Component\HttpKernel\Exception\HttpExceptionInterface`, its content will automatically be serialized in a JSON reading format to the `Response` body content.
