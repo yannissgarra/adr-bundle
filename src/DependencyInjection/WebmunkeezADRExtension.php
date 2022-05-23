@@ -33,6 +33,7 @@ final class WebmunkeezADRExtension extends Extension implements PrependExtension
         $loader->load('event_listeners.php');
         $loader->load('param_converters.php');
         $loader->load('responders.php');
+        $loader->load('serializer.php');
 
         $container->registerForAutoconfiguration(ResponderInterface::class)
             ->addTag('webmunkeez_adr.responder')
