@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\CQRSBundle\Test\Serializer\Normalizer;
+namespace Webmunkeez\ADRBundle\Test\Serializer\Normalizer;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
