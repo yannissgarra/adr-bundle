@@ -14,6 +14,7 @@ namespace Webmunkeez\ADRBundle\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
 use Webmunkeez\ADRBundle\Attribute\SerializationContext;
 
@@ -34,14 +35,14 @@ final class JsonResponder implements ResponderInterface
     public function supports(): bool
     {
         return null !== $this->requestStack->getCurrentRequest()
-            && 'json' === $this->requestStack->getCurrentRequest()->getPreferredFormat();
+            && JsonEncoder::FORMAT === $this->requestStack->getCurrentRequest()->getPreferredFormat();
     }
 
     public function render(array $data = []): Response
     {
         $serializationContext = $this->requestStack->getCurrentRequest()->attributes->get('_'.SerializationContext::getAliasName(), []);
-        $json = $this->serializer->serialize($data, 'json', $serializationContext);
+        $json = $this->serializer->serialize($data, JsonEncoder::FORMAT, $serializationContext);
 
-        return new JsonResponse($json, 200, [], true);
+        return new JsonResponse($json, Response::HTTP_OK, [], true);
     }
 }
