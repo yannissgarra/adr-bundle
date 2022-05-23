@@ -14,6 +14,7 @@ namespace Webmunkeez\ADRBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Webmunkeez\ADRBundle\Action\ActionInterface;
@@ -24,7 +25,7 @@ use Webmunkeez\ADRBundle\Response\ResponderInterface;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class WebmunkeezADRExtension extends Extension
+final class WebmunkeezADRExtension extends Extension implements PrependExtensionInterface
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
@@ -44,5 +45,15 @@ final class WebmunkeezADRExtension extends Extension
         $container->registerForAutoconfiguration(ActionInterface::class)
             ->addTag('controller.service_arguments')
         ;
+    }
+
+    public function prepend(ContainerBuilder $container)
+    {
+        // define default config for serializer
+        $container->prependExtensionConfig('framework', [
+            'serializer' => [
+                'name_converter' => 'serializer.name_converter.camel_case_to_snake_case',
+            ],
+        ]);
     }
 }
