@@ -15,19 +15,19 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Webmunkeez\ADRBundle\Action\AbstractAction;
 use Webmunkeez\ADRBundle\Attribute\Template;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Story;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Test;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
 #[Route(self::ROUTE_URI)]
 #[Template('base.html.twig')]
-final class CustomResponderAttributeAction extends AbstractAction
+final class CustomResponderAction extends AbstractAction
 {
-    public const ROUTE_URI = '/custom-responder-attribute-action';
+    public const ROUTE_URI = '/custom-responder-action';
 
     public function __invoke(): Response
     {
-        return $this->render(Story::initData());
+        return $this->render(['test' => new Test(Test::TITLE, Test::CONTENT)]);
     }
 }

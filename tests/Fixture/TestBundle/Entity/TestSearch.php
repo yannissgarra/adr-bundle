@@ -9,14 +9,14 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Query;
+namespace Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity;
 
 use Symfony\Component\Uid\Uuid;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class SearchQuery
+final class TestSearch
 {
     public const ID = '4e088a18-ecb6-4250-b103-83f7a5a63415';
     public const SLUG = 'this-is-a-test';

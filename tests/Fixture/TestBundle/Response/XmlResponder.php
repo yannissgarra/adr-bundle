@@ -13,7 +13,9 @@ namespace Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Response;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
+use Webmunkeez\ADRBundle\Attribute\SerializationContext;
 use Webmunkeez\ADRBundle\Response\ResponderInterface;
 
 /**
@@ -37,7 +39,8 @@ final class XmlResponder implements ResponderInterface
 
     public function render(array $data = []): Response
     {
-        $xml = $this->serializer->serialize($data, 'xml');
+        $serializationContext = $this->requestStack->getCurrentRequest()->attributes->get('_'.SerializationContext::getAliasName(), []);
+        $xml = $this->serializer->serialize($data, XmlEncoder::FORMAT, $serializationContext);
 
         $response = new Response($xml);
         $response->headers->set('Content-Type', 'text/xml');

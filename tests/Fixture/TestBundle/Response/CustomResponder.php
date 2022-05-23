@@ -15,8 +15,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 use Webmunkeez\ADRBundle\Response\ResponderInterface;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\CustomResponderAnnotationAction;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\CustomResponderAttributeAction;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\CustomResponderAction;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -37,7 +36,7 @@ final class CustomResponder implements ResponderInterface
         $controller = $this->requestStack->getCurrentRequest()->attributes->get('_controller');
         $actionClass = false !== strpos($controller, '::') ? substr($controller, 0, strpos($controller, '::')) : $controller;
 
-        return CustomResponderAnnotationAction::class === $actionClass || CustomResponderAttributeAction::class === $actionClass;
+        return CustomResponderAction::class === $actionClass;
     }
 
     public function render(array $data = []): Response

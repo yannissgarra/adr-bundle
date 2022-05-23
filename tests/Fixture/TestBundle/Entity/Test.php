@@ -16,8 +16,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class Story
+final class Test
 {
+    public const TITLE = 'Test title';
+    public const CONTENT = 'Test content.';
+
     #[Groups(['group_one'])]
     private string $title;
 
@@ -38,13 +41,5 @@ final class Story
     public function getContent(): string
     {
         return $this->content;
-    }
-
-    /**
-     * @return array<string, Story>
-     */
-    public static function initData(): array
-    {
-        return ['story' => new Story('Story title', 'Story content')];
     }
 }

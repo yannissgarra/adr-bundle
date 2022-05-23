@@ -13,41 +13,41 @@ namespace Webmunkeez\ADRBundle\Test\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\ParamConverterController;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Query\SearchQuery;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\ParamConverterAction;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\TestSearch;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
 final class ParamConverterFunctionalTest extends WebTestCase
 {
-    public function testParamConverterSuccess(): void
+    public function testWithUuidShouldSucceed(): void
     {
         $client = static::createClient();
         $client->catchExceptions(false);
-        $client->request('GET', ParamConverterController::CONVERTER_SUCCESS_ROUTE_URI.'/'.SearchQuery::ID.'-'.SearchQuery::SLUG, [
-            'min_price' => (string) SearchQuery::MIN_PRICE,
-            'filters' => SearchQuery::FILTERS,
-            'page' => (string) SearchQuery::PAGE,
+        $client->request('GET', ParamConverterAction::CONVERTER_SUCCESS_ROUTE_URI.'/'.TestSearch::ID.'-'.TestSearch::SLUG, [
+            'min_price' => (string) TestSearch::MIN_PRICE,
+            'filters' => TestSearch::FILTERS,
+            'page' => (string) TestSearch::PAGE,
         ], [], [], json_encode([
-            'query' => SearchQuery::QUERY,
+            'query' => TestSearch::QUERY,
         ]));
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
-    public function testParamConverterFail(): void
+    public function testWithoutUuidShouldFail(): void
     {
         $this->expectException(BadRequestHttpException::class);
 
         $client = static::createClient();
         $client->catchExceptions(false);
-        $client->request('GET', ParamConverterController::CONVERTER_FAIL_ROUTE_URI.'/1-'.SearchQuery::SLUG, [
-            'min_price' => (string) SearchQuery::MIN_PRICE,
-            'filters' => SearchQuery::FILTERS,
-            'page' => (string) SearchQuery::PAGE,
+        $client->request('GET', ParamConverterAction::CONVERTER_FAIL_ROUTE_URI.'/1-'.TestSearch::SLUG, [
+            'min_price' => (string) TestSearch::MIN_PRICE,
+            'filters' => TestSearch::FILTERS,
+            'page' => (string) TestSearch::PAGE,
         ], [], [], json_encode([
-            'query' => SearchQuery::QUERY,
+            'query' => TestSearch::QUERY,
         ]));
     }
 }

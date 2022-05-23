@@ -14,28 +14,28 @@ namespace Webmunkeez\ADRBundle\Test\Controller;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\CustomResponderAttributeAction;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Story;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\CustomResponderAction;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Test;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
 final class CustomResponderFunctionalTest extends WebTestCase
 {
-    public function testCustomResponderAttributeSuccess(): void
+    public function testShouldSucceed(): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', CustomResponderAttributeAction::ROUTE_URI);
+        $crawler = $client->request('GET', CustomResponderAction::ROUTE_URI);
 
-        $this->checkHtmlSuccess($client, $crawler);
+        $this->checkHtmlSucceed($client, $crawler);
     }
 
-    private function checkHtmlSuccess(KernelBrowser $client, Crawler $crawler): void
+    private function checkHtmlSucceed(KernelBrowser $client, Crawler $crawler): void
     {
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('text/html', $client->getResponse()->headers->get('content-type'));
-        $this->assertSame('Title: '.Story::initData()['story']->getTitle(), $crawler->filter('p.title')->first()->text());
-        $this->assertSame('Content: '.Story::initData()['story']->getContent(), $crawler->filter('p.content')->first()->text());
+        $this->assertSame('Title: '.Test::TITLE, $crawler->filter('p.title')->first()->text());
+        $this->assertSame('Content: '.Test::CONTENT, $crawler->filter('p.content')->first()->text());
         $this->assertSame('CustomResponder', $crawler->filter('p.custom-responder')->first()->text());
     }
 }
