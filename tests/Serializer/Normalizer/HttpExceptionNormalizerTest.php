@@ -26,8 +26,6 @@ final class HttpExceptionNormalizerTest extends KernelTestCase
 
     protected function setUp(): void
     {
-        self::bootKernel();
-
         $this->serializer = static::getContainer()->get('serializer');
     }
 
