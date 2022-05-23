@@ -12,9 +12,13 @@ declare(strict_types=1);
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use Webmunkeez\ADRBundle\EventListener\ControllerListener;
+use Webmunkeez\ADRBundle\EventListener\ExceptionListener;
 
 return function (ContainerConfigurator $container) {
     $container->services()
         ->set(ControllerListener::class)
-            ->tag('kernel.event_listener', ['event' => 'kernel.controller']);
+            ->tag('kernel.event_listener', ['event' => 'kernel.controller'])
+        ->set(ExceptionListener::class)
+            ->args([service('serializer')])
+            ->tag('kernel.event_listener', ['event' => 'kernel.exception']);
 };
