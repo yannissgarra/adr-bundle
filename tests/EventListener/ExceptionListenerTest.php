@@ -68,8 +68,8 @@ final class ExceptionListenerTest extends TestCase
         $this->listener->onKernelException($event);
 
         $this->assertInstanceOf(JsonResponse::class, $event->getResponse());
-        $this->assertEquals(Response::HTTP_NOT_FOUND, $event->getResponse()->getStatusCode());
-        $this->assertEquals('application/problem+json', $event->getResponse()->headers->get('Content-Type'));
+        $this->assertSame(Response::HTTP_NOT_FOUND, $event->getResponse()->getStatusCode());
+        $this->assertSame('application/problem+json', $event->getResponse()->headers->get('Content-Type'));
     }
 
     public function testWithExceptionAndJSONAcceptHeaderShouldFail(): void

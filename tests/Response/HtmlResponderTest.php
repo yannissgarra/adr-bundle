@@ -83,8 +83,8 @@ final class HtmlResponderTest extends TestCase
         $response = $responder->render();
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals('<p>Some HTML!</p>', $response->getContent());
+        $this->assertSame(200, $response->getStatusCode());
+        $this->assertSame('<p>Some HTML!</p>', $response->getContent());
     }
 
     public function testRenderWithHTMLAcceptHeaderAndWithoutTemplatePathShouldFail(): void

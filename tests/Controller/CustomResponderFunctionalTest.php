@@ -33,7 +33,7 @@ final class CustomResponderFunctionalTest extends WebTestCase
 
     private function checkHtmlSucceed(KernelBrowser $client, Crawler $crawler): void
     {
-        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('text/html', $client->getResponse()->headers->get('content-type'));
         $this->assertSame('Title: '.Test::TITLE, $crawler->filter('p.title')->first()->text());
         $this->assertSame('Content: '.Test::CONTENT, $crawler->filter('p.content')->first()->text());

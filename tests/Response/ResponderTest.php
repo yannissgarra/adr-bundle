@@ -62,8 +62,8 @@ final class ResponderTest extends TestCase
         $responder->addResponder($this->supportsResponder);
 
         $this->assertInstanceOf(Response::class, $responder->render());
-        $this->assertEquals(200, $responder->render()->getStatusCode());
-        $this->assertEquals('SupportsResponder', $responder->render()->getContent());
+        $this->assertSame(200, $responder->render()->getStatusCode());
+        $this->assertSame('SupportsResponder', $responder->render()->getContent());
     }
 
     public function testRenderWithOnlyUnsupportsResponderShouldFail(): void

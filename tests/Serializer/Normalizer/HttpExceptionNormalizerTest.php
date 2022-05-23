@@ -37,8 +37,8 @@ final class HttpExceptionNormalizerTest extends KernelTestCase
 
         $data = (new HttpExceptionNormalizer())->normalize($exception);
 
-        $this->assertEquals('', $data['message']);
-        $this->assertEquals(0, $data['code']);
+        $this->assertSame('', $data['message']);
+        $this->assertSame(0, $data['code']);
     }
 
     public function testFunctionalNormalizeWithHttpExceptionShouldSucceed(): void
@@ -47,6 +47,6 @@ final class HttpExceptionNormalizerTest extends KernelTestCase
 
         $json = $this->serializer->serialize($exception, JsonEncoder::FORMAT);
 
-        $this->assertEquals('{"message":"","code":0}', $json);
+        $this->assertSame('{"message":"","code":0}', $json);
     }
 }

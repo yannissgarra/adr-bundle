@@ -31,8 +31,8 @@ final class ExceptionListenerFunctionalTest extends WebTestCase
 
     private function checkJsonSucceed(KernelBrowser $client): void
     {
-        $this->assertEquals(Response::HTTP_FORBIDDEN, $client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_FORBIDDEN, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('application/problem+json', $client->getResponse()->headers->get('content-type'));
-        $this->assertEquals('{"exception":{"message":"","code":0}}', $client->getResponse()->getContent());
+        $this->assertSame('{"exception":{"message":"","code":0}}', $client->getResponse()->getContent());
     }
 }

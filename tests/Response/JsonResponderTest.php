@@ -82,7 +82,7 @@ final class JsonResponderTest extends TestCase
         $response = $responder->render();
 
         $this->assertInstanceOf(JsonResponse::class, $response);
-        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
-        $this->assertEquals(json_encode(['text' => 'Some Json!']), $response->getContent());
+        $this->assertSame(Response::HTTP_OK, $response->getStatusCode());
+        $this->assertSame(json_encode(['text' => 'Some Json!']), $response->getContent());
     }
 }

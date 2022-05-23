@@ -34,7 +34,7 @@ final class ParamConverterFunctionalTest extends WebTestCase
             'query' => TestSearch::QUERY,
         ]));
 
-        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
 
     public function testWithoutUuidShouldFail(): void

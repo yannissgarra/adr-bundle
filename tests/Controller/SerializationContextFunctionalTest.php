@@ -56,14 +56,14 @@ final class SerializationContextFunctionalTest extends WebTestCase
 
     private function checkJsonSucceed(KernelBrowser $client): void
     {
-        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('application/json', $client->getResponse()->headers->get('content-type'));
-        $this->assertEquals('{"test":{"title":"'.Test::TITLE.'"}}', $client->getResponse()->getContent());
+        $this->assertSame('{"test":{"title":"'.Test::TITLE.'"}}', $client->getResponse()->getContent());
     }
 
     private function checkXmlSucceed(KernelBrowser $client, Crawler $crawler): void
     {
-        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('text/xml', $client->getResponse()->headers->get('content-type'));
         $this->assertSame(Test::TITLE, $crawler->filterXPath('//response/test/title')->text());
     }

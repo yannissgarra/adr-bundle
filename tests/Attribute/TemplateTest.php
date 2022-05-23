@@ -23,6 +23,6 @@ final class TemplateTest extends TestCase
     {
         $template = new Template('base.html.twig');
 
-        $this->assertEquals('base.html.twig', $template->getValue());
+        $this->assertSame('base.html.twig', $template->getValue());
     }
 }

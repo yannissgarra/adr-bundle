@@ -23,6 +23,6 @@ final class SerializationContextTest extends TestCase
     {
         $template = new SerializationContext(['groups' => 'group_one']);
 
-        $this->assertEquals(['groups' => 'group_one'], $template->getValue());
+        $this->assertSame(['groups' => 'group_one'], $template->getValue());
     }
 }

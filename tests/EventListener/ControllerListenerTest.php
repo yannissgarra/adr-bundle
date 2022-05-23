@@ -62,7 +62,7 @@ final class ControllerListenerTest extends TestCase
 
         $this->listener->onKernelController($this->createControllerEvent($request, $controllerClass, $controllerMethod));
 
-        $this->assertEquals('base.html.twig', $request->attributes->get('_template_path'));
+        $this->assertSame('base.html.twig', $request->attributes->get('_template_path'));
     }
 
     // No template attribute -----
@@ -105,7 +105,7 @@ final class ControllerListenerTest extends TestCase
 
         $this->listener->onKernelController($this->createControllerEvent($request, $controllerClass, $controllerMethod));
 
-        $this->assertEquals(['groups' => 'group_one'], $request->attributes->get('_serialization_context'));
+        $this->assertSame(['groups' => 'group_one'], $request->attributes->get('_serialization_context'));
     }
 
     private function createControllerEvent(Request $request, string $controllerClass, ?string $controllerMethod = null): ControllerEvent
