@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Webmunkeez\ADRBundle\EventListener\ControllerListener;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\NoTemplateAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\SerializationContextAttributeAction;
@@ -28,13 +29,17 @@ use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateController;
  */
 final class ControllerListenerTest extends TestCase
 {
-    /**
-     * @var ControllerListener&MockObject
-     */
+    /** @var KernelInterface&MockObject */
+    private KernelInterface $kernel;
+
     private ControllerListener $listener;
 
     protected function setUp(): void
     {
+        /** @var KernelInterface&MockObject $kernel */
+        $kernel = $this->getMockForAbstractClass(Kernel::class, ['test', true]);
+        $this->kernel = $kernel;
+
         $this->listener = new ControllerListener();
     }
 
@@ -51,7 +56,7 @@ final class ControllerListenerTest extends TestCase
     /**
      * @dataProvider templateAttributeControllerProvider
      */
-    public function testWithTemplateAttributes(string $controllerClass, ?string $controllerMethod = null): void
+    public function testWithTemplateAttributeShouldSucceed(string $controllerClass, ?string $controllerMethod = null): void
     {
         $request = new Request();
 
@@ -73,7 +78,7 @@ final class ControllerListenerTest extends TestCase
     /**
      * @dataProvider noTemplateAttributeControllerProvider
      */
-    public function testWithNoTemplateAttributes(string $controllerClass, ?string $controllerMethod = null): void
+    public function testWithoutTemplateAttributeShouldFail(string $controllerClass, ?string $controllerMethod = null): void
     {
         $request = new Request();
 
@@ -94,7 +99,7 @@ final class ControllerListenerTest extends TestCase
     /**
      * @dataProvider serializationContextAttributeControllerProvider
      */
-    public function testWithSerializationContextAttributes(string $controllerClass, ?string $controllerMethod = null): void
+    public function testWithSerializationContextAttributeShouldSucceed(string $controllerClass, ?string $controllerMethod = null): void
     {
         $request = new Request();
 
@@ -105,13 +110,8 @@ final class ControllerListenerTest extends TestCase
 
     private function createControllerEvent(Request $request, string $controllerClass, ?string $controllerMethod = null): ControllerEvent
     {
-        /**
-         * @var Kernel&MockObject
-         */
-        $mockKernel = $this->getMockForAbstractClass(Kernel::class, ['test', '']);
-
         $controller = null !== $controllerMethod ? [new $controllerClass(), $controllerMethod] : new $controllerClass();
 
-        return new ControllerEvent($mockKernel, $controller, $request, HttpKernelInterface::MAIN_REQUEST);
+        return new ControllerEvent($this->kernel, $controller, $request, HttpKernelInterface::MAIN_REQUEST);
     }
 }

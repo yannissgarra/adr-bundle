@@ -19,7 +19,7 @@ use Webmunkeez\ADRBundle\Attribute\SerializationContext;
  */
 final class SerializationContextTest extends TestCase
 {
-    public function testWithSuccess(): void
+    public function testWithSerializationContextDataShouldSucceed(): void
     {
         $template = new SerializationContext(['groups' => 'group_one']);
 

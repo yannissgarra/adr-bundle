@@ -36,7 +36,7 @@ final class AddResponderPassTest extends TestCase
         $this->container->setDefinition(Responder::class, $this->managerDefinition);
     }
 
-    public function testProcess()
+    public function testProcessWithPrioritizedRespondersShouldSucceed()
     {
         $responder1 = new Definition();
         $responder1->setTags(['webmunkeez_adr.responder' => [

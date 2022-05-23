@@ -23,36 +23,28 @@ use Webmunkeez\ADRBundle\Response\ResponderInterface;
  */
 final class ResponderTest extends TestCase
 {
-    /**
-     * @var ResponderInterface&MockObject
-     */
+    /** @var ResponderInterface&MockObject */
     private ResponderInterface $supportsResponder;
 
-    /**
-     * @var ResponderInterface&MockObject
-     */
+    /** @var ResponderInterface&MockObject */
     private ResponderInterface $unsupportsResponder;
 
     protected function setUp(): void
     {
-        $this->supportsResponder = $this->getMockBuilder(ResponderInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
-
+        /** @var ResponderInterface&MockObject $supportsResponder */
+        $supportsResponder = $this->getMockBuilder(ResponderInterface::class)->disableOriginalConstructor()->getMock();
+        $this->supportsResponder = $supportsResponder;
         $this->supportsResponder->method('supports')->willReturn(true);
         $this->supportsResponder->method('render')->willReturn(new Response('SupportsResponder'));
 
-        $this->unsupportsResponder = $this->getMockBuilder(ResponderInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
-
+        /** @var ResponderInterface&MockObject $unsupportsResponder */
+        $unsupportsResponder = $this->getMockBuilder(ResponderInterface::class)->disableOriginalConstructor()->getMock();
+        $this->unsupportsResponder = $unsupportsResponder;
         $this->unsupportsResponder->method('supports')->willReturn(false);
         $this->supportsResponder->method('render')->willReturn(new Response('UnsupportsResponder'));
     }
 
-    public function testAddResponder()
+    public function testAddResponderShouldSucceed()
     {
         $responder = new Responder();
         $responder->addResponder($this->unsupportsResponder);
@@ -63,7 +55,7 @@ final class ResponderTest extends TestCase
         $this->assertCount(2, $reflection->getProperty('responders')->getValue($responder));
     }
 
-    public function testRenderSuccess(): void
+    public function testRenderWithAtLeastOneSupportsRespondersShouldSucceed(): void
     {
         $responder = new Responder();
         $responder->addResponder($this->unsupportsResponder);
@@ -74,7 +66,7 @@ final class ResponderTest extends TestCase
         $this->assertEquals('SupportsResponder', $responder->render()->getContent());
     }
 
-    public function testRenderFail(): void
+    public function testRenderWithOnlyUnsupportsResponderShouldFail(): void
     {
         $this->expectException(RenderException::class);
 

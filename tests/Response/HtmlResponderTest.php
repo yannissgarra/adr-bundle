@@ -25,32 +25,25 @@ use Webmunkeez\ADRBundle\Response\HtmlResponder;
  */
 final class HtmlResponderTest extends TestCase
 {
-    /**
-     * @var RequestStack&MockObject
-     */
+    /** @var RequestStack&MockObject */
     private RequestStack $requestStack;
 
-    /**
-     * @var Environment&MockObject
-     */
+    /** @var Environment&MockObject */
     private Environment $twig;
 
     protected function setUp(): void
     {
-        $this->requestStack = $this->getMockBuilder(RequestStack::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        /** @var RequestStack&MockObject $requestStack */
+        $requestStack = $this->getMockBuilder(RequestStack::class)->disableOriginalConstructor()->getMock();
+        $this->requestStack = $requestStack;
 
-        $this->twig = $this->getMockBuilder(Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
-
+        /** @var Environment&MockObject $twig */
+        $twig = $this->getMockBuilder(Environment::class)->disableOriginalConstructor()->getMock();
+        $this->twig = $twig;
         $this->twig->method('render')->willReturn('<p>Some HTML!</p>');
     }
 
-    public function testSupports(): void
+    public function testSupportsWithHTMLAcceptHeaderShouldSucceed(): void
     {
         $request = new Request([], [], [], [], [], ['HTTP_ACCEPT' => 'text/html']);
         $this->requestStack->method('getCurrentRequest')->willReturn($request);
@@ -60,7 +53,7 @@ final class HtmlResponderTest extends TestCase
         $this->assertTrue($responder->supports());
     }
 
-    public function testSupportsMissingAcceptHeader(): void
+    public function testSupportsWithoutAcceptHeaderShouldSucceed(): void
     {
         $request = new Request();
         $this->requestStack->method('getCurrentRequest')->willReturn($request);
@@ -71,7 +64,7 @@ final class HtmlResponderTest extends TestCase
         $this->assertTrue($responder->supports());
     }
 
-    public function testUnsupportsWrongAcceptHeader(): void
+    public function testSupportsWithWrongAcceptHeaderShouldFail(): void
     {
         $request = new Request([], [], [], [], [], ['HTTP_ACCEPT' => 'application/json']);
         $this->requestStack->method('getCurrentRequest')->willReturn($request);
@@ -81,7 +74,7 @@ final class HtmlResponderTest extends TestCase
         $this->assertFalse($responder->supports());
     }
 
-    public function testRender(): void
+    public function testRenderWithTemplatePathAndHTMLAcceptHeaderShouldSucceed(): void
     {
         $request = new Request([], [], ['_template_path' => 'base.html.twig'], [], [], ['HTTP_ACCEPT' => 'text/html']);
         $this->requestStack->method('getCurrentRequest')->willReturn($request);
@@ -94,7 +87,7 @@ final class HtmlResponderTest extends TestCase
         $this->assertEquals('<p>Some HTML!</p>', $response->getContent());
     }
 
-    public function testRenderMissingTemplatePath(): void
+    public function testRenderWithHTMLAcceptHeaderAndWithoutTemplatePathShouldFail(): void
     {
         $this->expectException(RenderException::class);
 

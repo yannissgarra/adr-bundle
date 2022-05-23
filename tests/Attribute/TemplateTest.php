@@ -19,7 +19,7 @@ use Webmunkeez\ADRBundle\Attribute\Template;
  */
 final class TemplateTest extends TestCase
 {
-    public function testWithSuccess(): void
+    public function testWithTemplatePathShouldSucceed(): void
     {
         $template = new Template('base.html.twig');
 
