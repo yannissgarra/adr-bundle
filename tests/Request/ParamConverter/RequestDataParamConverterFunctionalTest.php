@@ -11,12 +11,9 @@ declare(strict_types=1);
 
 namespace Webmunkeez\ADRBundle\Test\Request\ParamConverter;
 
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Uid\Uuid;
 use Webmunkeez\ADRBundle\Request\ParamConverter\RequestDataParamConverter;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\TestSearch;
@@ -24,13 +21,8 @@ use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\TestSearch;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class RequestDataParamConverterTest extends TestCase
+final class RequestDataParamConverterFunctionalTest extends KernelTestCase
 {
-    /**
-     * @var SerializerInterface&MockObject
-     **/
-    private SerializerInterface $serializer;
-
     private RequestDataParamConverter $converter;
 
     private TestSearch $search;
@@ -39,11 +31,7 @@ final class RequestDataParamConverterTest extends TestCase
 
     protected function setUp(): void
     {
-        /** @var SerializerInterface&MockObject $serializer */
-        $serializer = $this->getMockBuilder(SerializerInterface::class)->disableOriginalConstructor()->getMock();
-        $this->serializer = $serializer;
-
-        $this->converter = new RequestDataParamConverter($this->serializer);
+        $this->converter = new RequestDataParamConverter(static::getContainer()->get('serializer'));
 
         $this->search = new TestSearch(
             Uuid::fromString(TestSearch::ID),
@@ -72,19 +60,8 @@ final class RequestDataParamConverterTest extends TestCase
 
     public function testApplyShouldSucceed(): void
     {
-        $this->serializer->method('deserialize')->willReturn($this->search);
-
         $this->assertTrue($this->converter->apply($this->request, $this->configuration));
 
         $this->assertEquals($this->search, $this->request->get('search'));
-    }
-
-    public function testApplyShouldFail(): void
-    {
-        $this->serializer->method('deserialize')->willThrowException(new \Exception());
-
-        $this->expectException(BadRequestHttpException::class);
-
-        $this->converter->apply($this->request, $this->configuration);
     }
 }

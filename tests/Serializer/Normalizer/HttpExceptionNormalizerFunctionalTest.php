@@ -11,22 +11,29 @@ declare(strict_types=1);
 
 namespace Webmunkeez\ADRBundle\Test\Serializer\Normalizer;
 
-use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Webmunkeez\ADRBundle\Serializer\Normalizer\HttpExceptionNormalizer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class HttpExceptionNormalizerTest extends TestCase
+final class HttpExceptionNormalizerFunctionalTest extends KernelTestCase
 {
+    private SerializerInterface $serializer;
+
+    protected function setUp(): void
+    {
+        $this->serializer = static::getContainer()->get('serializer');
+    }
+
     public function testNormalizeWithHttpExceptionShouldSucceed(): void
     {
         $exception = new AccessDeniedHttpException();
 
-        $data = (new HttpExceptionNormalizer())->normalize($exception);
+        $json = $this->serializer->serialize($exception, JsonEncoder::FORMAT);
 
-        $this->assertSame('', $data['message']);
-        $this->assertSame(0, $data['code']);
+        $this->assertSame('{"message":"","code":0}', $json);
     }
 }
