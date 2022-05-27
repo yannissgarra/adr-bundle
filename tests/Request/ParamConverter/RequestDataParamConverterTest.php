@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Uid\Uuid;
 use Webmunkeez\ADRBundle\Request\ParamConverter\RequestDataParamConverter;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\TestSearch;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\TestSearch;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

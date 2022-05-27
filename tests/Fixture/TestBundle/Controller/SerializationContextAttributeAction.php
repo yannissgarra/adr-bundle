@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Webmunkeez\ADRBundle\Action\AbstractAction;
 use Webmunkeez\ADRBundle\Attribute\SerializationContext;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Test;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Test;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

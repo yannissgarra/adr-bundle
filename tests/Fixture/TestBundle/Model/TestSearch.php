@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity;
+namespace Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model;
 
 use Symfony\Component\Uid\Uuid;
 

@@ -16,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\CustomResponderAction;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Test;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Test;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

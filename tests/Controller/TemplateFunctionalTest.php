@@ -19,7 +19,7 @@ use Webmunkeez\ADRBundle\Exception\RenderException;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\NoTemplateAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateController;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\Test;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Test;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

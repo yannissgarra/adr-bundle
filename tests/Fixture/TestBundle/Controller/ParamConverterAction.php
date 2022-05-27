@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Webmunkeez\ADRBundle\Action\AbstractAction;
 use Webmunkeez\ADRBundle\Request\ParamConverter\RequestDataParamConverter;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\TestSearch;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\TestSearch;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

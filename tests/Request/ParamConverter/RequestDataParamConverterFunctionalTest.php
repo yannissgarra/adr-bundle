@@ -16,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Uid\Uuid;
 use Webmunkeez\ADRBundle\Request\ParamConverter\RequestDataParamConverter;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\TestSearch;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\TestSearch;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

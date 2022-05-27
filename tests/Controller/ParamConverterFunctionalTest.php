@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\ParamConverterAction;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Entity\TestSearch;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\TestSearch;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
