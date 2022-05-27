@@ -14,7 +14,6 @@ namespace Webmunkeez\ADRBundle\Request\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -39,24 +38,18 @@ final class RequestDataParamConverter implements ParamConverterInterface
 
     public function apply(Request $request, ParamConverter $configuration): bool
     {
-        try {
-            $routeData = $request->attributes->get('_route_params', []);
+        $routeData = $request->attributes->get('_route_params', []);
 
-            $queryData = $request->query->all();
+        $queryData = $request->query->all();
 
-            $bodyData = false === empty($request->getContent()) ? json_decode($request->getContent(), true) : [];
+        $bodyData = false === empty($request->getContent()) ? json_decode($request->getContent(), true) : [];
 
-            $params = array_merge($routeData, $queryData, $bodyData);
+        $params = array_merge($routeData, $queryData, $bodyData);
 
-            $object = $this->serializer->deserialize(json_encode($params), $configuration->getClass(), JsonEncoder::FORMAT, ['disable_type_enforcement' => true]);
+        $object = $this->serializer->deserialize(json_encode($params), $configuration->getClass(), JsonEncoder::FORMAT, ['disable_type_enforcement' => true]);
 
-            $request->attributes->set($configuration->getName(), $object);
+        $request->attributes->set($configuration->getName(), $object);
 
-            return true;
-        } catch (\Throwable $e) {
-            throw new BadRequestHttpException('', $e);
-        }
-
-        return false;
+        return true;
     }
 }
