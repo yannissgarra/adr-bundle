@@ -75,6 +75,6 @@ final class RequestDataParamConverterTest extends TestCase
 
         $this->assertTrue($this->converter->apply($this->request, $this->configuration));
 
-        $this->assertEquals($this->search, $this->request->get('search'));
+        $this->assertSame($this->search, $this->request->get('search'));
     }
 }
