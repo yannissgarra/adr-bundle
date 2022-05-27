@@ -28,7 +28,7 @@ final class HttpExceptionNormalizer implements NormalizerInterface, CacheableSup
     public function normalize(mixed $object, string $format = null, array $context = []): array
     {
         return [
-            'message' => $object->getMessage(),
+            'message' => '', // displaying message show too many details about core infrastructure
             'code' => $object->getCode(),
         ];
     }
