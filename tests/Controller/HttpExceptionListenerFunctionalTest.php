@@ -13,6 +13,7 @@ namespace Webmunkeez\ADRBundle\Test\Controller;
 
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\HttpExceptionListenerAction;
 
@@ -24,7 +25,7 @@ final class HttpExceptionListenerFunctionalTest extends WebTestCase
     public function testWithHttpExceptionShouldSucceed(): void
     {
         $client = static::createClient();
-        $client->jsonRequest('GET', HttpExceptionListenerAction::ROUTE_URI);
+        $client->jsonRequest(Request::METHOD_GET, HttpExceptionListenerAction::ROUTE_URI);
 
         $this->checkJsonSucceed($client);
     }

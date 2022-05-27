@@ -15,7 +15,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Uid\Uuid;
 use Webmunkeez\ADRBundle\Request\ParamConverter\RequestDataParamConverter;
@@ -77,14 +76,5 @@ final class RequestDataParamConverterTest extends TestCase
         $this->assertTrue($this->converter->apply($this->request, $this->configuration));
 
         $this->assertEquals($this->search, $this->request->get('search'));
-    }
-
-    public function testApplyShouldFail(): void
-    {
-        $this->serializer->method('deserialize')->willThrowException(new \Exception());
-
-        $this->expectException(BadRequestHttpException::class);
-
-        $this->converter->apply($this->request, $this->configuration);
     }
 }

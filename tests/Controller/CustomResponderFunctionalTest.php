@@ -14,6 +14,7 @@ namespace Webmunkeez\ADRBundle\Test\Controller;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\CustomResponderAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Test;
@@ -26,7 +27,7 @@ final class CustomResponderFunctionalTest extends WebTestCase
     public function testShouldSucceed(): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', CustomResponderAction::ROUTE_URI);
+        $crawler = $client->request(Request::METHOD_GET, CustomResponderAction::ROUTE_URI);
 
         $this->checkHtmlSucceed($client, $crawler);
     }

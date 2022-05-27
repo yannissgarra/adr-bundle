@@ -14,6 +14,7 @@ namespace Webmunkeez\ADRBundle\Test\Controller;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Webmunkeez\ADRBundle\Exception\RenderException;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\NoTemplateAttributeAction;
@@ -42,7 +43,7 @@ final class TemplateFunctionalTest extends WebTestCase
     public function testWithTemplateAttributeForHtmlShouldSucceed(string $url): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', $url);
+        $crawler = $client->request(Request::METHOD_GET, $url);
 
         $this->checkHtmlSucceed($client, $crawler);
     }
@@ -53,7 +54,7 @@ final class TemplateFunctionalTest extends WebTestCase
     public function testWithTemplateAttributeForJsonShouldSucceed(string $url): void
     {
         $client = static::createClient();
-        $client->jsonRequest('GET', $url);
+        $client->jsonRequest(Request::METHOD_GET, $url);
 
         $this->checkJsonSucceed($client);
     }
@@ -64,7 +65,7 @@ final class TemplateFunctionalTest extends WebTestCase
     public function testWithTemplateAttributeForXmlShouldSucceed(string $url): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', $url, [], [], ['HTTP_ACCEPT' => 'application/xml']);
+        $crawler = $client->request(Request::METHOD_GET, $url, [], [], ['HTTP_ACCEPT' => 'application/xml']);
 
         $this->checkXmlSucceed($client, $crawler);
     }
@@ -88,7 +89,7 @@ final class TemplateFunctionalTest extends WebTestCase
 
         $client = static::createClient();
         $client->catchExceptions(false);
-        $client->request('GET', $url);
+        $client->request(Request::METHOD_GET, $url);
     }
 
     /**
@@ -97,7 +98,7 @@ final class TemplateFunctionalTest extends WebTestCase
     public function testWithoutTemplateAttributeForJsonShouldSucceed(string $url): void
     {
         $client = static::createClient();
-        $client->jsonRequest('GET', $url);
+        $client->jsonRequest(Request::METHOD_GET, $url);
 
         $this->checkJsonSucceed($client);
     }
@@ -108,7 +109,7 @@ final class TemplateFunctionalTest extends WebTestCase
     public function testWithoutTemplateAttributeForXmlShouldSucceed(string $url): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', $url, [], [], ['HTTP_ACCEPT' => 'application/xml']);
+        $crawler = $client->request(Request::METHOD_GET, $url, [], [], ['HTTP_ACCEPT' => 'application/xml']);
 
         $this->checkXmlSucceed($client, $crawler);
     }

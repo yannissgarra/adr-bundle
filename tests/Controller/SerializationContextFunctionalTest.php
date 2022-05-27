@@ -14,6 +14,7 @@ namespace Webmunkeez\ADRBundle\Test\Controller;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\SerializationContextAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\SerializationContextController;
@@ -38,7 +39,7 @@ final class SerializationContextFunctionalTest extends WebTestCase
     public function testForJsonShouldSucceed(string $url): void
     {
         $client = static::createClient();
-        $client->jsonRequest('GET', $url);
+        $client->jsonRequest(Request::METHOD_GET, $url);
 
         $this->checkJsonSucceed($client);
     }
@@ -49,7 +50,7 @@ final class SerializationContextFunctionalTest extends WebTestCase
     public function testForXmlShouldSucceed(string $url): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', $url, [], [], ['HTTP_ACCEPT' => 'application/xml']);
+        $crawler = $client->request(Request::METHOD_GET, $url, [], [], ['HTTP_ACCEPT' => 'application/xml']);
 
         $this->checkXmlSucceed($client, $crawler);
     }

@@ -12,8 +12,9 @@ declare(strict_types=1);
 namespace Webmunkeez\ADRBundle\Test\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\ParamConverterAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\TestSearch;
 
@@ -26,7 +27,7 @@ final class ParamConverterFunctionalTest extends WebTestCase
     {
         $client = static::createClient();
         $client->catchExceptions(false);
-        $client->request('GET', ParamConverterAction::CONVERTER_SUCCESS_ROUTE_URI.'/'.TestSearch::ID.'-'.TestSearch::SLUG, [
+        $client->request(Request::METHOD_GET, ParamConverterAction::CONVERTER_SUCCESS_ROUTE_URI.'/'.TestSearch::ID.'-'.TestSearch::SLUG, [
             'min_price' => (string) TestSearch::MIN_PRICE,
             'filters' => TestSearch::FILTERS,
             'page' => (string) TestSearch::PAGE,
@@ -37,13 +38,13 @@ final class ParamConverterFunctionalTest extends WebTestCase
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
 
-    public function testWithoutUuidShouldFail(): void
+    public function testWithWrongFormatUuidShouldFail(): void
     {
-        $this->expectException(BadRequestHttpException::class);
+        $this->expectException(NotNormalizableValueException::class);
 
         $client = static::createClient();
         $client->catchExceptions(false);
-        $client->request('GET', ParamConverterAction::CONVERTER_FAIL_ROUTE_URI.'/1-'.TestSearch::SLUG, [
+        $client->request(Request::METHOD_GET, ParamConverterAction::CONVERTER_FAIL_ROUTE_URI.'/1-'.TestSearch::SLUG, [
             'min_price' => (string) TestSearch::MIN_PRICE,
             'filters' => TestSearch::FILTERS,
             'page' => (string) TestSearch::PAGE,
