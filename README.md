@@ -264,6 +264,14 @@ final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInte
 }
 ```
 
+### Render Exception Listener
+
+If there is an uncaught `\Webmunkeez\ADRBundle\Exception\RenderException`, it will be catch by this listener which will throw an `\Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException` that will embed the original exception.
+
+### Exception Listener
+
+If there is an uncaught `\Throwable`, it will be catch by this listener which will throw an `\Symfony\Component\HttpKernel\Exception\BadRequestHttpException` that will embed the original exception.
+
 ### Http Exception Listener
 
-If you request an `Action` with `HTTP_ACCEPT application/json` header and if this `Action` throws an Exception that implements `Symfony\Component\HttpKernel\Exception\HttpExceptionInterface`, its content will automatically be serialized in a JSON reading format to the `Response` body content.
+If you request an `Action` with `HTTP_ACCEPT application/json` header and if this `Action` throws an Exception that implements `\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface`, its content will automatically be serialized in a JSON reading format to the `Response` body content.
