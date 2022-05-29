@@ -16,10 +16,4 @@ namespace Webmunkeez\ADRBundle\Exception;
  */
 final class TemplateMissingException extends RuntimeException
 {
-    public function __construct(string $message = '', int $code = 0, ?\Throwable $previous = null)
-    {
-        $message = false === empty($message) ? $message : 'Template must be defined.';
-
-        parent::__construct($message, $code, $previous);
-    }
 }
