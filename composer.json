@@ -51,5 +51,10 @@
         "psr-4": {
             "Webmunkeez\\ADRBundle\\Test\\": "tests/"
         }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "2.0.x-dev"
+        }
     }
 }
