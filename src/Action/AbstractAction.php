@@ -20,5 +20,4 @@ use Webmunkeez\ADRBundle\Response\ResponderAwareTrait;
 abstract class AbstractAction implements ActionInterface, ResponderAwareInterface
 {
     use ResponderAwareTrait;
-    use ActionTrait;
 }

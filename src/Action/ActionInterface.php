@@ -11,18 +11,9 @@ declare(strict_types=1);
 
 namespace Webmunkeez\ADRBundle\Action;
 
-use Symfony\Component\HttpFoundation\Response;
-use Webmunkeez\ADRBundle\Exception\RenderingException;
-
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
 interface ActionInterface
 {
-    /**
-     * @param array<mixed> $data
-     *
-     * @throws RenderingException
-     */
-    public function render(array $data = []): Response;
 }

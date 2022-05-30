@@ -11,6 +11,9 @@ declare(strict_types=1);
 
 namespace Webmunkeez\ADRBundle\Response;
 
+use Symfony\Component\HttpFoundation\Response;
+use Webmunkeez\ADRBundle\Exception\RenderingException;
+
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
@@ -21,5 +24,15 @@ trait ResponderAwareTrait
     public function setResponder(ResponderInterface $responder): void
     {
         $this->responder = $responder;
+    }
+
+    /**
+     * @param array<mixed> $data
+     *
+     * @throws RenderingException
+     */
+    protected function render(array $data = []): Response
+    {
+        return $this->responder->render($data);
     }
 }
