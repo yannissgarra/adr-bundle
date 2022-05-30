@@ -190,7 +190,7 @@ final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInte
 }
 ```
 
-This responder is active if the request contains `HTTP_ACCEPT text/html` header (warning: a twig template is needed for this responder, otherwise it will throw an `\Webmunkeez\ADRBundle\Exception\RenderException` exception).  
+This responder is active if the request contains `HTTP_ACCEPT text/html` header (warning: a twig template is needed for this responder, otherwise it will throw an `\Webmunkeez\ADRBundle\Exception\RenderingException` exception).  
 It has a `priority: -20`.
 
 ##### JsonResponder
@@ -266,7 +266,7 @@ final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInte
 
 ### Render Exception Listener
 
-If there is an uncaught `\Webmunkeez\ADRBundle\Exception\RenderException`, it will be catch by this listener which will throw an `\Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException` that will embed the original exception.
+If there is an uncaught `\Webmunkeez\ADRBundle\Exception\RenderingException`, it will be catch by this listener which will throw an `\Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException` that will embed the original exception.
 
 ### Exception Listener
 

@@ -19,18 +19,18 @@ use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Webmunkeez\ADRBundle\EventListener\RenderExceptionListener;
-use Webmunkeez\ADRBundle\Exception\RenderException;
+use Webmunkeez\ADRBundle\EventListener\RenderingExceptionListener;
+use Webmunkeez\ADRBundle\Exception\RenderingException;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class RenderExceptionListenerTest extends TestCase
+final class RenderingExceptionListenerTest extends TestCase
 {
     /** @var KernelInterface&MockObject */
     private KernelInterface $kernel;
 
-    private RenderExceptionListener $listener;
+    private RenderingExceptionListener $listener;
 
     protected function setUp(): void
     {
@@ -38,12 +38,12 @@ final class RenderExceptionListenerTest extends TestCase
         $kernel = $this->getMockForAbstractClass(Kernel::class, ['test', true]);
         $this->kernel = $kernel;
 
-        $this->listener = new RenderExceptionListener();
+        $this->listener = new RenderingExceptionListener();
     }
 
-    public function testWithRenderExceptionShouldSucceed(): void
+    public function testWithRenderingExceptionShouldSucceed(): void
     {
-        $exception = new RenderException();
+        $exception = new RenderingException();
 
         $request = new Request();
 
@@ -54,7 +54,7 @@ final class RenderExceptionListenerTest extends TestCase
         $this->assertInstanceOf(NotAcceptableHttpException::class, $event->getThrowable());
         $this->assertSame($exception->getMessage(), $event->getThrowable()->getMessage());
         $this->assertSame($exception->getCode(), $event->getThrowable()->getCode());
-        $this->assertInstanceOf(RenderException::class, $event->getThrowable()->getPrevious());
+        $this->assertInstanceOf(RenderingException::class, $event->getThrowable()->getPrevious());
         $this->assertSame($exception, $event->getThrowable()->getPrevious());
     }
 

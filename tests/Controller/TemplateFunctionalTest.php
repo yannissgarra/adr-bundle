@@ -16,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Webmunkeez\ADRBundle\Exception\RenderException;
+use Webmunkeez\ADRBundle\Exception\RenderingException;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\NoTemplateAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateController;
@@ -85,7 +85,7 @@ final class TemplateFunctionalTest extends WebTestCase
      */
     public function testWithoutTemplateAttributeForHtmlShouldFail(string $url): void
     {
-        $this->expectException(RenderException::class);
+        $this->expectException(RenderingException::class);
 
         $client = static::createClient();
         $client->catchExceptions(false);

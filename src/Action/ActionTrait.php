@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace Webmunkeez\ADRBundle\Action;
 
 use Symfony\Component\HttpFoundation\Response;
-use Webmunkeez\ADRBundle\Exception\RenderException;
+use Webmunkeez\ADRBundle\Exception\RenderingException;
 use Webmunkeez\ADRBundle\Response\ResponderInterface;
 
 /**
@@ -25,7 +25,7 @@ trait ActionTrait
     /**
      * @param array<mixed> $data
      *
-     * @throws RenderException
+     * @throws RenderingException
      */
     public function render(array $data = []): Response
     {

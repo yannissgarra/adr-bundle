@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
-use Webmunkeez\ADRBundle\Exception\RenderException;
+use Webmunkeez\ADRBundle\Exception\RenderingException;
 use Webmunkeez\ADRBundle\Response\HtmlResponder;
 
 /**
@@ -89,7 +89,7 @@ final class HtmlResponderTest extends TestCase
 
     public function testRenderWithHTMLAcceptHeaderAndWithoutTemplatePathShouldFail(): void
     {
-        $this->expectException(RenderException::class);
+        $this->expectException(RenderingException::class);
 
         $request = new Request([], [], [], [], [], ['HTTP_ACCEPT' => 'text/html']);
         $this->requestStack->method('getCurrentRequest')->willReturn($request);

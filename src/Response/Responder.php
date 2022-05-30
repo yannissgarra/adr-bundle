@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace Webmunkeez\ADRBundle\Response;
 
 use Symfony\Component\HttpFoundation\Response;
-use Webmunkeez\ADRBundle\Exception\RenderException;
+use Webmunkeez\ADRBundle\Exception\RenderingException;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -49,6 +49,6 @@ final class Responder implements ResponderInterface
             return $this->responder->render($data);
         }
 
-        throw new RenderException();
+        throw new RenderingException();
     }
 }

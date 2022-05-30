@@ -14,6 +14,6 @@ namespace Webmunkeez\ADRBundle\Exception;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class RenderException extends RuntimeException
+final class RenderingException extends RuntimeException
 {
 }
