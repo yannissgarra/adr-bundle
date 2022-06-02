@@ -19,10 +19,13 @@ use Webmunkeez\ADRBundle\Response\ResponderInterface;
 return static function (ContainerConfigurator $container) {
     $container->services()
         ->set(Responder::class)
-            ->alias(ResponderInterface::class, Responder::class)
+
+        ->alias(ResponderInterface::class, Responder::class)
+
         ->set(HtmlResponder::class)
             ->args([service('request_stack'), service('twig')])
             ->tag('webmunkeez_adr.responder', ['priority' => -10])
+
         ->set(JsonResponder::class)
             ->args([service('request_stack'), service('serializer')])
             ->tag('webmunkeez_adr.responder', ['priority' => -10]);

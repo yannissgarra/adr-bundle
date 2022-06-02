@@ -20,11 +20,14 @@ return function (ContainerConfigurator $container) {
     $container->services()
         ->set(ControllerListener::class)
             ->tag('kernel.event_listener', ['event' => 'kernel.controller'])
+
         ->set(HttpExceptionListener::class)
             ->args([service('serializer')])
             ->tag('kernel.event_listener', ['event' => 'kernel.exception'])
+
         ->set(RenderingExceptionListener::class)
             ->tag('kernel.event_listener', ['event' => 'kernel.exception', 'priority' => 20])
+
         ->set(ExceptionListener::class)
             ->tag('kernel.event_listener', ['event' => 'kernel.exception', 'priority' => 10]);
 };
