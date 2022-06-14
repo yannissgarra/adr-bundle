@@ -30,9 +30,9 @@ final class WebmunkeezADRExtension extends Extension implements PrependExtension
     public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../config'));
-        $loader->load('event_listeners.php');
-        $loader->load('param_converters.php');
-        $loader->load('responders.php');
+        $loader->load('event_listener.php');
+        $loader->load('param_converter.php');
+        $loader->load('responder.php');
         $loader->load('serializer.php');
 
         $container->registerForAutoconfiguration(ResponderInterface::class)
