@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Uid\Uuid;
 use Webmunkeez\ADRBundle\Action\AbstractAction;
 use Webmunkeez\ADRBundle\Request\ParamConverter\RequestDataParamConverter;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\TestSearch;
@@ -35,7 +36,7 @@ final class ParamConverterAction extends AbstractAction
     public function __invoke(TestSearch $search): Response
     {
         if (
-            TestSearch::ID !== $search->getId()->toRfc4122()
+            false === $search->getId()->equals(Uuid::fromString(TestSearch::ID))
             || TestSearch::SLUG !== $search->getSlug()
             || TestSearch::QUERY !== $search->getQuery()
             || TestSearch::MIN_PRICE !== $search->getMinPrice()
