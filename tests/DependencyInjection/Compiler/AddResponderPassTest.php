@@ -62,7 +62,7 @@ final class AddResponderPassTest extends TestCase
         $methodCalls = $this->managerDefinition->getMethodCalls();
 
         $this->assertCount(2, $methodCalls);
-        $this->assertEquals(['addResponder', [new Reference('responder_two')]], $methodCalls[0]);
-        $this->assertEquals(['addResponder', [new Reference('responder_one')]], $methodCalls[1]);
+        $this->assertEqualsCanonicalizing(['addResponder', [new Reference('responder_two')]], $methodCalls[0]);
+        $this->assertEqualsCanonicalizing(['addResponder', [new Reference('responder_one')]], $methodCalls[1]);
     }
 }

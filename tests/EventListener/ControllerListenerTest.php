@@ -105,7 +105,7 @@ final class ControllerListenerTest extends TestCase
 
         $this->listener->onKernelController($this->createControllerEvent($request, $controllerClass, $controllerMethod));
 
-        $this->assertSame(['groups' => 'group_one'], $request->attributes->get('_serialization_context'));
+        $this->assertEqualsCanonicalizing(['groups' => 'group_one'], $request->attributes->get('_serialization_context'));
     }
 
     private function createControllerEvent(Request $request, string $controllerClass, ?string $controllerMethod = null): ControllerEvent
