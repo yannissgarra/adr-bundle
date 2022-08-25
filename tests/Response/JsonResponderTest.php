@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
 use Webmunkeez\ADRBundle\Response\JsonResponder;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Response\ResponseData;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -79,7 +80,7 @@ final class JsonResponderTest extends TestCase
         $this->requestStack->method('getCurrentRequest')->willReturn($request);
 
         $responder = new JsonResponder($this->requestStack, $this->serializer);
-        $response = $responder->render();
+        $response = $responder->render(new ResponseData());
 
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertSame(Response::HTTP_OK, $response->getStatusCode());

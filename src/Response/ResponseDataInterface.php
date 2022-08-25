@@ -11,18 +11,9 @@ declare(strict_types=1);
 
 namespace Webmunkeez\ADRBundle\Response;
 
-use Symfony\Component\HttpFoundation\Response;
-use Webmunkeez\ADRBundle\Exception\RenderingException;
-
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-interface ResponderInterface
+interface ResponseDataInterface
 {
-    public function supports(): bool;
-
-    /**
-     * @throws RenderingException
-     */
-    public function render(?ResponseDataInterface $data = null): Response;
 }

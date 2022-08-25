@@ -17,6 +17,7 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
 use Webmunkeez\ADRBundle\Attribute\SerializationContext;
 use Webmunkeez\ADRBundle\Response\ResponderInterface;
+use Webmunkeez\ADRBundle\Response\ResponseDataInterface;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -37,7 +38,7 @@ final class XmlResponder implements ResponderInterface
         return 'xml' === $this->requestStack->getCurrentRequest()->getPreferredFormat();
     }
 
-    public function render(array $data = []): Response
+    public function render(?ResponseDataInterface $data = null): Response
     {
         $serializationContext = $this->requestStack->getCurrentRequest()->attributes->get('_'.SerializationContext::getAliasName(), []);
         $xml = $this->serializer->serialize($data, XmlEncoder::FORMAT, $serializationContext);

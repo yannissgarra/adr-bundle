@@ -5,8 +5,8 @@
         <title>{% block title %}Testing!{% endblock %}</title>
     </head>
     <body>
-        <p class="title">Title: {{ test.title }}</p>
-        <p class="content">Content: {{ test.content }}</p>
+        <p class="title">Title: {{ data.test.title }}</p>
+        <p class="content">Content: {{ data.test.content }}</p>
 
         {% if customResponder is defined %}
             <p class="custom-responder">CustomResponder</p>

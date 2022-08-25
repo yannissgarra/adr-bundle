@@ -36,7 +36,7 @@ final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInte
         return $this->render($data);
     }
     
-    public function render(array $data = []): Response
+    public function render(?\Webmunkeez\ADRBundle\Response\ResponseDataInterface $data = null): Response
     {
         return new Response(...);
     }
@@ -53,7 +53,7 @@ final class StoryController implements \Webmunkeez\ADRBundle\Action\ActionInterf
         return $this->render($data);
     }
     
-    public function render(array $data = []): Response
+    public function render(?\Webmunkeez\ADRBundle\Response\ResponseDataInterface $data = null): Response
     {
         return new Response(...);
     }
@@ -64,7 +64,7 @@ final class StoryController implements \Webmunkeez\ADRBundle\Action\ActionInterf
 
 ### Responders
 
-__Responders__ are services which take data and return it in a __Response__.  
+__Responders__ are services which take data (an object that implements `\Webmunkeez\ADRBundle\Response\ResponseDataInterface`) and return it in a __Response__.  
 It can be a response containing HTML or a JsonResponse, or whatever you want, as far as it is a `Symfony\Component\HttpFoundation\Response` instance.
 
 In this bundle, there is a responder manager `\Webmunkeez\ADRBundle\Response\Responder` that you can inject into your actions (or controllers).
@@ -86,7 +86,7 @@ final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInte
         return $this->render($data);
     }
     
-    public function render(array $data = []): Response
+    public function render(?\Webmunkeez\ADRBundle\Response\ResponseDataInterface $data = null): Response
     {
         return $this->responder->render($data);
     }
@@ -105,7 +105,7 @@ final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInte
         return $this->render($data);
     }
     
-    public function render(array $data = []): Response
+    public function render(?\Webmunkeez\ADRBundle\Response\ResponseDataInterface $data = null): Response
     {
         return $this->responder->render($data);
     }
@@ -158,7 +158,7 @@ final class XmlResponder implements \Webmunkeez\ADRBundle\Response\ResponderInte
         return 'xml' === $this->requestStack->getCurrentRequest()->getPreferredFormat();
     }
 
-    public function render(array $data = []): Response
+    public function render(?\Webmunkeez\ADRBundle\Response\ResponseDataInterface $data = null): Response
     {
         $xml = $this->serializer->serialize($data, 'xml');
 
@@ -238,7 +238,7 @@ final class CustomResponder implements \Webmunkeez\ADRBundle\Response\ResponderI
         return CustomResponderAction::class === $actionClass;
     }
 
-    public function render(array $data = []): Response
+    public function render(?\Webmunkeez\ADRBundle\Response\ResponseDataInterface $data = null): Response
     {
         $data = array_merge($data, ['customResponder' => true]);
 

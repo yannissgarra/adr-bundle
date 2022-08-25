@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 use Webmunkeez\ADRBundle\Response\ResponderInterface;
+use Webmunkeez\ADRBundle\Response\ResponseDataInterface;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\CustomResponderAction;
 
 /**
@@ -39,11 +40,9 @@ final class CustomResponder implements ResponderInterface
         return CustomResponderAction::class === $actionClass;
     }
 
-    public function render(array $data = []): Response
+    public function render(?ResponseDataInterface $data = null): Response
     {
-        $data = array_merge($data, ['customResponder' => true]);
-
-        $html = $this->twig->render($this->requestStack->getCurrentRequest()->attributes->get('_template_path'), $data);
+        $html = $this->twig->render($this->requestStack->getCurrentRequest()->attributes->get('_template_path'), ['data' => $data, 'customResponder' => true]);
 
         return new Response($html);
     }

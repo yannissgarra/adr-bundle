@@ -14,19 +14,19 @@ namespace Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Webmunkeez\ADRBundle\Action\AbstractAction;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Test;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Response\ResponseData;
+use Webmunkeez\ADRBundle\Attribute\Template;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
 #[Route(self::ROUTE_URI)]
-final class NoTemplateAttributeAction extends AbstractAction
+#[Template('no_data.html.twig')]
+final class NoDataAction extends AbstractAction
 {
-    public const ROUTE_URI = '/no-template-attribute-action';
+    public const ROUTE_URI = '/no-data-action';
 
     public function __invoke(): Response
     {
-        return $this->render((new ResponseData())->setTest(new Test(Test::TITLE, Test::CONTENT)));
+        return $this->render();
     }
 }

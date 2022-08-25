@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Webmunkeez\ADRBundle\Action\AbstractAction;
 use Webmunkeez\ADRBundle\Attribute\SerializationContext;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Test;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Response\ResponseData;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -28,6 +29,6 @@ final class SerializationContextAttributeAction extends AbstractAction
 
     public function __invoke(): Response
     {
-        return $this->render(['test' => new Test(Test::TITLE, Test::CONTENT)]);
+        return $this->render((new ResponseData())->setTest(new Test(Test::TITLE, Test::CONTENT)));
     }
 }

@@ -38,14 +38,14 @@ final class HtmlResponder implements ResponderInterface
             && 'html' === $this->requestStack->getCurrentRequest()->getPreferredFormat();
     }
 
-    public function render(array $data = []): Response
+    public function render(?ResponseDataInterface $data = null): Response
     {
         if (null === $this->requestStack->getCurrentRequest()->attributes->get('_'.Template::getAliasName())) {
             throw new RenderingException('', 0, new TemplateMissingException());
         }
 
         $templatePath = $this->requestStack->getCurrentRequest()->attributes->get('_'.Template::getAliasName());
-        $html = $this->twig->render($templatePath, $data);
+        $html = $this->twig->render($templatePath, ['data' => $data]);
 
         return new Response($html);
     }

@@ -38,10 +38,10 @@ final class JsonResponder implements ResponderInterface
             && JsonEncoder::FORMAT === $this->requestStack->getCurrentRequest()->getPreferredFormat();
     }
 
-    public function render(array $data = []): Response
+    public function render(?ResponseDataInterface $data = null): Response
     {
         $serializationContext = $this->requestStack->getCurrentRequest()->attributes->get('_'.SerializationContext::getAliasName(), []);
-        $json = $this->serializer->serialize($data, JsonEncoder::FORMAT, $serializationContext);
+        $json = null !== $data ? $this->serializer->serialize($data, JsonEncoder::FORMAT, $serializationContext) : '{}';
 
         return new JsonResponse($json, Response::HTTP_OK, [], true);
     }

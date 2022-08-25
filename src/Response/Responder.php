@@ -43,7 +43,7 @@ final class Responder implements ResponderInterface
         return false;
     }
 
-    public function render(array $data = []): Response
+    public function render(?ResponseDataInterface $data = null): Response
     {
         if (true === $this->supports()) {
             return $this->responder->render($data);

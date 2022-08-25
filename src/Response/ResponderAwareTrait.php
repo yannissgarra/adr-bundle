@@ -27,11 +27,9 @@ trait ResponderAwareTrait
     }
 
     /**
-     * @param array<mixed> $data
-     *
      * @throws RenderingException
      */
-    protected function render(array $data = []): Response
+    public function render(?ResponseDataInterface $data = null): Response
     {
         return $this->responder->render($data);
     }
