@@ -25,7 +25,6 @@ final class TemplateController extends AbstractAction
 {
     public const TEMPLATE_ATTRIBUTE_ROUTE_URI = '/template-attribute-controller';
     public const NO_TEMPLATE_ATTRIBUTE_ROUTE_URI = '/no-template-attribute-controller';
-    public const NO_DATA_ROUTE_URI = '/no-data-controller';
 
     #[Route(self::TEMPLATE_ATTRIBUTE_ROUTE_URI)]
     #[Template('base.html.twig')]
