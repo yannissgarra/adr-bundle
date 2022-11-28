@@ -83,7 +83,7 @@ final class TemplateFunctionalTest extends WebTestCase
     /**
      * @dataProvider noTemplateAttributeUrlProvider
      */
-    public function testWithoutTemplateAttributeForHtmlShouldFail(string $url): void
+    public function testWithoutTemplateAttributeForHtmlShouldThrowException(string $url): void
     {
         $this->expectException(RenderingException::class);
 

@@ -66,7 +66,7 @@ final class ResponderTest extends TestCase
         $this->assertSame('SupportsResponder', $responder->render()->getContent());
     }
 
-    public function testRenderWithOnlyUnsupportsResponderShouldFail(): void
+    public function testRenderWithOnlyUnsupportsResponderShouldThrowException(): void
     {
         $this->expectException(RenderingException::class);
 

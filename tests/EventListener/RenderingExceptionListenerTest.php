@@ -58,7 +58,7 @@ final class RenderingExceptionListenerTest extends TestCase
         $this->assertSame($exception, $event->getThrowable()->getPrevious());
     }
 
-    public function testWithOtherExceptionShouldFail(): void
+    public function testWithOtherExceptionShouldThrowException(): void
     {
         $exception = new \Exception();
 

@@ -58,7 +58,7 @@ final class ExceptionListenerTest extends TestCase
         $this->assertSame($exception, $event->getThrowable()->getPrevious());
     }
 
-    public function testWithHttpExceptionShouldFail(): void
+    public function testWithHttpExceptionShouldThrowException(): void
     {
         $exception = new NotFoundHttpException();
 

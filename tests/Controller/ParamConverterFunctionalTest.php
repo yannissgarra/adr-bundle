@@ -38,7 +38,7 @@ final class ParamConverterFunctionalTest extends WebTestCase
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
 
-    public function testWithWrongFormatUuidShouldFail(): void
+    public function testWithWrongFormatUuidShouldThrowException(): void
     {
         $this->expectException(NotNormalizableValueException::class);
 
