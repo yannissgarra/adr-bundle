@@ -44,7 +44,7 @@ final class ResponderTest extends TestCase
         $this->supportsResponder->method('render')->willReturn(new Response('UnsupportsResponder'));
     }
 
-    public function testAddResponderShouldSucceed()
+    public function testAddResponderShouldSucceed(): void
     {
         $responder = new Responder();
         $responder->addResponder($this->unsupportsResponder);

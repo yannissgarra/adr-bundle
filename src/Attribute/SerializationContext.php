@@ -24,7 +24,7 @@ final class SerializationContext implements AttributeInterface
         $this->context = $context;
     }
 
-    public function getValue()
+    public function getValue(): mixed
     {
         return $this->context;
     }

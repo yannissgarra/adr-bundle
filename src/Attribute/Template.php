@@ -24,7 +24,7 @@ final class Template implements AttributeInterface
         $this->path = $path;
     }
 
-    public function getValue()
+    public function getValue(): mixed
     {
         return $this->path;
     }

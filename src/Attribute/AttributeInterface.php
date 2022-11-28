@@ -16,10 +16,7 @@ namespace Webmunkeez\ADRBundle\Attribute;
  */
 interface AttributeInterface
 {
-    /**
-     * @return mixed
-     */
-    public function getValue();
+    public function getValue(): mixed;
 
     public static function getAliasName(): string;
 }

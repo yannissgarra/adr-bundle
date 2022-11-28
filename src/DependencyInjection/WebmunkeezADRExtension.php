@@ -36,16 +36,13 @@ final class WebmunkeezADRExtension extends Extension implements PrependExtension
         $loader->load('serializer.php');
 
         $container->registerForAutoconfiguration(ResponderInterface::class)
-            ->addTag('webmunkeez_adr.responder')
-        ;
+            ->addTag('webmunkeez_adr.responder');
 
         $container->registerForAutoconfiguration(ResponderAwareInterface::class)
-            ->addMethodCall('setResponder', [new Reference(Responder::class)])
-        ;
+            ->addMethodCall('setResponder', [new Reference(Responder::class)]);
 
         $container->registerForAutoconfiguration(ActionInterface::class)
-            ->addTag('controller.service_arguments')
-        ;
+            ->addTag('controller.service_arguments');
     }
 
     public function prepend(ContainerBuilder $container)
