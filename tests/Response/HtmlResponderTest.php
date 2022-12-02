@@ -87,7 +87,7 @@ final class HtmlResponderTest extends TestCase
         $this->assertSame('<p>Some HTML!</p>', $response->getContent());
     }
 
-    public function testRenderWithHTMLAcceptHeaderAndWithoutTemplatePathShouldFail(): void
+    public function testRenderWithHTMLAcceptHeaderAndWithoutTemplatePathShouldThrowException(): void
     {
         $this->expectException(RenderingException::class);
 
