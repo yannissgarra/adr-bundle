@@ -249,21 +249,6 @@ final class CustomResponder implements \Webmunkeez\ADRBundle\Response\ResponderI
 }
 ```
 
-### Param Converter
-
-ParamConverters are a way to populate objects and inject them as controller method arguments. The `RequestDataParamConverter` converter comes with ADRBundle and makes it possible to deserialize the request data (route params, query params, json request body) into an object.
-
-```php
-#[Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter\ParamConverter('story', converter: Webmunkeez\ADRBundle\Request\ParamConverter\RequestDataParamConverter::CONVERTER)]
-final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInterface
-{
-    public function __invoke(Story $story): Response
-    {
-        ...
-    }
-}
-```
-
 ### Render Exception Listener
 
 If there is an uncaught `\Webmunkeez\ADRBundle\Exception\RenderingException`, it will be catch by this listener which will throw an `\Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException` that will embed the original exception.

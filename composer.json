@@ -22,7 +22,6 @@
     "require": {
         "php": ">=8.1",
         "phpdocumentor/reflection-docblock": "^5.3",
-        "sensio/framework-extra-bundle": "^6.2",
         "symfony/config": "^6.2",
         "symfony/dependency-injection": "^6.2",
         "symfony/http-foundation": "^6.2",

@@ -6,10 +6,6 @@ framework:
         utf8: true
         resource: '%kernel.project_dir%/config/routing.yaml'
 
-sensio_framework_extra:
-    router:
-        annotations: false
-
 twig:
     strict_variables: true
     default_path: '%kernel.project_dir%/templates'

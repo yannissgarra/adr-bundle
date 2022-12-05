@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Webmunkeez\ADRBundle\Test\Fixture;
 
-use Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -28,7 +27,6 @@ final class TestKernel extends Kernel
     {
         return [
             new FrameworkBundle(),
-            new SensioFrameworkExtraBundle(),
             new TwigBundle(),
             new WebmunkeezADRBundle(),
             new TestBundle(),
