@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace Webmunkeez\ADRBundle\EventListener;
 
 use ReflectionAttribute;
-use ReflectionClass;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Webmunkeez\ADRBundle\Attribute\AttributeInterface;
 
@@ -33,7 +32,7 @@ final class ControllerListener
             return;
         }
 
-        $object = new ReflectionClass($controller[0]);
+        $object = new \ReflectionClass($controller[0]);
         $method = $object->getMethod($controller[1]);
 
         /** @var AttributeInterface[] $objectAttributes */
