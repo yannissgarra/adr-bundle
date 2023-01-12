@@ -24,6 +24,7 @@ use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\CustomResponderActio
 final class CustomResponder implements ResponderInterface
 {
     private RequestStack $requestStack;
+
     private Environment $twig;
 
     public function __construct(RequestStack $requestStack, Environment $twig)

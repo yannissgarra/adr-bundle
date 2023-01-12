@@ -24,6 +24,7 @@ use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Response\ResponseData;
 final class TemplateController extends AbstractAction
 {
     public const TEMPLATE_ATTRIBUTE_ROUTE_URI = '/template-attribute-controller';
+
     public const NO_TEMPLATE_ATTRIBUTE_ROUTE_URI = '/no-template-attribute-controller';
 
     #[Route(self::TEMPLATE_ATTRIBUTE_ROUTE_URI)]

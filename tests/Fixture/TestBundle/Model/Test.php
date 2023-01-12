@@ -19,6 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 final class Test
 {
     public const TITLE = 'Test title';
+
     public const CONTENT = 'Test content.';
 
     #[Groups(['group_one'])]

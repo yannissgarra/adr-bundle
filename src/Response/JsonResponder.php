@@ -24,6 +24,7 @@ use Webmunkeez\ADRBundle\Attribute\SerializationContext;
 final class JsonResponder implements ResponderInterface
 {
     private RequestStack $requestStack;
+
     private SerializerInterface $serializer;
 
     public function __construct(RequestStack $requestStack, SerializerInterface $serializer)

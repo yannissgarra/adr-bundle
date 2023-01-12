@@ -23,6 +23,7 @@ final class Responder implements ResponderInterface
      * @var array<ResponderInterface>
      */
     private array $responders = [];
+
     private ResponderInterface $responder;
 
     public function addResponder(ResponderInterface $responder): void

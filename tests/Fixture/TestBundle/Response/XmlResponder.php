@@ -25,6 +25,7 @@ use Webmunkeez\ADRBundle\Response\ResponseDataInterface;
 final class XmlResponder implements ResponderInterface
 {
     private RequestStack $requestStack;
+
     private SerializerInterface $serializer;
 
     public function __construct(RequestStack $requestStack, SerializerInterface $serializer)

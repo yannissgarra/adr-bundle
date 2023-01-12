@@ -24,6 +24,7 @@ use Webmunkeez\ADRBundle\Exception\TemplateMissingException;
 final class HtmlResponder implements ResponderInterface
 {
     private RequestStack $requestStack;
+
     private Environment $twig;
 
     public function __construct(RequestStack $requestStack, Environment $twig)

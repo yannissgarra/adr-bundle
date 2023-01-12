@@ -24,7 +24,9 @@ use Webmunkeez\ADRBundle\Response\Responder;
 final class AddResponderPassTest extends TestCase
 {
     private AddResponderPass $pass;
+
     private ContainerBuilder $container;
+
     private Definition $managerDefinition;
 
     protected function setUp(): void
