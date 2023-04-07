@@ -18,7 +18,6 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Webmunkeez\ADRBundle\Action\ActionInterface;
-use Webmunkeez\ADRBundle\Response\Responder;
 use Webmunkeez\ADRBundle\Response\ResponderAwareInterface;
 use Webmunkeez\ADRBundle\Response\ResponderInterface;
 
@@ -38,7 +37,7 @@ final class WebmunkeezADRExtension extends Extension implements PrependExtension
             ->addTag('webmunkeez_adr.responder');
 
         $container->registerForAutoconfiguration(ResponderAwareInterface::class)
-            ->addMethodCall('setResponder', [new Reference(Responder::class)]);
+            ->addMethodCall('setResponder', [new Reference(ResponderInterface::class)]);
 
         $container->registerForAutoconfiguration(ActionInterface::class)
             ->addTag('controller.service_arguments');
