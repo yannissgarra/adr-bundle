@@ -12,20 +12,19 @@ declare(strict_types=1);
 namespace Webmunkeez\ADRBundle\Serializer\Normalizer;
 
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class HttpExceptionNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface
+final class HttpExceptionNormalizer implements NormalizerInterface
 {
     /**
      * @param HttpExceptionInterface $object
      *
      * @return array<string, mixed>
      */
-    public function normalize(mixed $object, string $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         return [
             'message' => '', // displaying message show too many details about core infrastructure
@@ -33,13 +32,13 @@ final class HttpExceptionNormalizer implements NormalizerInterface, CacheableSup
         ];
     }
 
-    public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof HttpExceptionInterface;
     }
 
-    public function hasCacheableSupportsMethod(): bool
+    public function getSupportedTypes(?string $format): array
     {
-        return true;
+        return [HttpExceptionInterface::class => true];
     }
 }

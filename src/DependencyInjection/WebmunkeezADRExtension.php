@@ -43,7 +43,7 @@ final class WebmunkeezADRExtension extends Extension implements PrependExtension
             ->addTag('controller.service_arguments');
     }
 
-    public function prepend(ContainerBuilder $container)
+    public function prepend(ContainerBuilder $container): void
     {
         // define default config for serializer
         $container->prependExtensionConfig('framework', [
