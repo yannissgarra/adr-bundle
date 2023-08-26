@@ -45,7 +45,7 @@ final class ControllerListenerTest extends TestCase
 
     // Template attribute -----
 
-    public function templateAttributeControllerProvider(): array
+    public static function templateAttributeControllerProvider(): array
     {
         return [
             [TemplateController::class, 'templateAttribute'],
@@ -67,7 +67,7 @@ final class ControllerListenerTest extends TestCase
 
     // No template attribute -----
 
-    public function noTemplateAttributeControllerProvider(): array
+    public static function noTemplateAttributeControllerProvider(): array
     {
         return [
             [TemplateController::class, 'noTemplateAttribute'],
@@ -89,7 +89,7 @@ final class ControllerListenerTest extends TestCase
 
     // Serialization context attribute -----
 
-    public function serializationContextAttributeControllerProvider(): array
+    public static function serializationContextAttributeControllerProvider(): array
     {
         return [
             [SerializationContextAttributeAction::class],

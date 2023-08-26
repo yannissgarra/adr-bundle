@@ -29,7 +29,7 @@ final class TemplateFunctionalTest extends WebTestCase
 {
     // Template attribute -----
 
-    public function templateAttributeUrlProvider(): array
+    public static function templateAttributeUrlProvider(): array
     {
         return [
             [TemplateController::TEMPLATE_ATTRIBUTE_ROUTE_URI],
@@ -72,7 +72,7 @@ final class TemplateFunctionalTest extends WebTestCase
 
     // No template attribute -----
 
-    public function noTemplateAttributeUrlProvider(): array
+    public static function noTemplateAttributeUrlProvider(): array
     {
         return [
             [TemplateController::NO_TEMPLATE_ATTRIBUTE_ROUTE_URI],

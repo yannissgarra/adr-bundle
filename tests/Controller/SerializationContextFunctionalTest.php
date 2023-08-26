@@ -25,7 +25,7 @@ use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Entity;
  */
 final class SerializationContextFunctionalTest extends WebTestCase
 {
-    public function serializationContextAttributeUrlProvider(): array
+    public static function serializationContextAttributeUrlProvider(): array
     {
         return [
             [SerializationContextController::SERIALIZATION_CONTEXT_ATTRIBUTE_ROUTE_URI],
