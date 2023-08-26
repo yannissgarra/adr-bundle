@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\SerializationContextAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\SerializationContextController;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Test;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Entity;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -59,13 +59,13 @@ final class SerializationContextFunctionalTest extends WebTestCase
     {
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('application/json', $client->getResponse()->headers->get('content-type'));
-        $this->assertSame('{"test":{"title":"'.Test::TITLE.'"}}', $client->getResponse()->getContent());
+        $this->assertSame('{"entity":{"title":"'.Entity::TITLE.'"}}', $client->getResponse()->getContent());
     }
 
     private function checkXmlSucceed(KernelBrowser $client, Crawler $crawler): void
     {
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('text/xml', $client->getResponse()->headers->get('content-type'));
-        $this->assertSame(Test::TITLE, $crawler->filterXPath('//response/test/title')->text());
+        $this->assertSame(Entity::TITLE, $crawler->filterXPath('//response/entity/title')->text());
     }
 }

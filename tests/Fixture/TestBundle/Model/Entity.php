@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class Test
+final class Entity
 {
     public const TITLE = 'Test title';
 

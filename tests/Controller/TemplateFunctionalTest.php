@@ -20,7 +20,7 @@ use Webmunkeez\ADRBundle\Exception\RenderingException;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\NoTemplateAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateController;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Test;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Entity;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -118,22 +118,22 @@ final class TemplateFunctionalTest extends WebTestCase
     {
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('text/html', $client->getResponse()->headers->get('content-type'));
-        $this->assertSame('Title: '.Test::TITLE, $crawler->filter('p.title')->first()->text());
-        $this->assertSame('Content: '.Test::CONTENT, $crawler->filter('p.content')->first()->text());
+        $this->assertSame('Title: '.Entity::TITLE, $crawler->filter('p.title')->first()->text());
+        $this->assertSame('Content: '.Entity::CONTENT, $crawler->filter('p.content')->first()->text());
     }
 
     private function checkJsonSucceed(KernelBrowser $client): void
     {
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('application/json', $client->getResponse()->headers->get('content-type'));
-        $this->assertSame('{"test":{"title":"'.Test::TITLE.'","content":"'.Test::CONTENT.'"}}', $client->getResponse()->getContent());
+        $this->assertSame('{"entity":{"title":"'.Entity::TITLE.'","content":"'.Entity::CONTENT.'"}}', $client->getResponse()->getContent());
     }
 
     private function checkXmlSucceed(KernelBrowser $client, Crawler $crawler): void
     {
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('text/xml', $client->getResponse()->headers->get('content-type'));
-        $this->assertSame(Test::TITLE, $crawler->filterXPath('//response/test/title')->text());
-        $this->assertSame(Test::CONTENT, $crawler->filterXPath('//response/test/content')->text());
+        $this->assertSame(Entity::TITLE, $crawler->filterXPath('//response/entity/title')->text());
+        $this->assertSame(Entity::CONTENT, $crawler->filterXPath('//response/entity/content')->text());
     }
 }

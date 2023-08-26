@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Webmunkeez\ADRBundle\Action\AbstractAction;
 use Webmunkeez\ADRBundle\Attribute\SerializationContext;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Test;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Entity;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Response\ResponseData;
 
 /**
@@ -29,6 +29,6 @@ final class SerializationContextController extends AbstractAction
     #[SerializationContext(['groups' => 'group_one'])]
     public function templateAttribute(): Response
     {
-        return $this->render((new ResponseData())->setTest(new Test(Test::TITLE, Test::CONTENT)));
+        return $this->render((new ResponseData())->setEntity(new Entity(Entity::TITLE, Entity::CONTENT)));
     }
 }

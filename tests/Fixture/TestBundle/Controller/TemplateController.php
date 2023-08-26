@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Webmunkeez\ADRBundle\Action\AbstractAction;
 use Webmunkeez\ADRBundle\Attribute\Template;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Test;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Entity;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Response\ResponseData;
 
 /**
@@ -31,12 +31,12 @@ final class TemplateController extends AbstractAction
     #[Template('base.html.twig')]
     public function templateAttribute(): Response
     {
-        return $this->render((new ResponseData())->setTest(new Test(Test::TITLE, Test::CONTENT)));
+        return $this->render((new ResponseData())->setEntity(new Entity(Entity::TITLE, Entity::CONTENT)));
     }
 
     #[Route(self::NO_TEMPLATE_ATTRIBUTE_ROUTE_URI)]
     public function noTemplateAttribute(): Response
     {
-        return $this->render((new ResponseData())->setTest(new Test(Test::TITLE, Test::CONTENT)));
+        return $this->render((new ResponseData())->setEntity(new Entity(Entity::TITLE, Entity::CONTENT)));
     }
 }
