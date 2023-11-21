@@ -1,7 +1,8 @@
 framework:
-    test: true
     secret: test
+    handle_all_throwables: true
     http_method_override: false
+    test: true
     router:
         utf8: true
         resource: '%kernel.project_dir%/config/routing.yaml'
