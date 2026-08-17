@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Webmunkeez\ADRBundle\EventListener;
 
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Webmunkeez\ADRBundle\Attribute\AttributeInterface;
 
@@ -44,8 +45,18 @@ final class ControllerListener
 
         $request = $event->getRequest();
 
+        $expressionLanguage = new ExpressionLanguage();
+
         foreach ($attributes as $attribute) {
-            $request->attributes->set('_'.$attribute::getAliasName(), $attribute->getValue());
+            if (
+                null === $request->attributes->get('_'.$attribute::getAliasName())
+                && (
+                    null === $attribute->getCondition()
+                    || true === $expressionLanguage->evaluate($attribute->getCondition(), ['request' => $request])
+                )
+            ) {
+                $request->attributes->set('_'.$attribute::getAliasName(), $attribute->getValue());
+            }
         }
     }
 }

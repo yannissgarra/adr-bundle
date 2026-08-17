@@ -24,14 +24,10 @@ use Webmunkeez\ADRBundle\Response\ResponseDataInterface;
  */
 final class XmlResponder implements ResponderInterface
 {
-    private RequestStack $requestStack;
-
-    private SerializerInterface $serializer;
-
-    public function __construct(RequestStack $requestStack, SerializerInterface $serializer)
-    {
-        $this->requestStack = $requestStack;
-        $this->serializer = $serializer;
+    public function __construct(
+        private readonly RequestStack $requestStack,
+        private readonly SerializerInterface $serializer,
+    ) {
     }
 
     public function supports(): bool

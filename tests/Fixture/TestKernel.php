@@ -42,4 +42,10 @@ final class TestKernel extends Kernel
     {
         return __DIR__;
     }
+
+    public function shutdown(): void
+    {
+        parent::shutdown();
+        restore_exception_handler();
+    }
 }

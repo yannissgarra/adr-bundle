@@ -55,6 +55,23 @@ final class ResponderTest extends TestCase
         $this->assertCount(2, $reflection->getProperty('responders')->getValue($responder));
     }
 
+    public function testSupportsWithAtLeastOneSupportsRespondersShouldSucceed(): void
+    {
+        $responder = new Responder();
+        $responder->addResponder($this->unsupportsResponder);
+        $responder->addResponder($this->supportsResponder);
+
+        $this->assertTrue($responder->supports());
+    }
+
+    public function testRenderWithOnlyUnsupportsResponderShouldFail(): void
+    {
+        $responder = new Responder();
+        $responder->addResponder($this->unsupportsResponder);
+
+        $this->assertFalse($responder->supports());
+    }
+
     public function testRenderWithAtLeastOneSupportsRespondersShouldSucceed(): void
     {
         $responder = new Responder();

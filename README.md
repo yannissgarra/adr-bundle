@@ -74,11 +74,9 @@ This responder manager takes all responders of your application (it uses a compi
 ```php
 final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInterface
 {
-    private \Webmunkeez\ADRBundle\Response\Responder $responder;
-    
-    public function __construct(\Webmunkeez\ADRBundle\Response\Responder $responder)
-    {
-        $this->responder = $responder
+    public function __construct(
+        private readonly \Webmunkeez\ADRBundle\Response\Responder $responder,
+    ) {
     }
     
     public function __invoke(): Response
@@ -144,13 +142,10 @@ Responders are classes that implement `\Webmunkeez\ADRBundle\Response\ResponderI
 ```php
 final class XmlResponder implements \Webmunkeez\ADRBundle\Response\ResponderInterface
 {
-    private RequestStack $requestStack;
-    private SerializerInterface $serializer;
-
-    public function __construct(RequestStack $requestStack, SerializerInterface $serializer)
-    {
-        $this->requestStack = $requestStack;
-        $this->serializer = $serializer;
+    public function __construct(
+        private readonly RequestStack $requestStack,
+        private readonly SerializerInterface $serializer,
+    ) {
     }
 
     public function supports(): bool
@@ -181,9 +176,7 @@ There are two core responders provided:
 `\Webmunkeez\ADRBundle\Response\HtmlResponder` that uses __Twig__ for render html with a twig template. To indicate template, you have to use `\Webmunkeez\ADRBundle\Attribute\Template`:
 
 ```php
-use Webmunkeez\ADRBundle\Attribute\Template;
-
-#[Template('story/detail.html.twig')]
+#[\Webmunkeez\ADRBundle\Attribute\Template('story/detail.html.twig')]
 final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInterface
 {
     ...
@@ -198,9 +191,7 @@ It has a `priority: -20`.
 `\Webmunkeez\ADRBundle\Response\JsonResponder` that uses __Serializer__ for render json (you can indicate serialization context with `\Webmunkeez\ADRBundle\Attribute\SerializationContext`):
 
 ```php
-use Webmunkeez\ADRBundle\Attribute\SerializationContext;
-
-#[SerializationContext(['groups' => 'group_one'])]
+#[\Webmunkeez\ADRBundle\Attribute\SerializationContext(['groups' => 'group_one'])]
 final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInterface
 {
     ...
@@ -209,6 +200,26 @@ final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInte
 
 This responder is active if the request contains `HTTP_ACCEPT application/json` header.  
 It has a `priority: -10`.
+
+#### Conditional attributes
+
+`\Webmunkeez\ADRBundle\Attribute\Template` and `\Webmunkeez\ADRBundle\Attribute\SerializationContext` accept an optional second `condition` argument: an expression (evaluated with [ExpressionLanguage](https://symfony.com/doc/current/components/expression_language.html)) that has access to the current `request`.
+
+They are also repeatable, so you can stack several of them on the same class/method. The __first one whose condition is `null` or evaluates to `true` wins__ — so order matters: put your most specific conditions first, and a fallback one (no condition) last.
+
+```php
+final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInterface
+{
+    #[\Webmunkeez\ADRBundle\Attribute\Template('story/detail_fr.html.twig', condition: 'request.getLocale() === "fr"')]
+    #[\Webmunkeez\ADRBundle\Attribute\Template('story/detail.html.twig')]
+    public function __invoke(): Response
+    {
+        return $this->render($data);
+    }
+}
+```
+
+In this example, French requests render `detail_fr.html.twig`, everything else falls back to `detail.html.twig`.
 
 #### Custom responders
 
@@ -221,13 +232,10 @@ You can define "generic" responders like html, json, xml and so on. But you can 
 ```php
 final class CustomResponder implements \Webmunkeez\ADRBundle\Response\ResponderInterface
 {
-    private RequestStack $requestStack;
-    private Environment $twig;
-
-    public function __construct(RequestStack $requestStack, Environment $twig)
-    {
-        $this->requestStack = $requestStack;
-        $this->twig = $twig;
+    public function __construct(
+        private readonly RequestStack $requestStack,
+        private readonly Environment $twig,
+    ) {
     }
 
     public function supports(): bool

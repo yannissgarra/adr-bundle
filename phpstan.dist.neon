@@ -1,0 +1,13 @@
+includes:
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-deprecation-rules/rules.neon
+
+parameters:
+    level: 5
+    paths:
+        - config
+        - src
+        - tests
+    excludePaths:
+        - tests/Fixture/var/*
+    treatPhpDocTypesAsCertain: false

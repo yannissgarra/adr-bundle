@@ -13,6 +13,7 @@ namespace Webmunkeez\ADRBundle\Test\EventListener;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -30,15 +31,22 @@ final class ExceptionListenerTest extends TestCase
     /** @var KernelInterface&MockObject */
     private KernelInterface $kernel;
 
+    /** @var LoggerInterface&MockObject */
+    private LoggerInterface $logger;
+
     private ExceptionListener $listener;
 
     protected function setUp(): void
     {
         /** @var KernelInterface&MockObject $kernel */
-        $kernel = $this->getMockForAbstractClass(Kernel::class, ['test', true]);
+        $kernel = $this->getMockBuilder(Kernel::class)->disableOriginalConstructor()->getMock();
         $this->kernel = $kernel;
 
-        $this->listener = new ExceptionListener();
+        /** @var LoggerInterface&MockObject $logger */
+        $logger = $this->getMockBuilder(LoggerInterface::class)->disableOriginalConstructor()->getMock();
+        $this->logger = $logger;
+
+        $this->listener = new ExceptionListener($this->logger);
     }
 
     public function testWithExceptionShouldSucceed(): void
@@ -48,6 +56,8 @@ final class ExceptionListenerTest extends TestCase
         $request = new Request();
 
         $event = new ExceptionEvent($this->kernel, $request, HttpKernelInterface::MAIN_REQUEST, $exception);
+
+        $this->logger->expects($this->once())->method('critical');
 
         $this->listener->onKernelException($event);
 
@@ -65,6 +75,8 @@ final class ExceptionListenerTest extends TestCase
         $request = new Request();
 
         $event = new ExceptionEvent($this->kernel, $request, HttpKernelInterface::MAIN_REQUEST, $exception);
+
+        $this->logger->expects($this->never())->method('critical');
 
         $this->listener->onKernelException($event);
 

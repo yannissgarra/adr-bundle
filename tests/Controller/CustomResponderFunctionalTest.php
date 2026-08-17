@@ -17,7 +17,7 @@ use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\CustomResponderAction;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Entity;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Post;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -36,8 +36,8 @@ final class CustomResponderFunctionalTest extends WebTestCase
     {
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('text/html', $client->getResponse()->headers->get('content-type'));
-        $this->assertSame('Title: '.Entity::TITLE, $crawler->filter('p.title')->first()->text());
-        $this->assertSame('Content: '.Entity::CONTENT, $crawler->filter('p.content')->first()->text());
+        $this->assertSame('Title: '.Post::TITLE, $crawler->filter('p.title')->first()->text());
+        $this->assertSame('Content: '.Post::CONTENT, $crawler->filter('p.content')->first()->text());
         $this->assertSame('CustomResponder', $crawler->filter('p.custom-responder')->first()->text());
     }
 }

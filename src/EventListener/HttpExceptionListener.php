@@ -22,11 +22,9 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 final class HttpExceptionListener
 {
-    private SerializerInterface $serializer;
-
-    public function __construct(SerializerInterface $serializer)
-    {
-        $this->serializer = $serializer;
+    public function __construct(
+        private readonly SerializerInterface $serializer,
+    ) {
     }
 
     public function onKernelException(ExceptionEvent $event): void

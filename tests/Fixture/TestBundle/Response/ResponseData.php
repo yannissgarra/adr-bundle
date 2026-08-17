@@ -11,9 +11,9 @@ declare(strict_types=1);
 
 namespace Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Response;
 
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Webmunkeez\ADRBundle\Response\ResponseDataInterface;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Entity;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Post;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -21,16 +21,16 @@ use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Entity;
 final class ResponseData implements ResponseDataInterface
 {
     #[Groups(['group_one'])]
-    private Entity $entity;
+    private Post $post;
 
-    public function getEntity(): Entity
+    public function getPost(): Post
     {
-        return $this->entity;
+        return $this->post;
     }
 
-    public function setEntity(Entity $entity): self
+    public function setPost(Post $post): self
     {
-        $this->entity = $entity;
+        $this->post = $post;
 
         return $this;
     }

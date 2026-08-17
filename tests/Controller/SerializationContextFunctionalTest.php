@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Webmunkeez\ADRBundle\Test\Controller;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
@@ -18,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\SerializationContextAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\SerializationContextController;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Entity;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Post;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -33,9 +34,7 @@ final class SerializationContextFunctionalTest extends WebTestCase
         ];
     }
 
-    /**
-     * @dataProvider serializationContextAttributeUrlProvider
-     */
+    #[DataProvider('serializationContextAttributeUrlProvider')]
     public function testForJsonShouldSucceed(string $url): void
     {
         $client = static::createClient();
@@ -44,9 +43,7 @@ final class SerializationContextFunctionalTest extends WebTestCase
         $this->checkJsonSucceed($client);
     }
 
-    /**
-     * @dataProvider serializationContextAttributeUrlProvider
-     */
+    #[DataProvider('serializationContextAttributeUrlProvider')]
     public function testForXmlShouldSucceed(string $url): void
     {
         $client = static::createClient();
@@ -59,13 +56,13 @@ final class SerializationContextFunctionalTest extends WebTestCase
     {
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('application/json', $client->getResponse()->headers->get('content-type'));
-        $this->assertSame('{"entity":{"title":"'.Entity::TITLE.'"}}', $client->getResponse()->getContent());
+        $this->assertSame('{"post":{"title":"'.Post::TITLE.'"}}', $client->getResponse()->getContent());
     }
 
     private function checkXmlSucceed(KernelBrowser $client, Crawler $crawler): void
     {
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('text/xml', $client->getResponse()->headers->get('content-type'));
-        $this->assertSame(Entity::TITLE, $crawler->filterXPath('//response/entity/title')->text());
+        $this->assertSame(Post::TITLE, $crawler->filterXPath('//response/post/title')->text());
     }
 }

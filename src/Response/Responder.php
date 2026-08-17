@@ -24,8 +24,6 @@ final class Responder implements ResponderInterface
      */
     private array $responders = [];
 
-    private ResponderInterface $responder;
-
     public function addResponder(ResponderInterface $responder): void
     {
         $this->responders[] = $responder;
@@ -35,8 +33,6 @@ final class Responder implements ResponderInterface
     {
         foreach ($this->responders as $responder) {
             if (true === $responder->supports()) {
-                $this->responder = $responder;
-
                 return true;
             }
         }
@@ -46,8 +42,10 @@ final class Responder implements ResponderInterface
 
     public function render(?ResponseDataInterface $data = null): Response
     {
-        if (true === $this->supports()) {
-            return $this->responder->render($data);
+        foreach ($this->responders as $responder) {
+            if (true === $responder->supports()) {
+                return $responder->render($data);
+            }
         }
 
         throw new RenderingException();

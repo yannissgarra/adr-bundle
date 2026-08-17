@@ -14,9 +14,7 @@ namespace Webmunkeez\ADRBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use Symfony\Component\DependencyInjection\Reference;
 use Webmunkeez\ADRBundle\Action\ActionInterface;
 use Webmunkeez\ADRBundle\Response\ResponderAwareInterface;
 use Webmunkeez\ADRBundle\Response\ResponderInterface;
@@ -24,7 +22,7 @@ use Webmunkeez\ADRBundle\Response\ResponderInterface;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class WebmunkeezADRExtension extends Extension implements PrependExtensionInterface
+final class WebmunkeezADRExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
@@ -37,19 +35,9 @@ final class WebmunkeezADRExtension extends Extension implements PrependExtension
             ->addTag('webmunkeez_adr.responder');
 
         $container->registerForAutoconfiguration(ResponderAwareInterface::class)
-            ->addMethodCall('setResponder', [new Reference(ResponderInterface::class)]);
+            ->addTag('webmunkeez_adr.responder_aware');
 
         $container->registerForAutoconfiguration(ActionInterface::class)
             ->addTag('controller.service_arguments');
-    }
-
-    public function prepend(ContainerBuilder $container): void
-    {
-        // define default config for serializer
-        $container->prependExtensionConfig('framework', [
-            'serializer' => [
-                'name_converter' => 'serializer.name_converter.camel_case_to_snake_case',
-            ],
-        ]);
     }
 }

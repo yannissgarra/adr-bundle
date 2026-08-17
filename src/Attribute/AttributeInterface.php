@@ -18,5 +18,7 @@ interface AttributeInterface
 {
     public function getValue(): mixed;
 
+    public function getCondition(): ?string;
+
     public static function getAliasName(): string;
 }

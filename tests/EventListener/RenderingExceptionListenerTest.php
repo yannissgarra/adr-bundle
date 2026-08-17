@@ -35,7 +35,7 @@ final class RenderingExceptionListenerTest extends TestCase
     protected function setUp(): void
     {
         /** @var KernelInterface&MockObject $kernel */
-        $kernel = $this->getMockForAbstractClass(Kernel::class, ['test', true]);
+        $kernel = $this->getMockBuilder(Kernel::class)->disableOriginalConstructor()->getMock();
         $this->kernel = $kernel;
 
         $this->listener = new RenderingExceptionListener();

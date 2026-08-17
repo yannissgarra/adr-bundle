@@ -42,10 +42,10 @@ final class AddResponderPassTest extends TestCase
     {
         $responder1 = new Definition();
         $responder1->setTags(['webmunkeez_adr.responder' => [
-                [
-                    'priority' => 0,
-                ],
+            [
+                'priority' => 0,
             ],
+        ],
         ]);
         $this->container->setDefinition('responder_one', $responder1);
 

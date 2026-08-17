@@ -23,14 +23,10 @@ use Webmunkeez\ADRBundle\Exception\TemplateMissingException;
  */
 final class HtmlResponder implements ResponderInterface
 {
-    private RequestStack $requestStack;
-
-    private Environment $twig;
-
-    public function __construct(RequestStack $requestStack, Environment $twig)
-    {
-        $this->requestStack = $requestStack;
-        $this->twig = $twig;
+    public function __construct(
+        private readonly RequestStack $requestStack,
+        private readonly Environment $twig,
+    ) {
     }
 
     public function supports(): bool

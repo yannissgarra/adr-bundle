@@ -11,12 +11,12 @@ declare(strict_types=1);
 
 namespace Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model;
 
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class Entity
+final class Post
 {
     public const TITLE = 'Test title';
 

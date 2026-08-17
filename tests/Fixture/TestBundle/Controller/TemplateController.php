@@ -12,10 +12,10 @@ declare(strict_types=1);
 namespace Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Webmunkeez\ADRBundle\Action\AbstractAction;
 use Webmunkeez\ADRBundle\Attribute\Template;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Entity;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Post;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Response\ResponseData;
 
 /**
@@ -28,15 +28,16 @@ final class TemplateController extends AbstractAction
     public const NO_TEMPLATE_ATTRIBUTE_ROUTE_URI = '/no-template-attribute-controller';
 
     #[Route(self::TEMPLATE_ATTRIBUTE_ROUTE_URI)]
+    #[Template('base_fr.html.twig', condition: 'request.getLocale() === "fr"')]
     #[Template('base.html.twig')]
     public function templateAttribute(): Response
     {
-        return $this->render((new ResponseData())->setEntity(new Entity(Entity::TITLE, Entity::CONTENT)));
+        return $this->render((new ResponseData())->setPost(new Post(Post::TITLE, Post::CONTENT)));
     }
 
     #[Route(self::NO_TEMPLATE_ATTRIBUTE_ROUTE_URI)]
     public function noTemplateAttribute(): Response
     {
-        return $this->render((new ResponseData())->setEntity(new Entity(Entity::TITLE, Entity::CONTENT)));
+        return $this->render((new ResponseData())->setPost(new Post(Post::TITLE, Post::CONTENT)));
     }
 }

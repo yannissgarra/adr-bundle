@@ -40,7 +40,7 @@ final class HttpExceptionListenerTest extends TestCase
     protected function setUp(): void
     {
         /** @var KernelInterface&MockObject $kernel */
-        $kernel = $this->getMockForAbstractClass(Kernel::class, ['test', true]);
+        $kernel = $this->getMockBuilder(Kernel::class)->disableOriginalConstructor()->getMock();
         $this->kernel = $kernel;
 
         /** @var SerializerInterface&MockObject $serializer */

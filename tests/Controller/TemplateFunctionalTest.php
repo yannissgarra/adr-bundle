@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Webmunkeez\ADRBundle\Test\Controller;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
@@ -20,7 +21,7 @@ use Webmunkeez\ADRBundle\Exception\RenderingException;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\NoTemplateAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateController;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Entity;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Post;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -37,9 +38,7 @@ final class TemplateFunctionalTest extends WebTestCase
         ];
     }
 
-    /**
-     * @dataProvider templateAttributeUrlProvider
-     */
+    #[DataProvider('templateAttributeUrlProvider')]
     public function testWithTemplateAttributeForHtmlShouldSucceed(string $url): void
     {
         $client = static::createClient();
@@ -48,9 +47,7 @@ final class TemplateFunctionalTest extends WebTestCase
         $this->checkHtmlSucceed($client, $crawler);
     }
 
-    /**
-     * @dataProvider templateAttributeUrlProvider
-     */
+    #[DataProvider('templateAttributeUrlProvider')]
     public function testWithTemplateAttributeForJsonShouldSucceed(string $url): void
     {
         $client = static::createClient();
@@ -59,9 +56,7 @@ final class TemplateFunctionalTest extends WebTestCase
         $this->checkJsonSucceed($client);
     }
 
-    /**
-     * @dataProvider templateAttributeUrlProvider
-     */
+    #[DataProvider('templateAttributeUrlProvider')]
     public function testWithTemplateAttributeForXmlShouldSucceed(string $url): void
     {
         $client = static::createClient();
@@ -80,9 +75,7 @@ final class TemplateFunctionalTest extends WebTestCase
         ];
     }
 
-    /**
-     * @dataProvider noTemplateAttributeUrlProvider
-     */
+    #[DataProvider('noTemplateAttributeUrlProvider')]
     public function testWithoutTemplateAttributeForHtmlShouldThrowException(string $url): void
     {
         $this->expectException(RenderingException::class);
@@ -92,9 +85,7 @@ final class TemplateFunctionalTest extends WebTestCase
         $client->request(Request::METHOD_GET, $url);
     }
 
-    /**
-     * @dataProvider noTemplateAttributeUrlProvider
-     */
+    #[DataProvider('noTemplateAttributeUrlProvider')]
     public function testWithoutTemplateAttributeForJsonShouldSucceed(string $url): void
     {
         $client = static::createClient();
@@ -103,9 +94,7 @@ final class TemplateFunctionalTest extends WebTestCase
         $this->checkJsonSucceed($client);
     }
 
-    /**
-     * @dataProvider noTemplateAttributeUrlProvider
-     */
+    #[DataProvider('noTemplateAttributeUrlProvider')]
     public function testWithoutTemplateAttributeForXmlShouldSucceed(string $url): void
     {
         $client = static::createClient();
@@ -118,22 +107,22 @@ final class TemplateFunctionalTest extends WebTestCase
     {
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('text/html', $client->getResponse()->headers->get('content-type'));
-        $this->assertSame('Title: '.Entity::TITLE, $crawler->filter('p.title')->first()->text());
-        $this->assertSame('Content: '.Entity::CONTENT, $crawler->filter('p.content')->first()->text());
+        $this->assertSame('Title: '.Post::TITLE, $crawler->filter('p.title')->first()->text());
+        $this->assertSame('Content: '.Post::CONTENT, $crawler->filter('p.content')->first()->text());
     }
 
     private function checkJsonSucceed(KernelBrowser $client): void
     {
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('application/json', $client->getResponse()->headers->get('content-type'));
-        $this->assertSame('{"entity":{"title":"'.Entity::TITLE.'","content":"'.Entity::CONTENT.'"}}', $client->getResponse()->getContent());
+        $this->assertSame('{"post":{"title":"'.Post::TITLE.'","content":"'.Post::CONTENT.'"}}', $client->getResponse()->getContent());
     }
 
     private function checkXmlSucceed(KernelBrowser $client, Crawler $crawler): void
     {
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('text/xml', $client->getResponse()->headers->get('content-type'));
-        $this->assertSame(Entity::TITLE, $crawler->filterXPath('//response/entity/title')->text());
-        $this->assertSame(Entity::CONTENT, $crawler->filterXPath('//response/entity/content')->text());
+        $this->assertSame(Post::TITLE, $crawler->filterXPath('//response/post/title')->text());
+        $this->assertSame(Post::CONTENT, $crawler->filterXPath('//response/post/content')->text());
     }
 }

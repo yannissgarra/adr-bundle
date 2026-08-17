@@ -12,16 +12,17 @@ declare(strict_types=1);
 namespace Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Webmunkeez\ADRBundle\Action\AbstractAction;
 use Webmunkeez\ADRBundle\Attribute\Template;
-use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Entity;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Model\Post;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Response\ResponseData;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
 #[Route(self::ROUTE_URI)]
+#[Template('base_fr.html.twig', condition: 'request.getLocale() === "fr"')]
 #[Template('base.html.twig')]
 final class TemplateAttributeAction extends AbstractAction
 {
@@ -29,6 +30,6 @@ final class TemplateAttributeAction extends AbstractAction
 
     public function __invoke(): Response
     {
-        return $this->render((new ResponseData())->setEntity(new Entity(Entity::TITLE, Entity::CONTENT)));
+        return $this->render((new ResponseData())->setPost(new Post(Post::TITLE, Post::CONTENT)));
     }
 }

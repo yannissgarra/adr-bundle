@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Webmunkeez\ADRBundle\Test\EventListener;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +38,7 @@ final class ControllerListenerTest extends TestCase
     protected function setUp(): void
     {
         /** @var KernelInterface&MockObject $kernel */
-        $kernel = $this->getMockForAbstractClass(Kernel::class, ['test', true]);
+        $kernel = $this->getMockBuilder(Kernel::class)->disableOriginalConstructor()->getMock();
         $this->kernel = $kernel;
 
         $this->listener = new ControllerListener();
@@ -53,12 +54,25 @@ final class ControllerListenerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider templateAttributeControllerProvider
-     */
+    #[DataProvider('templateAttributeControllerProvider')]
     public function testWithTemplateAttributeShouldSucceed(string $controllerClass, ?string $controllerMethod = null): void
     {
         $request = new Request();
+        $request->setLocale('en');
+
+        $this->listener->onKernelController($this->createControllerEvent($request, $controllerClass, $controllerMethod));
+
+        $this->assertSame('base.html.twig', $request->attributes->get('_template_path'));
+
+        $request = new Request();
+        $request->setLocale('fr');
+
+        $this->listener->onKernelController($this->createControllerEvent($request, $controllerClass, $controllerMethod));
+
+        $this->assertSame('base_fr.html.twig', $request->attributes->get('_template_path'));
+
+        $request = new Request();
+        $request->setLocale('it');
 
         $this->listener->onKernelController($this->createControllerEvent($request, $controllerClass, $controllerMethod));
 
@@ -75,9 +89,7 @@ final class ControllerListenerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider noTemplateAttributeControllerProvider
-     */
+    #[DataProvider('noTemplateAttributeControllerProvider')]
     public function testWithoutTemplateAttributeShouldFail(string $controllerClass, ?string $controllerMethod = null): void
     {
         $request = new Request();
@@ -96,9 +108,7 @@ final class ControllerListenerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider serializationContextAttributeControllerProvider
-     */
+    #[DataProvider('serializationContextAttributeControllerProvider')]
     public function testWithSerializationContextAttributeShouldSucceed(string $controllerClass, ?string $controllerMethod = null): void
     {
         $request = new Request();

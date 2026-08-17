@@ -14,6 +14,7 @@ namespace Webmunkeez\ADRBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Webmunkeez\ADRBundle\DependencyInjection\Compiler\AddResponderPass;
+use Webmunkeez\ADRBundle\DependencyInjection\Compiler\ConfigureResponderAwarePass;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -24,6 +25,7 @@ final class WebmunkeezADRBundle extends Bundle
     {
         parent::build($container);
 
+        $container->addCompilerPass(new ConfigureResponderAwarePass());
         $container->addCompilerPass(new AddResponderPass());
     }
 }
