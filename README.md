@@ -110,22 +110,7 @@ final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInte
 }
 ```
 
-And you can use `\Webmunkeez\ADRBundle\Action\ActionTrait` to clean code:
-
-```php
-final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInterface, \Webmunkeez\ADRBundle\Response\ResponderAwareInterface
-{
-    use \Webmunkeez\ADRBundle\Response\ResponderAwareTrait;
-    use \Webmunkeez\ADRBundle\Action\ActionTrait;
-    
-    public function __invoke(): Response
-    {
-        return $this->render($data);
-    }
-}
-```
-
-Or directly extend `\Webmunkeez\ADRBundle\Action\AbstractAction`:
+Or, more simply, directly extend `\Webmunkeez\ADRBundle\Action\AbstractAction`, which already implements `ActionInterface`/`ResponderAwareInterface` and uses `ResponderAwareTrait` for you:
 
 ```php
 final class StoryDetailAction extends \Webmunkeez\ADRBundle\Action\AbstractAction
@@ -263,7 +248,7 @@ If there is an uncaught `\Webmunkeez\ADRBundle\Exception\RenderingException`, it
 
 ### Exception Listener
 
-If there is an uncaught `\Throwable`, it will be catch by this listener which will throw an `\Symfony\Component\HttpKernel\Exception\BadRequestHttpException` that will embed the original exception.
+If there is an uncaught `\Throwable` that isn't already an `\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface`, it will be logged as `critical` (with the exception class, message, file and line) and caught by this listener, which will throw an `\Symfony\Component\HttpKernel\Exception\BadRequestHttpException` that will embed the original exception.
 
 ### Http Exception Listener
 
