@@ -17,14 +17,10 @@ namespace Webmunkeez\ADRBundle\Attribute;
 #[\Attribute(\Attribute::IS_REPEATABLE | \Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
 final class Template implements AttributeInterface
 {
-    private string $path;
-
-    private ?string $condition;
-
-    public function __construct(string $path, ?string $condition = null)
-    {
-        $this->path = $path;
-        $this->condition = $condition;
+    public function __construct(
+        private readonly string $path,
+        private readonly ?string $condition = null,
+    ) {
     }
 
     public function getValue(): mixed

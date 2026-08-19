@@ -17,14 +17,10 @@ namespace Webmunkeez\ADRBundle\Attribute;
 #[\Attribute(\Attribute::IS_REPEATABLE | \Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
 final class SerializationContext implements AttributeInterface
 {
-    private array $context;
-
-    private ?string $condition;
-
-    public function __construct(array $context, ?string $condition = null)
-    {
-        $this->context = $context;
-        $this->condition = $condition;
+    public function __construct(
+        private readonly array $context,
+        private readonly ?string $condition = null,
+    ) {
     }
 
     public function getValue(): mixed
