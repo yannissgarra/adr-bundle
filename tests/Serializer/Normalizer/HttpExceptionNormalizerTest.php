@@ -29,4 +29,14 @@ final class HttpExceptionNormalizerTest extends TestCase
         $this->assertSame('', $data['message']);
         $this->assertSame(0, $data['code']);
     }
+
+    public function testNormalizeWithNonZeroCodeShouldBlankCode(): void
+    {
+        $exception = new AccessDeniedHttpException('Some internal detail', null, 23000);
+
+        $data = (new HttpExceptionNormalizer())->normalize($exception);
+
+        $this->assertSame('', $data['message']);
+        $this->assertSame(0, $data['code']);
+    }
 }

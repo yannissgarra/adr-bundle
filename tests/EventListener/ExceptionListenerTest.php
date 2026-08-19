@@ -15,8 +15,9 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Kernel;
@@ -61,11 +62,33 @@ final class ExceptionListenerTest extends TestCase
 
         $this->listener->onKernelException($event);
 
-        $this->assertInstanceOf(BadRequestHttpException::class, $event->getThrowable());
+        $this->assertInstanceOf(HttpException::class, $event->getThrowable());
+        $this->assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $event->getThrowable()->getStatusCode());
         $this->assertSame($exception->getMessage(), $event->getThrowable()->getMessage());
         $this->assertSame($exception->getCode(), $event->getThrowable()->getCode());
         $this->assertInstanceOf(\Exception::class, $event->getThrowable()->getPrevious());
         $this->assertSame($exception, $event->getThrowable()->getPrevious());
+    }
+
+    public function testWithExceptionHavingNonIntegerCodeShouldNotThrowException(): void
+    {
+        // \PDOException::$code has no declared type and, in real usage, PDO's driver internally
+        // assigns it a string SQLSTATE (e.g. "23000") rather than an int; reproduce that via
+        // reflection since the public constructor itself only accepts an int $code.
+        $exception = new \PDOException('SQLSTATE error');
+        (new \ReflectionProperty(\PDOException::class, 'code'))->setValue($exception, '23000');
+
+        $request = new Request();
+
+        $event = new ExceptionEvent($this->kernel, $request, HttpKernelInterface::MAIN_REQUEST, $exception);
+
+        $this->logger->expects($this->once())->method('critical');
+
+        $this->listener->onKernelException($event);
+
+        $this->assertInstanceOf(HttpException::class, $event->getThrowable());
+        $this->assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $event->getThrowable()->getStatusCode());
+        $this->assertSame(23000, $event->getThrowable()->getCode());
     }
 
     public function testWithHttpExceptionShouldThrowException(): void

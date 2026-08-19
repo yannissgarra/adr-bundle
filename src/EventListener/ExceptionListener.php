@@ -12,8 +12,9 @@ declare(strict_types=1);
 namespace Webmunkeez\ADRBundle\EventListener;
 
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 /**
@@ -31,7 +32,7 @@ final class ExceptionListener
         if (false === $event->getThrowable() instanceof HttpExceptionInterface) {
             $this->logger->critical($event->getThrowable()::class.': "'.$event->getThrowable()->getMessage().'"', ['file' => $event->getThrowable()->getFile(), 'line' => $event->getThrowable()->getLine()]);
 
-            $event->setThrowable(new BadRequestHttpException($event->getThrowable()->getMessage(), $event->getThrowable(), $event->getThrowable()->getCode()));
+            $event->setThrowable(new HttpException(Response::HTTP_INTERNAL_SERVER_ERROR, $event->getThrowable()->getMessage(), $event->getThrowable(), [], (int) $event->getThrowable()->getCode()));
         }
     }
 }

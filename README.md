@@ -169,7 +169,7 @@ final class StoryDetailAction implements \Webmunkeez\ADRBundle\Action\ActionInte
 ```
 
 This responder is active if the request contains `HTTP_ACCEPT text/html` header (warning: a twig template is needed for this responder, otherwise it will throw an `\Webmunkeez\ADRBundle\Exception\RenderingException` exception).  
-It has a `priority: -20`.
+It has a `priority: -10`.
 
 ##### JsonResponder
 
@@ -248,8 +248,12 @@ If there is an uncaught `\Webmunkeez\ADRBundle\Exception\RenderingException`, it
 
 ### Exception Listener
 
-If there is an uncaught `\Throwable` that isn't already an `\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface`, it will be logged as `critical` (with the exception class, message, file and line) and caught by this listener, which will throw an `\Symfony\Component\HttpKernel\Exception\BadRequestHttpException` that will embed the original exception.
+If there is an uncaught `\Throwable` that isn't already an `\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface`, it will be logged as `critical` (with the exception class, message, file and line) and caught by this listener, which will throw a 500 `\Symfony\Component\HttpKernel\Exception\HttpException` that will embed the original exception — an unhandled throwable is a server-side fault, not a client mistake, so it is never reported as a 4xx.
 
 ### Http Exception Listener
 
-If you request an `Action` with `HTTP_ACCEPT application/json` header and if this `Action` throws an Exception that implements `\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface`, its content will automatically be serialized in a JSON reading format to the `Response` body content.
+If you request an `Action` with `HTTP_ACCEPT application/json` header and if this `Action` throws an Exception that implements `\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface`, its content will automatically be serialized in a JSON reading format to the `Response` body content. Both the `message` and `code` are always blanked in that JSON body (see `HttpExceptionNormalizer`) since either could otherwise leak internal/infrastructure details to the client; the real detail stays in your logs via the listeners above.
+
+## Security
+
+This bundle performs no authentication or authorization of its own — it only dispatches to a `Responder` and formats exceptions into HTTP responses. Protecting your `Action`s (e.g. with Symfony Security voters/firewalls) is entirely your application's responsibility, the same as it would be for a regular controller.

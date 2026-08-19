@@ -28,7 +28,7 @@ final class HttpExceptionNormalizer implements NormalizerInterface
     {
         return [
             'message' => '', // displaying message show too many details about core infrastructure
-            'code' => $object->getCode(),
+            'code' => 0, // same reason: the original code may carry internal/infrastructure details
         ];
     }
 
