@@ -37,11 +37,18 @@ final class HtmlResponder implements ResponderInterface
 
     public function render(?ResponseDataInterface $data = null): Response
     {
-        if (null === $this->requestStack->getCurrentRequest()->attributes->get('_'.Template::getAliasName())) {
+        $request = $this->requestStack->getCurrentRequest();
+
+        if (null === $request) {
+            throw new RenderingException();
+        }
+
+        $templatePath = $request->attributes->get('_'.Template::getAliasName());
+
+        if (null === $templatePath) {
             throw new RenderingException('', 0, new TemplateMissingException());
         }
 
-        $templatePath = $this->requestStack->getCurrentRequest()->attributes->get('_'.Template::getAliasName());
         $html = $this->twig->render($templatePath, ['data' => $data]);
 
         return new Response($html);

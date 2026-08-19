@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
+use Webmunkeez\ADRBundle\Exception\RenderingException;
 use Webmunkeez\ADRBundle\Response\JsonResponder;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Response\ResponseData;
 
@@ -85,5 +86,15 @@ final class JsonResponderTest extends TestCase
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertSame(Response::HTTP_OK, $response->getStatusCode());
         $this->assertSame(json_encode(['text' => 'Some Json!']), $response->getContent());
+    }
+
+    public function testRenderWithoutCurrentRequestShouldThrowException(): void
+    {
+        $this->expectException(RenderingException::class);
+
+        $this->requestStack->method('getCurrentRequest')->willReturn(null);
+
+        $responder = new JsonResponder($this->requestStack, $this->serializer);
+        $responder->render(new ResponseData());
     }
 }

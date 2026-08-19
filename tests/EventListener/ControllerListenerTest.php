@@ -24,6 +24,7 @@ use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\NoTemplateAttributeA
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\SerializationContextAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateAttributeAction;
 use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateController;
+use Webmunkeez\ADRBundle\Test\Fixture\TestBundle\Controller\TemplateOverrideController;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -77,6 +78,17 @@ final class ControllerListenerTest extends TestCase
         $this->listener->onKernelController($this->createControllerEvent($request, $controllerClass, $controllerMethod));
 
         $this->assertSame('base.html.twig', $request->attributes->get('_template_path'));
+    }
+
+    // Method-level attribute overriding class-level attribute -----
+
+    public function testWithMethodAndClassTemplateAttributeShouldUseMethodOne(): void
+    {
+        $request = new Request();
+
+        $this->listener->onKernelController($this->createControllerEvent($request, TemplateOverrideController::class, 'methodOverride'));
+
+        $this->assertSame('base_method.html.twig', $request->attributes->get('_template_path'));
     }
 
     // No template attribute -----

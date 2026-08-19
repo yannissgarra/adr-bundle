@@ -26,6 +26,7 @@ return function (ContainerConfigurator $container) {
             ->tag('kernel.event_listener', ['event' => 'kernel.exception'])
 
         ->set(RenderingExceptionListener::class)
+            ->args([service('logger')])
             ->tag('kernel.event_listener', ['event' => 'kernel.exception', 'priority' => 20])
 
         ->set(ExceptionListener::class)

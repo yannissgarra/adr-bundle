@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
 use Webmunkeez\ADRBundle\Attribute\SerializationContext;
+use Webmunkeez\ADRBundle\Exception\RenderingException;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -37,7 +38,13 @@ final class JsonResponder implements ResponderInterface
 
     public function render(?ResponseDataInterface $data = null): Response
     {
-        $serializationContext = $this->requestStack->getCurrentRequest()->attributes->get('_'.SerializationContext::getAliasName(), []);
+        $request = $this->requestStack->getCurrentRequest();
+
+        if (null === $request) {
+            throw new RenderingException();
+        }
+
+        $serializationContext = $request->attributes->get('_'.SerializationContext::getAliasName(), []);
         $json = null !== $data ? $this->serializer->serialize($data, JsonEncoder::FORMAT, $serializationContext) : '{}';
 
         return new JsonResponse($json, Response::HTTP_OK, [], true);

@@ -41,7 +41,7 @@ final class ControllerListener
         /** @var AttributeInterface[] $methodAttributes */
         $methodAttributes = array_map(fn (\ReflectionAttribute $attribute): AttributeInterface => $attribute->newInstance(), $method->getAttributes(AttributeInterface::class, \ReflectionAttribute::IS_INSTANCEOF));
 
-        $attributes = array_merge($objectAttributes, $methodAttributes);
+        $attributes = array_merge($methodAttributes, $objectAttributes);
 
         $request = $event->getRequest();
 

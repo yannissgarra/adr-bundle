@@ -244,7 +244,7 @@ final class CustomResponder implements \Webmunkeez\ADRBundle\Response\ResponderI
 
 ### Render Exception Listener
 
-If there is an uncaught `\Webmunkeez\ADRBundle\Exception\RenderingException`, it will be catch by this listener which will throw an `\Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException` that will embed the original exception.
+If there is an uncaught `\Webmunkeez\ADRBundle\Exception\RenderingException`, it will be catch by this listener which will throw an `\Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException` that will embed the original exception. If the cause is a missing `#[Template]` attribute (a developer mistake, not a client error), it is additionally logged as `critical` (with the route name and path) before being converted, since it would otherwise disappear as a silent 406 response.
 
 ### Exception Listener
 

@@ -97,4 +97,14 @@ final class HtmlResponderTest extends TestCase
         $responder = new HtmlResponder($this->requestStack, $this->twig);
         $responder->render();
     }
+
+    public function testRenderWithoutCurrentRequestShouldThrowException(): void
+    {
+        $this->expectException(RenderingException::class);
+
+        $this->requestStack->method('getCurrentRequest')->willReturn(null);
+
+        $responder = new HtmlResponder($this->requestStack, $this->twig);
+        $responder->render();
+    }
 }
